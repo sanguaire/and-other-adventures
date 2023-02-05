@@ -1,0 +1,44 @@
+{
+  "id": "btw-style-game",
+  "title": "BtW style game",
+  "description": "Unofficial system to play BtW style games.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10",
+    "maximum": "10"
+  },
+  "authors": [
+    {
+      "name": "Sanguaire",
+      "discord": "YOUR DISCORD USERNAME HERE"
+    }
+  ],
+  "scripts": [],
+  "esmodules": [
+    "module/main.mjs"
+  ],
+  "styles": [],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "German",
+      "path": "lang/de.json"
+    }
+  ],
+  "socket": true,
+  "initiative": "1d6",
+  "gridDistance": 10,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "resources.health",
+  "secondaryTokenAttribute": "resources.power",
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

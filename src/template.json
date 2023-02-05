@@ -1,0 +1,50 @@
+{
+  "Actor": {
+    "types": ["pc", "npc"],
+    "templates": {
+      "background": {
+        "biography": ""
+      },
+      "resources": {
+        "health": {
+          "min": 0,
+          "value": 10,
+          "max": 10
+        },
+        "power": {
+          "min": 0,
+          "value": 1,
+          "max": 3
+        }
+      }
+    },
+    "pc": {
+      "templates": ["background"]
+    },
+    "npc": {
+      "templates": []
+    }
+  },
+  "Item": {
+    "types": ["armor", "gear", "weapon", "spell", "playbook", "pb-phase"],
+    "templates": { },
+    "armor": {
+      "templates": []
+    },
+    "gear": {
+      "templates": []
+    },
+    "weapon": {
+      "templates": []
+    },
+    "spell": {
+      "templates": []
+    },
+    "playbook": {
+      "templates": []
+    },
+    "pb-phase": {
+      "templates": []
+    }
+  }
+}
