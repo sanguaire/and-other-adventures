@@ -1,9 +1,22 @@
 //Provide a type string to class object mapping to keep our code clean
-const mappings = {};
+import {GearItem} from "./items/gear-item.mjs";
+import {WeaponItem} from "./items/weapon-item.mjs";
+import {ArmorItem} from "./items/armor-item.mjs";
+import {SkillItem} from "./items/skill-item.mjs";
+import {SpellItem} from "./items/spell-item.mjs";
+import {PlaybookItem} from "./items/playbook-item.mjs";
+import {PlaybookPhaseItem} from "./items/playbook-phase-item.mjs";
 
-export const registerItem = (itemType, itemClass) => {
-    mappings[itemType] = itemClass;
+const mappings = {
+    gear: GearItem,
+    weapon: WeaponItem,
+    armor: ArmorItem,
+    skill: SkillItem,
+    spell: SpellItem,
+    playbook: PlaybookItem,
+    "pb-phase": PlaybookPhaseItem
 };
+
 export const ItemProxy = new Proxy(function () {}, {
     //Will intercept calls to the "new" operator
     construct: function (target, args) {

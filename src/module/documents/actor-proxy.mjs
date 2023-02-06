@@ -1,8 +1,10 @@
 //Provide a type string to class object mapping to keep our code clean
-const mappings = {};
+import {PcActor} from "./actors/pc-actor.mjs";
+import {MonsterActor} from "./actors/monster-actor.js";
 
-export const registerActor = (actorType, actorClass) => {
-    mappings[actorType] = actorClass;
+const mappings = {
+    pc: PcActor,
+    monster: MonsterActor
 };
 
 export const ActorProxy = new Proxy(function () {}, {

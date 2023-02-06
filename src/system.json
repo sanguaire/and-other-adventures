@@ -18,7 +18,9 @@
   "esmodules": [
     "module/main.mjs"
   ],
-  "styles": [],
+  "styles": [
+    "styles/aoa.css"
+  ],
   "packs": [],
   "languages": [
     {

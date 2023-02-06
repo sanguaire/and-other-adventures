@@ -1,32 +1,81 @@
 {
   "Actor": {
-    "types": ["pc", "npc"],
+    "types": ["pc", "monster"],
     "templates": {
       "background": {
         "biography": ""
       },
       "resources": {
-        "health": {
-          "min": 0,
+        "hp": {
           "value": 10,
           "max": 10
         },
-        "power": {
+        "fp": {
           "min": 0,
-          "value": 1,
+          "value": 3,
           "max": 3
+        }
+      },
+      "saves": {
+        "poison": {
+          "value": 0
+        },
+        "breathWeapon": {
+          "value": 0
+        },
+        "polymorph": {
+          "value": 0
+        },
+        "spell": {
+          "value": 0
+        },
+        "magicItem": {
+          "value": 0
         }
       }
     },
     "pc": {
-      "templates": ["background"]
+      "templates": ["background", "resources"],
+      "playbook": {},
+      "abilities": {
+        "str": {
+          "value": 10,
+          "max": 10,
+          "modifier": 0
+        },
+        "dex": {
+          "value": 10,
+          "max": 10,
+          "modifier": 0
+        },
+        "con": {
+          "value": 10,
+          "max": 10,
+          "modifier": 0
+        },
+        "int": {
+          "value": 10,
+          "max": 10,
+          "modifier": 0
+        },
+        "wis": {
+          "value": 10,
+          "max": 10,
+          "modifier": 0
+        },
+        "cha": {
+          "value": 10,
+          "max": 10,
+          "modifier": 0
+        }
+      }
     },
-    "npc": {
+    "monster": {
       "templates": []
     }
   },
   "Item": {
-    "types": ["armor", "gear", "weapon", "spell", "playbook", "pb-phase"],
+    "types": ["armor", "gear", "weapon", "spell", "skill", "playbook", "pb-phase"],
     "templates": { },
     "armor": {
       "templates": []
@@ -44,6 +93,9 @@
       "templates": []
     },
     "pb-phase": {
+      "templates": []
+    },
+    "skill": {
       "templates": []
     }
   }
