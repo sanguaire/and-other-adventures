@@ -1,5 +1,5 @@
 {
-  "id": "btw-style-game",
+  "id": "and-other-adventures",
   "title": "BtW style game",
   "description": "Unofficial system to play BtW style games.",
   "version": "1.0.0",
@@ -11,7 +11,7 @@
   "authors": [
     {
       "name": "Sanguaire",
-      "discord": "YOUR DISCORD USERNAME HERE"
+      "discord": "Sanguaire#7321"
     }
   ],
   "scripts": [],
@@ -33,7 +33,7 @@
     }
   ],
   "socket": true,
-  "initiative": "1d6",
+  "initiative": "1d20+@ini",
   "gridDistance": 10,
   "gridUnits": "ft",
   "primaryTokenAttribute": "resources.health",
