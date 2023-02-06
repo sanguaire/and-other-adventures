@@ -1,18 +1,26 @@
-<sheet-header class="header">
+<sheet-header>
     <img src="{{actor.img}}" data-edit="img" alt="actor.img">
     <div class="information">
         <label for="name">{{localize "aoa.name"}}: </label>
         <input name="name" type="text" data-dtype="Text" value="{{actor.name}}">
-        <label for="class">{{localize "aoa.class"}}: </label>
-        <input name="class" type="text" data-dtype="Text" value="{{actor.system.class}}">
         <div class="row">
             <div>
-                <label for="xp">{{localize "aoa.xp"}}: </label>
-                <input name="xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
+                <label for="system.class">{{localize "aoa.class"}}: </label>
+                <input name="system.class" type="text" data-dtype="Text" value="{{actor.system.class}}">
             </div>
             <div>
-                <label for="level">{{localize "aoa.level"}}: </label>
-                <input name="level" type="text" data-dtype="Number" value="{{actor.system.level}}">
+                <label for="system.alignment">{{localize "aoa.alignment"}}: </label>
+                <input name="system.alignment" type="text" data-dtype="Text" value="{{actor.system.alignment}}">
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="system.xp">{{localize "aoa.xp"}}: </label>
+                <input name="system.xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
+            </div>
+            <div>
+                <label for="system.level">{{localize "aoa.level"}}: </label>
+                <input name="system.level" type="text" data-dtype="Number" value="{{actor.system.level}}">
             </div>
         </div>
     </div>

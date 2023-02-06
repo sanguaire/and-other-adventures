@@ -1,3 +1,33 @@
 {
-  "aoa": {}
+  "aoa": {
+    "abilities": {
+      "cha": "Charisma",
+      "con": "Konstitution",
+      "dex": "Geschicklichkeit",
+      "header": "Attribute",
+      "int": "Intelligenz",
+      "str": "Strength",
+      "wis": "Weisheit"
+    },
+    "abilities-abr": {
+      "cha": "Cha",
+      "con": "Kon",
+      "dex": "Ges",
+      "int": "Int",
+      "str": "Str",
+      "wis": "Wei"
+    },
+    "ac": "Rüstungsklasse",
+    "alignment": "Gesinnung",
+    "class": "Klasse",
+    "combat-header": "Kampfwerte",
+    "level": "Stufe",
+    "name": "Name",
+    "resources": {
+      "fp": "Glück",
+      "hp": "Trefferpunkte"
+    },
+    "skill-header": "Fertigkeiten & Sprachen",
+    "xp": "Erfahrung"
+  }
 }

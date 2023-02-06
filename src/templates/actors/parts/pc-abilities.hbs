@@ -1,0 +1,17 @@
+<sheet-abilities>
+    <h1>{{localize "aoa.abilities.header"}}</h1>
+    <div class="row">
+        {{#each actor.system.abilities as |ability key|}}
+            <div class="ability">
+                {{#with (concat 'aoa.abilities.' key)}}
+                    <label>{{localize string}}</label>
+                {{/with}}
+                <div class="row">
+                    <input type="text" data-dtype="Number" name="system.abilities.{{key}}.value" value="{{ability.value}}">
+                    <input type="text" data-dtype="Number" name="system.abilities.{{key}}.max" value="{{ability.max}}">
+                </div>
+                <div>{{numberFormat ability.modifier decimals=0 sign=true}}</div>
+            </div>
+        {{/each}}
+    </div>
+</sheet-abilities>

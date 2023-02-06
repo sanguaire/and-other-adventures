@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Foxbot';
+    src: url('../assets/fonts/Foxbot/foxbot.woff2') format('woff2'),
+    url('../assets/fonts/Foxbot/foxbot.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CrushYourEnemies';
+    src: url('../assets/fonts/CrushYourEnemies/CrushYourEnemies_REGULAR.woff2') format('woff2'),
+    url('../assets/fonts/CrushYourEnemies/CrushYourEnemies_REGULAR.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'ElementaryGothicBookhand';
+    src: url('../assets/fonts/ElementaryGothicBookhand/Elementary_Gothic_Bookhand.woff2') format('woff2'),
+    url('../assets/fonts/ElementaryGothicBookhand/Elementary_Gothic_Bookhand.woff') format('woff');
+}
+
+
+body {
+    --font-hand: "Foxbot", "FontAwesome", serif;
+    --font-accent: "ElementaryGothicBookhand";
+}

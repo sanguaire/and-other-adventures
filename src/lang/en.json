@@ -1,3 +1,33 @@
 {
-  "aoa": {}
+  "aoa": {
+    "abilities": {
+      "cha": "Charisma",
+      "con": "Constitution",
+      "dex": "Dexterity",
+      "header": "Abilities",
+      "int": "Intelligence",
+      "str": "Strength",
+      "wis": "Wisdom"
+    },
+    "abilities-abr": {
+      "cha": "Cha",
+      "con": "Con",
+      "dex": "Dex",
+      "int": "Int",
+      "str": "Str",
+      "wis": "Wis"
+    },
+    "ac": "Armor class",
+    "alignment": "Alignment",
+    "class": "Class",
+    "combat-header": "Combat values",
+    "level": "Level",
+    "name": "Name",
+    "resources": {
+      "fp": "Fortune points",
+      "hp": "Hit points"
+    },
+    "skill-header": "Skills & Languages",
+    "xp": "Experience"
+  }
 }

@@ -37,6 +37,10 @@
     "pc": {
       "templates": ["background", "resources"],
       "playbook": {},
+      "xp": 0,
+      "level": 1,
+      "alignment": "",
+      "class": "",
       "abilities": {
         "str": {
           "value": 10,

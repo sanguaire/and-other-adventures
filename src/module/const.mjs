@@ -1,3 +1,4 @@
 export const CONST = {
-    MODULE_NAME: "aoa"
+    MODULE_SCOPE: "aoa",
+    MODULE_ID: "and-other-adventures"
 }

@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "systems/and-other-adventures/templates/actors/parts/pc-header.hbs"}}
+    {{> "systems/and-other-adventures/templates/actors/parts/pc-resources.hbs"}}
+    {{> "systems/and-other-adventures/templates/actors/parts/pc-abilities.hbs"}}
+
+    <tabbed-content>
+        <div class="tabs" data-group="primary">
+            <a data-tab="combat"><i class="fa-solid fa-swords"></i></a>
+            <a data-tab="skill"><i class="fa-solid fa-hands"></i></a>
+        </div>
+        <div class="tab-content">
+            <div class="tab" data-tab="combat" data-group="primary">{{> "systems/and-other-adventures/templates/actors/parts/pc-combat.hbs"}}</div>
+            <div class="tab" data-tab="skill" data-group="primary">{{> "systems/and-other-adventures/templates/actors/parts/pc-skill.hbs"}}</div>
+        </div>
+    </tabbed-content>
+
+</form>
