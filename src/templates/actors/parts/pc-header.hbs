@@ -1,0 +1,19 @@
+<sheet-header class="header">
+    <img src="{{actor.img}}" data-edit="img" alt="actor.img">
+    <div class="information">
+        <label for="name">{{localize "aoa.name"}}: </label>
+        <input name="name" type="text" data-dtype="Text" value="{{actor.name}}">
+        <label for="class">{{localize "aoa.class"}}: </label>
+        <input name="class" type="text" data-dtype="Text" value="{{actor.system.class}}">
+        <div class="row">
+            <div>
+                <label for="xp">{{localize "aoa.xp"}}: </label>
+                <input name="xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
+            </div>
+            <div>
+                <label for="level">{{localize "aoa.level"}}: </label>
+                <input name="level" type="text" data-dtype="Number" value="{{actor.system.level}}">
+            </div>
+        </div>
+    </div>
+</sheet-header>
