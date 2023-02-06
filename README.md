@@ -1,2 +1,2 @@
 # And other adventures
-My unoffical system for Foundry VTT to play "Beyound the wall" style games.
+My unofficial system for Foundry VTT to play "Beyound the wall" style games.
