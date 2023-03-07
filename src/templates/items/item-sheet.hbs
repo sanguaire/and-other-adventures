@@ -1,0 +1,23 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "systems/and-other-adventures/templates/items/parts/header.hbs"}}
+    <div class="tabbed-content">
+        <div class="tabs" data-group="primary">
+            <a data-tab="item"><i class="fa-solid fa-list"></i></a>
+            <a data-tab="description"><i class="fa-solid fa-book-open-cover"></i></a>
+        </div>
+        <div class="tab-content">
+            <div class="tab" data-tab="item" data-group="primary">
+                <div class="item-data">
+                    {{#with (concat "systems/and-other-adventures/templates/items/" item.type "-sheet.hbs")}}
+                        {{> (lookup . 'string') (lookup .. "item")}}
+                    {{/with}}
+                </div>
+            </div>
+            <div class="tab" data-tab="description" data-group="primary">
+                <label>{{localize "aoa.description"}}: </label>
+                {{editor item.system.description target='system.description' class="description-editor" button=true
+                         editable=true engine='prosemirror'}}
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+<div class="sheet-header">
+    <img src="{{item.img}}" data-edit="img" alt="item.img">
+    <div class="information">
+        <label for="name">{{localize "aoa.name"}}: </label>
+        <input name="name" type="text" value="{{item.name}}">
+        <label>{{localize "aoa.item-type"}}:</label>
+        {{#with (concat "ITEM.Type" (capFirst item.type))}}
+            {{localize string}}
+        {{/with}}
+    </div>
+</div>

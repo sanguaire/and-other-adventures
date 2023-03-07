@@ -1,0 +1,20 @@
+<div class="flexrow">
+    <label for="range">{{localize "aoa.range-label"}}</label>
+    <select class="text-centered" name="system.range">
+        {{#select system.range}}
+            <option value="near">{{localize 'aoa.range.near'}}</option>
+            <option value="far">{{localize 'aoa.range.far'}}</option>
+            <option value="touch">{{localize 'aoa.range.touch'}}</option>
+            <option value="self">{{localize 'aoa.range.self'}}</option>
+            <option value="cosmos">{{localize 'aoa.range.cosmos'}}</option>
+        {{/select}}
+    </select>
+</div>
+<div class="flexrow">
+    <label for="system.duration">{{localize "aoa.duration"}}</label>
+    <input type="text" name="system.duration" value="{{system.duration}}">
+</div>
+<div class="flexrow">
+    <label for="system.savingThrow">{{localize "aoa.save"}}</label>
+    <input type="checkbox" name="system.savingThrow" {{checked system.savingThrow}}>
+</div>

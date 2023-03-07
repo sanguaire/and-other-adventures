@@ -16,8 +16,20 @@
     url('../assets/fonts/ElementaryGothicBookhand/Elementary_Gothic_Bookhand.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'EastAnglia';
+    src: url('../assets/fonts/east_anglia/East_Anglia.woff2') format('woff2'),
+    url('../assets/fonts/east_anglia/East_Anglia.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Aquifer';
+    src: url('../assets/fonts/aquifer/Aquifer.woff2') format('woff2'),
+    url('../assets/fonts/aquifer/Aquifer.woff2') format('woff');
+}
 
 body {
     --font-hand: "Foxbot", "FontAwesome", serif;
-    --font-accent: "ElementaryGothicBookhand";
+    --font-accent: "EastAnglia";
+    --font-normal: "Aquifer", "FontAwesome", serif;
 }

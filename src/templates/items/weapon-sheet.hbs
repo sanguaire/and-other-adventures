@@ -1,0 +1,45 @@
+<div class="flexrow">
+    <label>{{localize "aoa.base-damage"}}</label>
+    <input type="text" data-dtype="Number" value="{{system.baseDamage.noOfDie}}" min="1">
+    <select class="text-centered" name="dieType">
+        {{#select system.baseDamage.dieType}}
+            <option value="d4">{{localize 'aoa.d4'}}</option>
+            <option value="d6">{{localize 'aoa.d6'}}</option>
+            <option value="d8">{{localize 'aoa.d8'}}</option>
+            <option value="d10">{{localize 'aoa.d10'}}</option>
+            <option value="d12">{{localize 'aoa.d12'}}</option>
+        {{/select}}
+    </select>
+</div>
+<div class="flexrow">
+    <label>{{localize "aoa.damage-bonus"}}</label>
+    <input name="system.damageBonus.melee" value="{{numberFormat system.damageBonus.melee sign=true decimals=0}}" type="text" data-dtype="Number">
+    <label for="system.damageBonus.melee">{{localize "aoa.melee"}}</label>
+    <input name="system.damageBonus.ranged" value="{{numberFormat system.damageBonus.ranged sign=true decimals=0}}" type="text" data-dtype="Number">
+    <label for="system.damageBonus.ranged">{{localize "aoa.ranged"}}</label>
+</div>
+<div class="flexrow">
+    <label>{{localize "aoa.attack-bonus"}}</label>
+    <input name="system.attackBonus.melee" value="{{numberFormat system.attackBonus.melee sign=true decimals=0}}" type="text" data-dtype="Number">
+    <label for="system.attackBonus.melee">{{localize "aoa.melee"}}</label>
+    <input name="system.attackBonus.ranged" value="{{numberFormat system.attackBonus.ranged sign=true decimals=0}}" type="text" data-dtype="Number">
+    <label for="system.attackBonus.ranged">{{localize "aoa.ranged"}}</label>
+</div>
+<div class="flexrow">
+    <label for="system.specialized">{{localize "aoa.specialized"}}</label>
+    <input name="system.specialized" type="checkbox" {{checked system.specialized}}>
+</div>
+<div class="flexrow">
+    <label for="system.ranged">{{localize "aoa.ranged"}}</label>
+    <input name="system.ranged" type="checkbox" {{checked system.ranged}}>
+</div>
+<div class="flexrow">
+    <label for="system.hasMeleeOption">{{localize "aoa.has-melee-option"}}</label>
+    <input name="system.hasMeleeOption" type="checkbox" {{checked system.hasMeleeOption}}>
+</div>
+<div class="flexrow">
+    <label for="system.magical">{{localize "aoa.magical"}}</label>
+    <input name="system.magical" type="checkbox" {{checked system.magical}}>
+</div>
+
+

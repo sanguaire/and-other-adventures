@@ -1,0 +1,12 @@
+<div class="flexrow">
+    <label for="system.armorBonus">{{localize "aoa.armor-bonus"}}</label>
+    <input name="system.armorBonus" value="{{numberFormat system.armorBonus sign=true decimals=0}}" type="text" data-dtype="Number">
+</div>
+<div class="flexrow">
+    <label for="system.penalty">{{localize "aoa.armor-penalty"}}</label>
+    <input name="system.penalty" value="{{numberFormat system.penalty sign=true decimals=0}}" type="text" data-dtype="Number">
+</div>
+<div class="flexrow">
+    <label for="system.magical">{{localize "aoa.magical"}}</label>
+    <input name="system.magical" type="checkbox" {{checked system.magical}}>
+</div>

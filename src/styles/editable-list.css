@@ -1,0 +1,119 @@
+.editable-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    padding: 0.2em;
+}
+
+.editable-list .drag {
+    opacity: 0;
+    padding: 0.1em;
+}
+
+.editable-list .drag:hover {
+    opacity: 0.4;
+    cursor: grab;
+}
+
+.editable-list .list {
+    background: var(--sheet-light-accent);
+    height: 100%;
+    overflow-y: auto;
+}
+
+.editable-list .list .item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.editable-list .list .item > .list-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--sheet-light-accent);
+    height: var(--form-field-height);
+    padding: 0 0.4em;
+}
+
+.editable-list .list .item > .list-row:last-child {
+    border-bottom: 1px solid var(--sheet-dark-accent);
+
+}
+
+
+.editable-list .list .item > .list-row:hover {
+    background: var(--sheet-highlight);
+}
+
+.editable-list .list .item .list-row.detail {
+    font-size: var(--font-size-14);
+}
+
+.editable-list .list .item > .list-row  input {
+    background: transparent;
+    border: none;
+}
+
+.editable-list .list .item > .list-row.relative > .drag {
+    position: absolute;
+    right: 0.4em;
+}
+
+.editable-list .list .item .list-row > .controls {
+    padding-left: 0.4em;
+    background: transparent;
+    border: none;
+}
+
+.editable-list .list .item .list-row > div {
+    background: transparent;
+    padding: 0.1em 0.1em 0.1em 0;
+    text-indent: 0.4em;
+    text-align: left;
+    flex: 1 0 auto;
+    border: none;
+}
+
+.editable-list .list .item .list-row.detail > div {
+    flex: 1 0 auto;
+    text-align: left;
+}
+
+.editable-list .list .item .list-row.detail input {
+    flex: 0 0 4.5em;
+    text-align: right;
+}
+
+.editable-list .list input:focus {
+    box-shadow: none;
+}
+
+.editable-list .list.hand-written {
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    font-variant: small-caps;
+    letter-spacing: 0.15em;
+    color: darkblue;
+}
+
+.editable-list > input {
+    background: rgba(255,255,255, 40%);
+    margin-top: 0.4em;
+}
+
+.editable-list > input::placeholder {
+    opacity: 0.3;
+}
+
+.editable-list .list .item.gear .list-row input:last-of-type {
+    flex: 0 1 4em;
+}
+
+.editable-list input.new {
+    width: 100%;
+    min-height: 1.8em;
+}

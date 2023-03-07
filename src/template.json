@@ -1,6 +1,9 @@
 {
   "Actor": {
-    "types": ["pc", "monster"],
+    "types": [
+      "pc",
+      "monster"
+    ],
     "templates": {
       "background": {
         "biography": ""
@@ -35,12 +38,16 @@
       }
     },
     "pc": {
-      "templates": ["background", "resources"],
+      "templates": [
+        "background",
+        "resources"
+      ],
       "playbook": {},
       "xp": 0,
       "level": 1,
       "alignment": "",
       "class": "",
+      "usedSpells": 0,
       "abilities": {
         "str": {
           "value": 10,
@@ -72,35 +79,257 @@
           "max": 10,
           "modifier": 0
         }
-      }
+      },
+      "coins": {
+        "g": 0,
+        "s": 0,
+        "c": 0
+      },
+      "knacks": {
+        "defensive": 0,
+        "fleet": 0,
+        "strike": 0,
+        "resilience": 0
+      },
+      "weaponSpecializations": ""
     },
     "monster": {
       "templates": []
     }
   },
   "Item": {
-    "types": ["armor", "gear", "weapon", "spell", "skill", "playbook", "pb-phase"],
-    "templates": { },
+    "types": [
+      "armor",
+      "gear",
+      "weapon",
+      "spell",
+      "ritual",
+      "cantrip",
+      "skill",
+      "class",
+      "playbook",
+      "pb-phase",
+      "trait",
+      "language"
+    ],
+    "templates": {
+      "basic": {
+        "description": ""
+      },
+      "equippable": {
+        "equipped": false
+      },
+      "quantity": {
+        "quantity": {
+          "min": 1,
+          "value": 1
+        }
+      },
+      "rollOn": {
+        "ability": "int"
+      }
+    },
     "armor": {
-      "templates": []
+      "templates": [
+        "basic", "equippable"
+      ],
+      "armorBonus": 0,
+      "penalty": 0,
+      "magical": false
     },
     "gear": {
-      "templates": []
+      "templates": [
+        "basic", "equippable", "quantity"
+      ]
     },
     "weapon": {
-      "templates": []
+      "templates": [
+        "basic", "equippable"
+      ],
+      "baseDamage": {
+        "dieType": "d6",
+        "noOfDie": 1
+      },
+      "ranged": false,
+      "hasMeleeOption": false,
+      "attackBonus": {
+        "melee": 0,
+        "ranged": 0
+      },
+      "damageBonus": {
+        "melee": 0,
+        "ranged": 0
+      },
+      "magical": false,
+      "specialized": false
     },
     "spell": {
-      "templates": []
+      "templates": [
+        "basic"
+      ],
+      "range": "near",
+      "duration": "",
+      "savingThrow": true
+    },
+    "ritual": {
+      "templates": [
+        "basic", "rollOn"
+      ],
+      "level": 1,
+      "range": "near",
+      "duration": "",
+      "savingThrow": true
+    },
+    "cantrip": {
+      "templates": [
+        "basic", "rollOn"
+      ]
     },
     "playbook": {
-      "templates": []
+      "templates": [
+        "basic"
+      ]
     },
     "pb-phase": {
-      "templates": []
+      "templates": [
+        "basic"
+      ]
     },
     "skill": {
-      "templates": []
+      "templates": [
+        "basic"
+      ],
+      "bonus": 2
+    },
+    "language": {
+      "templates": [
+        "basic"
+      ]
+    },
+    "trait": {
+      "templates": ["basic"]
+    },
+    "class": {
+      "templates": [
+        "basic"
+      ],
+      "hitDie": "d6",
+      "initiativeBonus": 0,
+      "allowedArmor": "",
+      "hasKnacks": false,
+      "classAbilities": [],
+      "levelProgression": {
+        "1": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "2": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "3": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "4": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "5": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "6":{
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "7": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "8":{
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "9": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        },
+        "10": {
+          "xp": 0,
+          "attackBonus": 0,
+          "saves": {
+            "poison": 0,
+            "breathWeapon": 0,
+            "polymorph": 0,
+            "spell": 0,
+            "magicItem": 0
+          }
+        }
+      }
     }
   }
 }

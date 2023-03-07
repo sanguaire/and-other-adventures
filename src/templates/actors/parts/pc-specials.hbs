@@ -1,0 +1,31 @@
+<div class="specials">
+    {{#if actor.system.class.hasKnacks}}
+        <h1>{{localize "aoa.knacks-header"}}</h1>
+        <div class="knacks">
+            <div class="flexrow">
+                <label for="system.knacks.defensive">{{localize "aoa.knacks.defensive"}}:</label>
+                <input name="system.knacks.defensive" value="{{actor.system.knacks.defensive}}" type="text" data-dtype="Number">
+            </div>
+            <div class="flexrow">
+                <label for="system.knacks.fleet">{{localize "aoa.knacks.fleet"}}:</label>
+                <input name="system.knacks.fleet" value="{{actor.system.knacks.fleet}}" type="text" data-dtype="Number">
+            </div>
+            <div class="flexrow">
+                <label for="system.knacks.strike">{{localize "aoa.knacks.strike"}}:</label>
+                <input name="system.knacks.strike" value="{{actor.system.knacks.strike}}" type="text" data-dtype="Number">
+            </div>
+            <div class="flexrow">
+                <label for="system.knacks.resilience">{{localize "aoa.knacks.resilience"}}:</label>
+                <input name="system.knacks.resilience" value="{{actor.system.knacks.resilience}}" type="text" data-dtype="Number">
+            </div>
+        </div>
+    {{/if}}
+    <div class="flexrow">
+        <label for="system.weaponSpecializations">{{localize "aoa.weapon-specializations"}}:</label>
+        <input name="system.weaponSpecializations" value="{{actor.system.weaponSpecializations}}" type="text" >
+    </div>
+    <h1>{{localize "aoa.biography"}}</h1>
+    {{editor actor.system.biography target='system.biography' class="description-editor" button=true
+             editable=true engine='prosemirror'}}
+</div>
+

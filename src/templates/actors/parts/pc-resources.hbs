@@ -1,16 +1,34 @@
-<sheet-resources>
+<div class="resources">
     <div class="resource">
-        <label for="system.hp">{{localize "aoa.resources.hp"}}</label>
-        <div name="system.hp" class="row">
-            <input name="system.hp.value" type="text" data-dtype="Number" value="{{actor.system.hp.value}}">
-            <input name="system.hp.max" type="text" data-dtype="Number" value="{{actor.system.hp.max}}">
+        <span><i class="fa-solid fa-heart-pulse darkred"></i><h2>{{localize "aoa.resources.hp"}} </h2></span>
+        <div name="system.hp" class="flexrow">
+            <input name="system.hp.value" type="text" data-dtype="number" value="{{actor.system.hp.value}}">
+            <input name="system.hp.max" type="text" data-dtype="number" value="{{actor.system.hp.max}}" data-tooltip="{{localize "aoa.max"}}">
+            <div>
+                <label>{{localize "aoa.hit-die"}}</label>
+                {{#with (concat "aoa." actor.system.class.hitDie)}}
+                    {{localize string}}
+                {{/with}}
+            </div>
+        </div>
+    </div>
+    <div id="ac" class="resource ac">
+        <span><h2>{{localize "aoa.ac"}}</h2></span>
+        <div>
+            {{actor.system.armorClass}}
+        </div>
+    </div>
+    <div id="ini" class="resource ini">
+        <span><h2>{{localize "aoa.initiative"}}</h2></span>
+        <div>
+            {{actor.system.initiative}}
         </div>
     </div>
     <div class="resource">
-        <label for="system.hp">{{localize "aoa.resources.fp"}}</label>
-        <div name="system.fp" class="row">
-            <input name="system.fp.value" type="text" data-dtype="Number" value="{{actor.system.fp.value}}">
-            <input name="system.fp.max" type="text" data-dtype="Number" value="{{actor.system.fp.max}}">
+        <span><h2>{{localize "aoa.resources.fp"}}</h2><i class="fa-solid fa-hand-fingers-crossed darkgreen"></i></span>
+        <div name="system.fp" class="flexrow">
+            <input name="system.fp.value" type="text" data-dtype="number" value="{{actor.system.fp.value}}">
+            <input name="system.fp.max" type="text" data-dtype="number" value="{{actor.system.fp.max}}" data-tooltip="{{localize "aoa.max"}}">
         </div>
     </div>
-</sheet-resources>
+</div>

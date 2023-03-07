@@ -1,0 +1,68 @@
+<div class="class-abilities">
+    <div class="ability">
+        <label for="hitDie">{{localize "aoa.hit-die"}}</label>
+        <select class="text-centered" name="system.hitDie">
+            {{#select system.hitDie}}
+                <option value="d6">{{localize 'aoa.d6'}}</option>
+                <option value="d8">{{localize 'aoa.d8'}}</option>
+                <option value="d10">{{localize 'aoa.d10'}}</option>
+            {{/select}}
+        </select>
+        <!--        <input type="text" data-dtype="Text" name="hitDie" value="{{system.hitDie}}">-->
+    </div>
+    <div class="ability">
+        <label for="system.initiativeBonus">{{localize "aoa.initiative-bonus"}}</label>
+        <input type="text" data-dtype="Number" name="system.initiativeBonus" value="{{numberFormat system.initiativeBonus sign=true decimal=0}}">
+    </div>
+    <div class="ability">
+        <label for="system.allowedArmor">{{localize "aoa.allowed-armor"}}</label>
+        <input type="text" data-dtype="text" name="system.allowedArmor" value="{{system.allowedArmor}}">
+    </div>
+</div>
+<div class="ability-list">
+    <div class="flexrow" style="margin-bottom: 0.4em;">
+        <label for="system.hasKnacks">{{localize "aoa.has-knacks"}}</label>
+        <input name="system.hasKnacks" type="checkbox" {{checked system.hasKnacks}}>
+    </div>
+    {{#each system.classAbilities as |item index|}}
+        <div data-item-id="{{item.id}}">
+            <input type="text" data-property="name" class="change-ability" value="{{item.name}}">
+            <textarea data-property="description" class="change-ability" rows="5" style="resize: none;">{{item.description}}
+            </textarea>
+        </div>
+    {{/each}}
+    <input type="text" name="abilityName" class="new-ability">
+</div>
+<div class="level-progression">
+    <h1>{{localize "aoa.level-progression"}}</h1>
+    <table>
+        <thead>
+
+        <th>{{localize "aoa.level"}}</th>
+        <th>{{localize "aoa.xp"}}</th>
+        <th>{{localize "aoa.base-attack-bonus"}}</th>
+        <th>{{localize "aoa.saves.poison"}}</th>
+        <th>{{localize "aoa.saves.breathWeapon"}}</th>
+        <th>{{localize "aoa.saves.polymorph"}}</th>
+        <th>{{localize "aoa.saves.spell"}}</th>
+        <th>{{localize "aoa.saves.magicItem"}}</th>
+
+        </thead>
+        <tbody>
+        {{#each system.levelProgression as |progression key|}}
+            <tr>
+                <td>{{key}}:</td>
+                <td><input type="text" data-dtype="Number" name="system.levelProgression.{{key}}.xp" value="{{progression.xp}}"></td>
+                <td><input type="text" data-dtype="Number" name="system.levelProgression.{{key}}.attackBonus" value="{{numberFormat progression.attackBonus sign=true decimals=0}}"></td>
+                {{# with progression as |progression|}}
+                    {{# with key as |progressionkey|}}
+                        {{#each progression.saves as |save key|}}
+                            <td><input type="text" data-dtype="Number" name="system.levelProgression.{{progressionkey}}.saves.{{key}}" value="{{save}}"></td>
+                        {{/each}}
+                    {{/with}}
+                {{/with}}
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

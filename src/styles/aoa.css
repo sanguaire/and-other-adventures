@@ -1,162 +1,726 @@
+@import "variables.css";
 @import "fonts.css";
+@import "editable-list.css";
+@import "chat.css";
 
-.aoa.sheet form {
+.aoa.sheet.window-app .window-content {
+    background: url(../assets/parchment.jpg) repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.aoa.sheet.dialog form {
+    padding: 0.4em;
+}
+
+.relative {
+    position: relative;
+}
+
+.darkgreen {
+    color: darkgreen;
+}
+
+.darkred {
+    color: darkred;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+.text-indent {
+    text-indent: 2em;
+}
+
+.text-form-field {
+    height: var(--form-field-height);
+    line-height: var(--form-field-height);
+}
+
+.justify-start {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.justify-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.level-up {
+    position: absolute;
+    top: 0.5em;
+    left: -1em;
+}
+.save-value {
+    font-size: var(--font-size-24);
+}
+
+.pc-sheet .information .flexrow > div {
+    position: relative;
+}
+
+.item-data {
+    padding: 0.4em;
+    display: flex;
+    flex-direction: column;
+}
+
+.aoa-sheet {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    font-family: var(--font-primary);
     font-size: var(--font-size-16);
-}
-
-.aoa.sheet form > * {
-    margin-bottom: 0.5em;
-    flex: 0 1 auto;
-}
-
-.aoa.sheet form .row {
-    display: flex;
-    flex-direction: row;
-    gap: 0.2em;
-}
-
-.aoa.sheet form .selectable-content {
-    height: 100%;
-}
-
-.aoa.sheet form input {
-    font-family: var(--font-hand);
     font-weight: bolder;
-    background: rgba(255, 255, 255, 20%);
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,20%);
-    border-radius: 0;
-    letter-spacing: 0.2em;
-    color: darkblue;
-    text-indent: 0.2em;
+    gap: 0.2em
 }
 
-.aoa.sheet form input[data-dtype="Number"] {
-    text-align: center;
+.aoa-sheet.item-sheet .item-content {
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.aoa.sheet h1 {
-    border-bottom: none;
-    text-align: center;
-    font-family: var(--font-accent);
-    letter-spacing: 0.1em;
-    font-size: var(--font-size-18);
-    margin: 0;
-}
-
-.aoa.sheet h1:first-letter {
-    color: rgb(119, 0, 0);;
-}
-
-sheet-header {
-    height: 20%;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-}
-
-sheet-header img {
-    height: 100%;
-    border: none;
-}
-
-sheet-header img:hover {
-    cursor: pointer;
-}
-
-sheet-header .information {
-    width: 100%;
+.item-data {
     display: flex;
     flex-direction: column;
+    gap: 0.4em;
 }
 
-sheet-header .information label {
+#ac,
+#ini {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#ac div,
+#ini div {
+    display: flex;
+    flex: 0 1 2em;
+    border: 4px solid var(--sheet-dark-accent);
+    background: var(--sheet-dark-accent);
+    font-size: 2em;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    margin: auto;
+}
+
+.resource.ac div {
+    border-bottom-right-radius: 50% 70%;
+    border-bottom-left-radius: 50% 70%;
+}
+
+
+.item-data .flexrow, .item-data .flexrow {
+    align-items: center;
+    gap: 0.4em;
+    height: var(--form-field-height);
+}
+
+.equipped {
+    opacity: 30%;
+}
+
+.flex-fill {
+    flex: 1 1 auto;
+}
+
+.equipped.active {
+    opacity: 100%;
+}
+
+.aoa-sheet label {
     font-variant: small-caps;
 }
 
-sheet-resources {
-    width: 100%;
-    overflow: hidden;
+.aoa-sheet select option, .aoa-sheet select optgroup{
+    font-weight: bolder;
+    background: var(--sheet-light-accent);
+    letter-spacing: 0.15em;
+}
+
+.aoa-sheet h1, .aoa-sheet h2, .aoa-sheet h3, .aoa-sheet h4, .aoa-sheet h5, .aoa-sheet h6 {
+    font-family: var(--font-accent);
+    border: none;
+    margin: 0;
+    text-align: center;
+    font-weight: bolder;
+    letter-spacing: 0.1em;
+    line-height: 2em;
+}
+
+.aoa-sheet h1 {
+    font-size: var(--font-size-18);
+}
+
+.aoa-sheet .caps {
+    color: darkred;
+}
+
+.aoa-sheet .move-up {
+    position: relative;
+    top: -0.5em;
+}
+
+.aoa-sheet h1 .move-up {
+    text-decoration: 2px underline darkred;
+}
+
+.aoa-sheet h2 {
+    font-size: var(--font-size-14);
+}
+
+.aoa-sheet h3 {
+    font-size: var(--font-size-13);
+}
+
+.aoa-sheet input {
+    background: var(--sheet-light-accent);
+    border: none;
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    border-radius: 0;
+    color: darkblue;
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    text-indent: 0.1em;
+    letter-spacing: 0.15em;
+    font-variant: small-caps slashed-zero;
+    height: var(--form-field-height);
+}
+
+.aoa-sheet input:hover:not(:disabled) {
+    background: var(--sheet-highlight);
+}
+
+.aoa-sheet input[type="text"][data-dtype="Number"] {
+    text-align: center;
+}
+
+.aoa-sheet input:disabled:hover {
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    box-shadow: initial;
+    outline: initial;
+    cursor: default;
+}
+
+.aoa-sheet select,
+.aoa-sheet textarea {
+    border: none;
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    border-radius: 0;
+    background: var(--sheet-light-accent);
+    color: darkblue;
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    text-indent: 0.1em;
+    height: var(--form-field-height);
+    letter-spacing: 0.15em;
+    font-variant: small-caps;
+}
+
+.aoa-sheet textarea:read-only {
+    cursor: default;
+}
+
+.aoa-sheet textarea {
+    font-size: inherit;
+    line-height: 1;
+    overflow-y: hidden;
+}
+
+.pc-sheet .specials {
+    padding: 0.4em;
+}
+
+.aoa-sheet a:hover {
+    text-shadow: 0 0 6px darkred;
+}
+
+.aoa-sheet .tabs a {
+    transform-origin: 100% 50%;
+    transition: transform 0.5s ease,
+                color 0.5s ease;
+}
+
+.aoa-sheet .tabs a.active {
+    transform: scale(1.5);
+    color: darkred;
+}
+
+.aoa-sheet .tabs a.active:hover {
+    text-shadow: none;
+}
+
+.sheet-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    background: rgba(0,0,0,20%);
-    flex: 1 0 auto;
+    border-bottom: var(--section-border);
 }
 
-sheet-resources label {
-    font-family: var(--font-accent);
-    font-size: var(--font-size-18);
-    letter-spacing: 0.1em;
+.sheet-header .information {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-sheet-resources label:first-letter {
-    color: rgb(119, 0, 0);
+.pc-sheet .specials .editor {
+    height: 100%;
 }
 
-sheet-resources > div.resource input[type="text"] {
-    background: rgba(255,255,255, 40%);
+.pc-sheet .specials > * {
+    margin-bottom: 0.4em;
+}
+
+.sheet-header img {
     border: none;
+    height: 100%;
+    object-fit: contain;
 }
 
-sheet-resources .resource {
+.sheet-header .flexrow {
+    gap: 0.2em;
+}
+
+.pc-sheet .sheet-header {
+    height: 20%;
+}
+
+.item-sheet .sheet-header {
+    height: 100px;
+}
+
+.item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.item-sheet .level-progression {
+    width: 100%;
+}
+
+.item-sheet .level-progression table {
+    flex: 1 1 100%;
+    text-align: center;
+}
+
+.item-sheet .level-progression th {
+    overflow-wrap: break-word;
+    padding: 0.2em;
+}
+
+.item-sheet .level-progression table input {
+    width: 100%;
+    min-width: 4em;
+    text-align: center;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+
+
+.abilities-saves {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0.5em;
+    border-bottom: var(--section-border);
+}
+
+.pc-sheet .abilities,
+.pc-sheet .saves {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.abilities {
+    flex: 1.5;
+    border-right: var(--section-border);
+}
+
+.saves {
+    flex: 1;
+}
+
+.abilities .values,
+.saves .values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    grid-gap: 0.2em;
+    justify-items: center;
+    align-items: center;
+    grid-auto-flow: row;
+}
+
+.saves {}
+
+.abilities .grid-item,
+.saves .grid-item {}
+
+.saves .grid-item:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+}
+
+.saves .grid-item:last-child > .save > label {
+    white-space: nowrap;
+}
+
+.pc-sheet .abilities input,
+.pc-sheet .saves input {
+    flex: 0 0 4em;
+}
+
+.pc-sheet .abilities > .flexrow,
+.pc-sheet .saves > .flexrow {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.2em;
+}
+
+.pc-sheet .ability,
+.pc-sheet .save {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 0 1 25%;
-    padding: 0.4em 0;
 }
 
-.aoa.sheet sheet-abilities {
-    height: 100px;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4em;
-    justify-content: start;
-    flex: 1;
-}
-
-sheet-abilities .ability {
+.pc-sheet .save {
+    width: 100px;
     text-align: center;
 }
 
-sheet-abilities label {
-    font-size: var(--font-size-18);
-    font-variant: small-caps;
+.pc-sheet .ability > .flexrow,
+.pc-sheet .save > .flexrow {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.1em;
 }
 
-.aoa.sheet form > tabbed-content {
+.resources {
     display: flex;
     flex-direction: row;
-    flex: 1 1 auto;
-    width: 100%;
+    justify-content: space-evenly;
+    gap: 2em;
+    padding: 0.5em;
+    border-bottom: var(--section-border);
+}
+
+.resources .resource {
+    text-align: center;
+}
+
+.resources .resource:first-child .flexrow {
     justify-content: flex-start;
 }
 
-tabbed-content .tabs {
+.resources .resource:last-child .flexrow {
+    justify-content: flex-end;
+}
+
+.resources .resource > span {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.resources .resource:first-child > span {
+    justify-content: flex-start;
+}
+
+.resources .resource:last-child > span {
+    justify-content: flex-end;
+}
+
+.resources .resource i {
+    font-size: 30px;
+    align-self: center;
+    mix-blend-mode: overlay;
+}
+
+.resources .resource input {
+    font-size: var(--font-size-20);
+    flex: 0 0 2em;
+    width: 2em;
+    height: 4em;
+}
+
+.resources .resource .flexrow {
+    justify-content: center;
+}
+
+.resources .resource input:first-of-type {
+    border-top-left-radius: 100% 50%;
+    border-bottom-left-radius: 100% 50%;
+}
+
+.resources .resource input:last-of-type {
+    border-top-right-radius: 100% 50%;
+    border-bottom-right-radius: 100% 50%;
+    border-left: 1px solid var(--sheet-dark-accent);
+}
+
+.tabbed-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: flex-start;
+    padding-right: 0.4em;
+    overflow: hidden;
+}
+
+.tabbed-content .tabs {
     display: flex;
     flex-direction: column;
-    background: rgba(0,0,0,20%);
-    padding: 0.5em;
-    gap: 1em;
-    align-self: start;
     font-size: var(--font-size-20);
+    flex: 0 0 4em;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    padding-top: 1em;
+    border-right: 1px solid var(--sheet-dark-accent);
+    height: auto;
+    margin-right: 0.4em;
 }
 
-tabbed-content .tab-content {
-    background: rgba(0,0,0,20%);
-    padding: 0.5em;
+.tab-content {
+    position: relative;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
+.aoa.sheet .tab[data-tab].active {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
+.item-sheet .description {
+    width: 100%;
+}
+
+.description-editor {
+    background: var(--sheet-light-accent);
+    color: darkblue;
+    font-family: var(--font-hand);
+    font-variant: small-caps;
+    letter-spacing: 0.15em;
+    font-weight: bolder;
+    text-indent: 0.1em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+
+.description-editor strong {
+    background: greenyellow;
+}
+
+.description-editor h1, .description-editor h2,
+.description-editor h3, .description-editor h4,
+.description-editor h5, .description-editor h6 {
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    letter-spacing: 0.15em;
+    font-variant: none;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+}
+
+.description-editor .caps {
+    color: darkblue;
+    font-size: 150%;
+}
+
+.description-editor .move-up {
+    position: relative;
+    top: 0;
+}
+
+.tab[data-tab="description"] .editor {
+    height: 100%;
+}
+
+.tab[data-tab="description"] .editor.prosemirror {
+    height: 100%;
+}
+
+.ability-list .editor {
+    height: 8em;
+}
+
+.ability-list .editor.prosemirror {
+    height: 8em;
+}
+
+.locked .editor:hover .editor-edit {
+    display: none;
+}
+
+.locked .new-ability {
+    display: none;
+}
+
+.class-abilities {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4em;
+    border-bottom: var(--section-border);
+    padding: 0.4em;
+}
+
+.class-traits {
+    padding: 0.4em;
+}
+
+.class-abilities .ability {
+    flex: 0.5;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+.class-abilities .ability:last-child {
+    flex: 2;
+}
+
+.tab[data-tab] .lists {
+    position: relative;
+    height: 100%;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    flex: 0 1 100%;
+}
+
+.tab[data-tab] .lists > div {
+    flex: 1;
+    position: absolute;
+    display: block;
+    height: 100%;
+}
+
+.tab[data-tab] .lists > div:first-child {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+}
+
+.tab[data-tab] .lists > div:last-child {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+}
+
+.tab[data-tab] .lists .editable-list {
+    height: auto;
+    max-height: 100%;
+}
+
+.skill-list .editable-list .list .item > .list-row {
+    justify-content: flex-start;
+}
+
+.skill-list .editable-list .list .item > .list-row input  {
+    flex: 0.3;
+}
+
+.skill-list .editable-list .list .item > .list-row input:last-of-type{
+    flex: 3;
+}
+
+.gear-list div.quantity {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    right: 1em;
+}
+
+.gear-list div.quantity.only-hover {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.gear-list div.quantity.only-hover:hover {
+    opacity: 1;
+}
+
+.used-spells {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    gap: 1em;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.used-spells label {
+    white-space: nowrap;
+}
+
+.aoa-sheet {
+    --font-primary: var(--font-normal);
+}
+
+.aoa-sheet .coins {
+    background: var(--sheet-light-accent);
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    align-items: center;
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    font-variant: small-caps;
+    letter-spacing: 0.15em;
+    color: darkblue;
+    padding: 0 1.2em;
+    gap: 0.2em;
+}
+
+.aoa-sheet .coins [type="text"][data-dtype="Number"] {
+    flex-basis: 4em;
+    background: transparent;
+    border: none;
+    text-align: right;
+}
+
+.aoa-sheet .coins.flexrow > * {
+    flex: 0;
+}
+
+.aoa-sheet option:checked {
+    background: lightgreen;
+}

@@ -1,0 +1,69 @@
+.aoa-chat .dice-total.success {
+    background-color: palegreen;
+    border-color: green;
+    color: black;
+}
+
+.aoa-chat .dice-total.failure {
+    background-color: salmon;
+    border-color: red;
+    color: black;
+}
+
+.aoa-chat .dice-total .offset {
+    font-size: 70%;
+}
+
+.chat-message {
+    background: url(../assets/parchment.jpg) repeat;
+    font-family: 'Aquifer', serif;
+    font-weight: bolder;
+}
+
+.high .dice-tooltip .dice-rolls .roll.max {
+    color: darkgreen;
+    filter: sepia(0.5) hue-rotate(60deg);
+}
+
+.high .dice-tooltip .dice-rolls .roll.min {
+    color: darkred;
+    filter: sepia(0.5) hue-rotate(-60deg);
+}
+
+.low .dice-tooltip .dice-rolls .roll.min {
+    color: darkgreen;
+    filter: sepia(0.5) hue-rotate(60deg);
+}
+
+.low .dice-tooltip .dice-rolls .roll.max {
+    color: darkred;
+    filter: sepia(0.5) hue-rotate(-60deg);
+}
+
+.aoa-chat .actor-name {
+    color: var(--sheet-dark-accent);
+}
+
+.aoa-chat h1, .aoa-chat h2, .aoa-chat h3, .aoa-chat h4, .aoa-chat h5, .aoa-chat h6{
+    font-variant: small-caps;
+    border-bottom: none;
+}
+
+.aoa-chat .header {
+    border-bottom: 1px solid darkred;
+}
+
+.aoa-chat .description {
+    background: var(--sheet-dark-accent);
+    padding: 0 0.4em;
+}
+
+.aoa-chat .description strong {
+    background: lightgreen;
+}
+
+.aoa-chat .description .inline-roll {
+    padding: 0;
+    border: none;
+    background: inherit;
+}

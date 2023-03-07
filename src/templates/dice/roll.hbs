@@ -1,0 +1,43 @@
+<div data-actor-id="{{actorId}}" class="aoa-chat dice-roll {{this.classes}}">
+    <div class="heading">
+        <div class="actor-name">{{actorName}}</div>
+        <h3 class="header">{{#contains "ranged" this.type}}<i class="fa-solid fa-bow-arrow"></i> {{/contains}}{{#contains "melee" this.type}}<i class="fa-solid fa-sword"></i> {{/contains}}<strong>{{name}}</strong></h3>
+        {{#if skillName}}
+            <div>({{numberFormat skillBonus sign=true decimals=0}} {{skillName}})</div>
+        {{/if}}
+        {{#if flavor}}
+            <div>{{flavor}}</div>
+        {{/if}}
+    </div>
+
+    <div class="dice-result">
+        <div class="dice-formula">
+            <span>{{formula}}</span>
+            <span>{{vs}}</span>
+            {{#if (eq 1 direction)}}
+                <span>{{modifiers}}</span>
+            {{/if}}
+        </div>
+        <div class="dice-tooltip">
+            {{#each parts}}
+                <section class="tooltip-part">
+                    <div class="dice">
+                        <header class="part-header flexrow">
+                            <span class="part-formula">{{this.formula}}</span>
+                            {{#if this.flavor}}<span class="part-flavor">{{this.flavor}}</span>{{/if}}
+                            <span class="part-total">{{this.total}}</span>
+                        </header>
+                        <ol class="dice-actions">
+                            {{#each this.actions}}
+                                <li class="roll {{this.classes}}">{{{this.result}}}</li>
+                            {{/each}}
+                        </ol>
+                    </div>
+                </section>
+            {{/each}}
+        </div>
+        <div class="dice-total {{result}}">
+            <span>{{total}}<span class="offset">{{offset}}</span></span>
+        </div>
+    </div>
+</div>

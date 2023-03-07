@@ -1,0 +1,38 @@
+<div class="list-row relative">
+    <i class="drag fa-solid fa-grip-vertical" draggable="true"></i>
+    <input type="text" data-dtype="text" value="{{name}}" data-property="name">
+
+    {{#if system.specialized}}
+        <i class="fa-solid fa-heart"></i>
+    {{/if}}
+    {{#if system.magical}}
+        <i class="fa-solid fa-sparkles"></i>
+    {{/if}}
+</div>
+<div class="list-row justify-end" style="gap: 0.5em;">
+    <span>
+        <a data-action="equip" class="equipped {{#if system.equipped}}active{{/if}}">
+            <i class="fa-solid fa-hand"></i>
+        </a>
+    </span>
+    <span>
+        <a data-action="editItem" data-tooltip="{{localize "aoa.edit"}}"><i class="fa-solid fa-pen-to-square"></i></a>
+    </span>
+    <span class="flex-fill"></span>
+    {{#if system.showMelee}}
+        <span data-action-type="melee">
+            <a data-action="attack">
+                <i class="fa-solid fa-sword fa-xl"></i>
+            </a>
+            <a data-action="damage" >{{system.damage.melee}}</a>
+        </span>
+    {{/if}}
+    {{#if system.ranged}}
+        <span data-action-type="ranged">
+            <a data-action="attack">
+                <i class="fa-solid fa-bow-arrow fa-xl"></i>
+            </a>
+            <a data-action="damage">{{system.damage.ranged}}</a>
+        </span>
+    {{/if}}
+</div>

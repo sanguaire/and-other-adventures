@@ -1,1 +1,24 @@
 <h1>{{localize "aoa.combat-header"}}</h1>
+<div class="flexrow justify-center text-centered" style="margin-bottom: 0.5em; border-bottom: 2px solid var(--sheet-dark-accent)">
+    <span>
+         <label>{{localize "aoa.base-attack-bonus"}}</label>
+        {{numberFormat actor.system.attackBonus.base sign=true decimals=0}}
+    </span>
+
+    <span>
+      <label>{{localize "aoa.melee"}}</label>
+        {{numberFormat actor.system.attackBonus.melee sign=true decimals=0}}
+    </span>
+
+    <span>
+         <label>{{localize "aoa.ranged"}}</label>
+        {{numberFormat actor.system.attackBonus.ranged sign=true decimals=0}}
+    </span>
+
+
+</div>
+<div class="lists">
+    <div class="weapon-list"></div>
+    <div class="armor-list"></div>
+</div>
+

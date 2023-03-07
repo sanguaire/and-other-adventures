@@ -1,17 +1,22 @@
-<sheet-abilities>
+<div class="abilities">
     <h1>{{localize "aoa.abilities.header"}}</h1>
-    <div class="row">
+    <div class="values">
         {{#each actor.system.abilities as |ability key|}}
-            <div class="ability">
-                {{#with (concat 'aoa.abilities.' key)}}
-                    <label>{{localize string}}</label>
-                {{/with}}
-                <div class="row">
-                    <input type="text" data-dtype="Number" name="system.abilities.{{key}}.value" value="{{ability.value}}">
-                    <input type="text" data-dtype="Number" name="system.abilities.{{key}}.max" value="{{ability.max}}">
+            <div class="grid-item">
+                <div class="ability" data-action-type="abilities" data-action-key="{{key}}">
+                    {{#with (concat 'aoa.abilities.' key)}}
+                        <label><a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a> {{localize string}}</label>
+                    {{/with}}
+                    <div class="flexrow">
+                        <input type="text" data-dtype="Number" name="system.abilities.{{key}}.value" value="{{ability.value}}">
+                        <input type="text" data-dtype="Number" name="system.abilities.{{key}}.max" value="{{ability.max}}">
+                        {{#if (ne ability.modifier 0)}}
+                            <div class="modifier" data-tooltip="{{ability.modifierDesc}}">{{numberFormat ability.modifier decimals=0 sign=true}}</div>
+                        {{/if}}
+                    </div>
                 </div>
-                <div>{{numberFormat ability.modifier decimals=0 sign=true}}</div>
             </div>
+
         {{/each}}
     </div>
-</sheet-abilities>
+</div>

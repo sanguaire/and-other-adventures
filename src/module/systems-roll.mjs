@@ -1,0 +1,185 @@
+import {CONST as AOA_CONST} from "./const.mjs";
+
+let RollDirection;
+(function (RollDirection) {
+    RollDirection[RollDirection["high"] = 0] = "high";
+    RollDirection[RollDirection["low"] = 1] = "low";
+})(RollDirection || (RollDirection = {}));
+
+export class SystemRoll extends Roll {
+    name;
+
+    flavor;
+    baseValue;
+    modifier;
+    target;
+    direction;
+    showOffset;
+
+    result;
+
+    static toModString = (value) => (value === 0 ? '' : value > 0 ? ` + ${value}` : ` - ${Math.abs(value)}`);
+    constructor({roller, key, type, mod, skill, item, flavor}={}) {
+
+        let attackMod = 0;
+
+        switch (type) {
+            case 'skill':
+                super(`1d20`);
+                this.name = `${game.i18n.localize("aoa.rolls." + key)}`;
+                this.modifier = mod;
+                this.baseValue = roller.system.abilities[key].value;
+                this.target = roller.system.abilities[key].value + mod;
+                this.direction = RollDirection.low;
+                this.skill = skill;
+                this.showOffset = true;
+                break;
+            case 'save':
+                const modString = SystemRoll.toModString(mod);
+                super(`1d20${modString}`);
+                this.name = `${game.i18n.localize("aoa.rolls." + key)}`;
+                this.modifier = mod;
+                this.baseValue = roller.system.saves[key];
+                this.target = roller.system.saves[key];
+                this.direction = RollDirection.high;
+                this.showOffset = true;
+                break;
+            case 'melee':
+                attackMod = SystemRoll.toModString(item.system.attack.melee + mod);
+                super(`1d20${attackMod}`);
+                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
+                this.modifier = attackMod;
+                this.target = NaN;
+                this.direction = RollDirection.high;
+                break;
+            case 'ranged':
+                attackMod = SystemRoll.toModString(item.system.attack.ranged + mod);
+                super(`1d20${attackMod}`);
+                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
+                this.modifier = attackMod;
+                this.target = NaN;
+                this.direction = RollDirection.high;
+                break;
+            case 'damageRanged':
+                super(item.system.damage.ranged);
+                this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
+                this.direction = RollDirection.high;
+                this.target = NaN;
+                this.modifier =  0
+                break;
+            case 'damageMelee':
+                super(item.system.damage.melee);
+                this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
+                this.direction = RollDirection.high;
+                this.target = NaN;
+                this.modifier = 0
+                break;
+            default:
+                console.error(`Roll type '${type}' not allowed.`);
+        }
+        this.actorName = roller.name;
+        this.actorId = roller._id;
+        this.type = type;
+        this.flavor = flavor;
+    }
+    async render(chatOptions = {}) {
+        chatOptions = mergeObject({
+            user: game.user.id,
+            flavor: null,
+            template: `systems/${AOA_CONST.MODULE_ID}/templates/dice/roll.hbs`,
+        }, chatOptions || {});
+
+        if (!this._evaluated)
+            await this.evaluate({ async: true });
+
+        let vs = '';
+        let offset = '';
+
+        if (!isNaN(this.target)) {
+            offset = this.showOffset ? ` (${Math.abs(this.total - this.target)})` : '';
+            switch (this.direction) {
+                case RollDirection.low:
+                    vs = `<= ${this.target} `
+                    this.result = this.total <= this.target || this.dice[0].total === 1 ? 'success' : 'failure';
+                    break;
+                case RollDirection.high:
+                    vs = `>= ${this.target}`
+                    this.result = this.total >= this.target || this.dice[0].total === 20 ? 'success' : 'failure';
+                    break;
+            }
+        }
+
+        const modString = SystemRoll.toModString(this.modifier);
+
+        const chatData = {
+            user: chatOptions.user,
+            actorName: this.actorName,
+            actorId: this.actorId,
+            classes: this.buildCssClasses(),
+            name: this.name,
+            type: this.type,
+            flavor: this.flavor,
+            formula: this.formula,
+            total: this.type.includes("damage") ? Math.max(this.total, 1) :  this.total,
+            vs,
+            direction: this.direction,
+            modifiers: modString === ""
+                ? ""
+                : this.direction === RollDirection.high ?
+                    modString :
+                    ` (${this.baseValue}${modString})`,
+            result: this.result,
+            offset,
+            skillName: this.skill?.name,
+            skillBonus: this.skill?.system.bonus,
+            parts: this.dice.map((d) => d.getTooltipData()),
+        };
+        return renderTemplate(chatOptions.template, chatData);
+    }
+
+    async toMessage(messageData={}, {rollMode, create=true}={}) {
+
+        // Perform the roll, if it has not yet been rolled
+        if ( !this._evaluated ) await this.evaluate({async: true});
+
+        // Prepare chat data
+        messageData = foundry.utils.mergeObject({
+            user: game.user.id,
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+            content: await this.render(),
+            sound: CONFIG.sounds.dice
+        }, messageData);
+        messageData.rolls = [this];
+
+        // Either create the message or just return the chat data
+        const cls = getDocumentClass("ChatMessage");
+        const msg = new cls(messageData);
+
+        // Either create or return the data
+        if ( create ) return cls.create(msg.toObject(), { rollMode });
+        else {
+            if ( rollMode ) msg.applyRollMode(rollMode);
+            return msg.toObject();
+        }
+    }
+
+    static fromData(data) {
+        const roll = new Roll(data.formula);
+        roll.terms = data.terms.map((t) => {
+            if (t.class) {
+                if (t.class === 'DicePool')
+                    t.class = 'PoolTerm';
+                return RollTerm.fromData(t);
+            }
+            return t;
+        });
+        if (data.evaluated ?? true) {
+            roll._total = data.total;
+            roll._dice = (data.dice || []).map((t) => DiceTerm.fromData(t));
+            roll._evaluated = true;
+        }
+        return roll;
+    }
+
+    buildCssClasses = () => [this.result, this.direction === RollDirection.low ? "low" : "high", this.type].join(" ");
+}

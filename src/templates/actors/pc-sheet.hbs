@@ -1,17 +1,27 @@
 <form class="{{cssClass}}" autocomplete="off">
-    {{> "systems/and-other-adventures/templates/actors/parts/pc-header.hbs"}}
-    {{> "systems/and-other-adventures/templates/actors/parts/pc-resources.hbs"}}
-    {{> "systems/and-other-adventures/templates/actors/parts/pc-abilities.hbs"}}
+    {{> pcHeader}}
+    <div class="abilities-saves">
+        {{> pcAbilities}}
+        {{> pcSaves}}
+    </div>
+    {{> pcResources}}
 
-    <tabbed-content>
+
+    <div class="tabbed-content">
         <div class="tabs" data-group="primary">
-            <a data-tab="combat"><i class="fa-solid fa-swords"></i></a>
-            <a data-tab="skill"><i class="fa-solid fa-hands"></i></a>
+            <a data-tab="combat" data-tooltip="{{localize 'aoa.combat-header'}}"><i class="fa-solid fa-swords"></i></a>
+            <a data-tab="skill" data-tooltip="{{localize 'aoa.skill-header'}}"><i class="fa-solid fa-hands"></i></a>
+            <a data-tab="gear"><i class="fa-solid fa-sack"></i></a>
+            <a data-tab="spell"><i class="fa-solid fa-hand-sparkles"></i></a>
+            <a data-tab="specials"><i class="fa-solid fa-book-open-cover"></i></a>
         </div>
         <div class="tab-content">
-            <div class="tab" data-tab="combat" data-group="primary">{{> "systems/and-other-adventures/templates/actors/parts/pc-combat.hbs"}}</div>
-            <div class="tab" data-tab="skill" data-group="primary">{{> "systems/and-other-adventures/templates/actors/parts/pc-skill.hbs"}}</div>
+            <div class="tab" data-tab="combat" data-group="primary">{{> pcCombat}}</div>
+            <div class="tab" data-tab="skill" data-group="primary">{{> pcSkill}}</div>
+            <div class="tab" data-tab="gear" data-group="primary">{{> pcGear}}</div>
+            <div class="tab" data-tab="spell" data-group="primary">{{> pcSpell}}</div>
+            <div class="tab" data-tab="specials" data-group="primary">{{> pcSpecials}}</div>
         </div>
-    </tabbed-content>
+    </div>
 
 </form>

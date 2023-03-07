@@ -6,6 +6,11 @@ import {SkillItem} from "./items/skill-item.mjs";
 import {SpellItem} from "./items/spell-item.mjs";
 import {PlaybookItem} from "./items/playbook-item.mjs";
 import {PlaybookPhaseItem} from "./items/playbook-phase-item.mjs";
+import {ClassItem} from "./items/class-item.mjs";
+import {ClassAbilityItem} from "./items/class-ability-item.mjs";
+import {LanguageItem} from "./items/language-item.mjs";
+import {CantripItem} from "./items/cantrip-item.mjs";
+import {RitualItem} from "./items/ritual-item.mjs";
 
 const mappings = {
     gear: GearItem,
@@ -14,7 +19,12 @@ const mappings = {
     skill: SkillItem,
     spell: SpellItem,
     playbook: PlaybookItem,
-    "pb-phase": PlaybookPhaseItem
+    "pb-phase": PlaybookPhaseItem,
+    class: ClassItem,
+    trait: ClassAbilityItem,
+    language: LanguageItem,
+    cantrip: CantripItem,
+    ritual: RitualItem
 };
 
 export const ItemProxy = new Proxy(function () {}, {
