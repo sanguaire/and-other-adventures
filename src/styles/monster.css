@@ -1,0 +1,70 @@
+.monster-sheet .sheet-header {
+    height: auto;
+    flex-direction: column;
+}
+
+.monster-sheet .sheet-header img {
+    height: 150px;
+}
+
+.monster-sheet .sheet-header .information {
+    padding-bottom: 0.4em;
+}
+
+.monster-sheet .tabbed-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    padding-right: 0;
+    overflow: hidden;
+}
+
+.monster-sheet .tabbed-content .tabs {
+    display: flex;
+    flex-direction: row;
+    font-size: var(--font-size-20);
+    flex: 0;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    border-right: unset;
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    height: auto;
+    margin-right: unset;
+    padding: 15px 0.4em;
+}
+
+.aoa-sheet.monster-sheet .tabs a {
+    transform-origin: 50% 100%;
+    transition: transform 0.5s ease,
+    color 0.5s ease;
+}
+
+.monster-sheet .tab-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.monster-sheet .tab-content > div > div {
+    padding: 0.4em;
+    gap: 0.2em;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.monster-sheet .tab-content > div > div .flexrow {
+    gap: 0.4em;
+}
+
+.monster-sheet .tab[data-tab] .lists > div:last-child {
+    left: 0;
+}
+
+
+

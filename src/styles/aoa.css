@@ -2,6 +2,8 @@
 @import "fonts.css";
 @import "editable-list.css";
 @import "chat.css";
+@import "monster.css";
+
 
 .aoa.sheet.window-app .window-content {
     background: url(../assets/parchment.jpg) repeat;
@@ -10,7 +12,7 @@
 }
 
 .aoa.sheet.dialog form {
-    padding: 0.4em;
+    padding: 0.4em 0.4em 1em;
 }
 
 .relative {
@@ -27,6 +29,10 @@
 
 .text-centered {
     text-align: center;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .text-indent {
@@ -51,6 +57,11 @@
 .justify-center {
     display: flex;
     justify-content: center;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
 }
 
 .level-up {
@@ -646,6 +657,10 @@
     right: 0;
 }
 
+.tab[data-tab="gear"] .lists > div:last-child {
+    left: 0;
+}
+
 .tab[data-tab] .lists .editable-list {
     height: auto;
     max-height: 100%;
@@ -724,3 +739,4 @@
 .aoa-sheet option:checked {
     background: lightgreen;
 }
+

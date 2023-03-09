@@ -193,6 +193,45 @@ const rangedAttack = async (actor, itemId) => {
     }
 };
 
+const monsterAttack = async (actor, itemId) => {
+    console.log(actor);
+    console.log(itemId);
+
+    const item = actor.items.get(itemId);
+
+    if(item) {
+        const content = await renderDialogContent("monster");
+
+        new Dialog({
+                title: "",
+                content: content,
+                buttons: {
+                    roll: {
+                        label: "",
+                        callback: async (html) => await callback(html, actor, item),
+                        icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                    }
+                },
+                default: "roll",
+                render
+            },
+            {
+                classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+            }
+        ).render(true);
+    }
+
+    async function callback(html, actor, item) {
+        const formElement = html[0].querySelector("form");
+        const formData = new FormDataExtended(formElement);
+        const modifier = Number.parseInt(formData.object.modifier);
+
+
+        const roll = new SystemRoll({roller: actor, type: "monster", mod: modifier, item: item});
+        await roll.toMessage();
+    }
+};
+
 const meleeAttack = async (actor, itemId) => {
     console.log(actor);
     console.log(itemId);
@@ -250,6 +289,15 @@ const rangedDamage = async(actor, itemId) => {
     }
 }
 
+const monsterDamage =  async(actor, itemId) => {
+    const item = actor.items.get(itemId);
+
+    if(item) {
+        const roll = new SystemRoll({roller: actor, type: "damageMonster", item: item});
+        await roll.toMessage();
+    }
+}
+
 const spellUse = async(actor, itemId, flavor) => {
     const item = actor.items.get(itemId);
 
@@ -287,10 +335,12 @@ const actions = {
     attack: {
         ranged: rangedAttack,
         melee: meleeAttack,
+        monster: monsterAttack,
     },
     damage: {
         ranged: rangedDamage,
-        melee: meleeDamage
+        melee: meleeDamage,
+        monster: monsterDamage,
     },
     use: {
         spell: spellUse

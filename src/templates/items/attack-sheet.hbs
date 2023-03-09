@@ -1,0 +1,24 @@
+<div class="flexrow">
+    <label>{{localize "aoa.attack-bonus"}}:</label>
+    <input type="text" data-dtype="Number" name="system.toHit" value="{{numberFormat item.system.toHit sign=true decimals=0}}">
+</div>
+<div class="flexrow" >
+    <label>{{localize "aoa.damage"}}:</label>
+    <div class="flexrow" style="gap: 0;">
+        <input type="text" data-dtype="Number" value="{{item.system.damage.noOfDie}}" name="system.damage.noOfDie" min="1">
+        <select class="text-centered" name="system.damage.dieType" >
+            {{#select item.system.damage.dieType}}
+                <option value="d4">{{localize 'aoa.d4'}}</option>
+                <option value="d6">{{localize 'aoa.d6'}}</option>
+                <option value="d8">{{localize 'aoa.d8'}}</option>
+                <option value="d10">{{localize 'aoa.d10'}}</option>
+                <option value="d12">{{localize 'aoa.d12'}}</option>
+            {{/select}}
+        </select>
+        <input type="text" data-dtype="Number" name="system.damage.bonus" value="{{numberFormat item.system.damage.bonus sign=true decimals=0}}">
+    </div>
+
+</div>
+
+
+

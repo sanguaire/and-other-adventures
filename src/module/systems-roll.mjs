@@ -60,6 +60,14 @@ export class SystemRoll extends Roll {
                 this.target = NaN;
                 this.direction = RollDirection.high;
                 break;
+            case 'monster':
+                attackMod = SystemRoll.toModString(item.system.toHit + mod);
+                super(`1d20${attackMod}`);
+                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
+                this.modifier = attackMod;
+                this.target = NaN;
+                this.direction = RollDirection.high;
+                break;
             case 'damageRanged':
                 super(item.system.damage.ranged);
                 this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
@@ -69,6 +77,13 @@ export class SystemRoll extends Roll {
                 break;
             case 'damageMelee':
                 super(item.system.damage.melee);
+                this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
+                this.direction = RollDirection.high;
+                this.target = NaN;
+                this.modifier = 0
+                break;
+            case 'damageMonster':
+                super(item.system.damage.formula);
                 this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
                 this.direction = RollDirection.high;
                 this.target = NaN;

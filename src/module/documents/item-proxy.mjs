@@ -11,6 +11,7 @@ import {ClassAbilityItem} from "./items/class-ability-item.mjs";
 import {LanguageItem} from "./items/language-item.mjs";
 import {CantripItem} from "./items/cantrip-item.mjs";
 import {RitualItem} from "./items/ritual-item.mjs";
+import {AttackItem} from "./items/attack-item.mjs";
 
 const mappings = {
     gear: GearItem,
@@ -24,7 +25,8 @@ const mappings = {
     trait: ClassAbilityItem,
     language: LanguageItem,
     cantrip: CantripItem,
-    ritual: RitualItem
+    ritual: RitualItem,
+    attack: AttackItem
 };
 
 export const ItemProxy = new Proxy(function () {}, {

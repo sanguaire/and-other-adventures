@@ -16,6 +16,7 @@ const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/weapon-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/gear-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/weapon.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/item-templates/attack.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/gear.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/armor.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/skill.hbs`,
@@ -24,7 +25,8 @@ const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/item-templates/spell.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/spell-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/cantrip-sheet.hbs`,
-    `systems/${CONST.MODULE_ID}/templates/items/ritual-sheet.hbs`
+    `systems/${CONST.MODULE_ID}/templates/items/ritual-sheet.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/items/attack-sheet.hbs`
 ];
 
 const pcTemplates = {
@@ -36,7 +38,10 @@ const pcTemplates = {
     pcSkill: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-skill.hbs`,
     pcGear: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-gear.hbs`,
     pcSpell: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-spell.hbs`,
-    pcSpecials: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-specials.hbs`
+    pcSpecials: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-specials.hbs`,
+    monsterHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-header.hbs`,
+    monsterStatistics: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-statistics.hbs`,
+    monsterDescription: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-description.hbs`,
 }
 
 const componentTemplates = {
@@ -53,7 +58,7 @@ Hooks.once("init", async () => {
     Actors.registerSheet(CONST.MODULE_SCOPE, MonsterSheet, {types: ["monster"], makeDefault: true});
 
     Items.unregisterSheet("core", ItemSheet);
-    Items.registerSheet(CONST.MODULE_SCOPE, ExtendedItemSheet, {types: ["class", "armor", "weapon", "gear", "ritual", "spell", "cantrip"], makeDefault: true});
+    Items.registerSheet(CONST.MODULE_SCOPE, ExtendedItemSheet, {types: ["class", "armor", "weapon", "gear", "ritual", "spell", "cantrip", "attack"], makeDefault: true});
 
     registerHelpers();
 

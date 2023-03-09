@@ -2,7 +2,7 @@
     <div class="ability">
         <label for="hitDie">{{localize "aoa.hit-die"}}</label>
         <select class="text-centered" name="system.hitDie">
-            {{#select system.hitDie}}
+            {{#select item.system.hitDie}}
                 <option value="d6">{{localize 'aoa.d6'}}</option>
                 <option value="d8">{{localize 'aoa.d8'}}</option>
                 <option value="d10">{{localize 'aoa.d10'}}</option>
@@ -12,17 +12,17 @@
     </div>
     <div class="ability">
         <label for="system.initiativeBonus">{{localize "aoa.initiative-bonus"}}</label>
-        <input type="text" data-dtype="Number" name="system.initiativeBonus" value="{{numberFormat system.initiativeBonus sign=true decimal=0}}">
+        <input type="text" data-dtype="Number" name="system.initiativeBonus" value="{{numberFormat item.system.initiativeBonus sign=true decimal=0}}">
     </div>
     <div class="ability">
         <label for="system.allowedArmor">{{localize "aoa.allowed-armor"}}</label>
-        <input type="text" data-dtype="text" name="system.allowedArmor" value="{{system.allowedArmor}}">
+        <input type="text" data-dtype="text" name="system.allowedArmor" value="{{item.system.allowedArmor}}">
     </div>
 </div>
 <div class="ability-list">
     <div class="flexrow" style="margin-bottom: 0.4em;">
         <label for="system.hasKnacks">{{localize "aoa.has-knacks"}}</label>
-        <input name="system.hasKnacks" type="checkbox" {{checked system.hasKnacks}}>
+        <input name="system.hasKnacks" type="checkbox" {{checked item.system.hasKnacks}}>
     </div>
     {{#each system.classAbilities as |item index|}}
         <div data-item-id="{{item.id}}">
@@ -49,7 +49,7 @@
 
         </thead>
         <tbody>
-        {{#each system.levelProgression as |progression key|}}
+        {{#each item.system.levelProgression as |progression key|}}
             <tr>
                 <td>{{key}}:</td>
                 <td><input type="text" data-dtype="Number" name="system.levelProgression.{{key}}.xp" value="{{progression.xp}}"></td>

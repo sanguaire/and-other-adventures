@@ -94,7 +94,21 @@
       "weaponSpecializations": ""
     },
     "monster": {
-      "templates": []
+      "templates": ["background"],
+      "resources": {
+        "hp": {
+          "value": 10,
+          "max": 10
+        }
+      },
+      "hitDie": {
+        "number": 1,
+        "type": "d8",
+        "bonus": 0
+      },
+      "ac": 10,
+      "alignment": "",
+      "xp": 0
     }
   },
   "Item": {
@@ -110,7 +124,8 @@
       "playbook",
       "pb-phase",
       "trait",
-      "language"
+      "language",
+      "attack"
     ],
     "templates": {
       "basic": {
@@ -208,6 +223,15 @@
     },
     "trait": {
       "templates": ["basic"]
+    },
+    "attack": {
+      "templates": ["basic"],
+      "toHit": 0,
+      "damage": {
+        "noOfDie": 1,
+        "dieType": "d6",
+        "bonus": 0
+      }
     },
     "class": {
       "templates": [

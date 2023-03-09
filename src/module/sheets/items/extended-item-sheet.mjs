@@ -127,4 +127,8 @@ export class ExtendedItemSheet extends ItemSheet {
         }
     };
 
+    async _updateObject(event, formData) {
+        return super._updateObject(event, formData);
+    }
+
 }
