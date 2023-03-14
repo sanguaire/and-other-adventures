@@ -1,18 +1,43 @@
 export class PcActor extends Actor {
 
-    prepareBaseData() {
+    static stanceModifiers = {
+        normal: {
+            attack: 0,
+            ac: 0
+        },
+        aggressive: {
+            attack: 2,
+            ac: -4
+        },
+        defensive: {
+            attack: -4,
+            ac: 2
+        },
+        protective: {
+            attack: 0,
+            ac: 2
+        },
+        commanding: {
+            attack: 0,
+            ac: -6
+        }
+    };
 
+    prepareBaseData() {
         const activeClass = this.itemTypes.class[0];
 
-        this.system.class = activeClass ?  {
+        this.system.class = activeClass ? {
             name: activeClass.name,
             _id: activeClass._id,
             ...activeClass.system
-            } : null
+        } : null
 
         this.system.progression = this.system.class?.levelProgression[this.system.level];
-        this.system.nextLevel = this.system.class?.levelProgression[this.system.level+1]?.xp ?? this.system.progression?.xp ?? 0;
+        this.system.nextLevel = this.system.class?.levelProgression[this.system.level + 1]?.xp ?? this.system.progression?.xp ?? 0;
         this.system.levelUp = this.system.class && this.system.level < 10 && this.system.xp >= this.system.nextLevel;
+
+        this.system.isSpellcaster = this.system.class?.hasCantrips || this.system.class?.hasSpells || this.system.class?.hasRituals;
+        this.system.hasSpellsOrRituals = this.system.class?.hasSpells || this.system.class?.hasRituals;
 
         this.system.saves = this.system.progression?.saves ?? {
             "poison": 0,
@@ -23,10 +48,10 @@ export class PcActor extends Actor {
         }
 
         for (const [key, ability] of Object.entries(this.system.abilities)) {
-            this.system.abilities[key].modifier = this._getModifier(ability.value);
+            this.system.abilities[key].modifier = PcActor._getModifier(ability.value);
         }
 
-        const baseAttackBonus = this.system.progression?.attackBonus ?? 0;
+        const baseAttackBonus = (this.system.progression?.attackBonus ?? 0) + PcActor.stanceModifiers[this.system.combatStance].attack;
 
         this.system.attackBonus = {
             base: baseAttackBonus,
@@ -39,25 +64,24 @@ export class PcActor extends Actor {
             + (this.system.class?.initiativeBonus ?? 0)
             + (this.system.class?.hasKnacks ? this.system.knacks.fleet : 0);
 
-        this.system.armorClass = this._generateArmorClass();
-
+        this.system.ac = this._generateArmorClass();
 
         this._prepareWeapons()
-
     }
 
     _generateArmorClass() {
         return this.itemTypes.armor
-            .filter(a => a.system.equipped)
-            .map(a => a.system.armorBonus)
-            .reduce((acc, cur) => acc+cur, 10)
+                .filter(a => a.system.equipped)
+                .map(a => a.system.armorBonus)
+                .reduce((acc, cur) => acc + cur, 10)
             + (this.system.abilities.dex.modifier)
-            + (this.system.class?.hasKnacks ? this.system.knacks.defensive : 0);
+            + (this.system.class?.hasKnacks ? this.system.knacks.defensive : 0)
+            + (PcActor.stanceModifiers[this.system.combatStance].ac);
     }
 
-    _prepareWeapons () {
-        for(const weapon of this.itemTypes.weapon) {
-            if(weapon.actor) {
+    _prepareWeapons() {
+        for (const weapon of this.itemTypes.weapon) {
+            if (weapon.actor) {
                 const specializedDamageBonus = weapon.system.specialized ? 2 : 0;
                 // noinspection JSDeprecatedSymbols
                 const knackDamageBonus = this.system.class?.hasKnacks ? this.system.knacks.strike : 0
@@ -74,11 +98,16 @@ export class PcActor extends Actor {
                     ranged: `${weapon.system.baseDamage.noOfDie}${weapon.system.baseDamage.dieType}${rangedDamageBonus === 0 ? "" : rangedDamageBonus > 0 ? `+${rangedDamageBonus}` : rangedDamageBonus}`
                 }
 
+                weapon.system.localizedDamage = {
+                    melee: `${weapon.system.baseDamage.noOfDie}${game.i18n.localize("aoa." + weapon.system.baseDamage.dieType)}${meleeDamageBonus === 0 ? "" : meleeDamageBonus > 0 ? `+${meleeDamageBonus}` : meleeDamageBonus}`,
+                    ranged: `${weapon.system.baseDamage.noOfDie}${game.i18n.localize("aoa." + weapon.system.baseDamage.dieType)}${rangedDamageBonus === 0 ? "" : rangedDamageBonus > 0 ? `+${rangedDamageBonus}` : rangedDamageBonus}`
+                }
+
                 const specializedAttackBonus = weapon.system.specialized ? 1 : 0;
 
                 weapon.system.attack = {
-                    melee: weapon.system.attackBonus.melee + weapon.actor.system.abilities.str.modifier + specializedAttackBonus,
-                    ranged: weapon.system.attackBonus.ranged + weapon.actor.system.abilities.dex.modifier + specializedAttackBonus
+                    melee: weapon.system.attackBonus.melee + weapon.actor.system.attackBonus.melee + specializedAttackBonus,
+                    ranged: weapon.system.attackBonus.ranged + weapon.actor.system.attackBonus.ranged + specializedAttackBonus
                 }
 
             }
@@ -87,7 +116,7 @@ export class PcActor extends Actor {
         }
     }
 
-    _getModifier = (value) => {
+    static _getModifier = (value) => {
         return value >= 18 ?
             3 :
             value >= 16 ?

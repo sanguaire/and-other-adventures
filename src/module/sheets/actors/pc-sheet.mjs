@@ -28,7 +28,8 @@ export class PcSheet extends AoaActorSheet {
                 {list: "gear", template: `systems/${CONST.MODULE_ID}/templates/item-templates/gear.hbs`, itemType: "gear", listSelector: ".gear-list"},
                 {list: "spell", template: `systems/${CONST.MODULE_ID}/templates/item-templates/spell.hbs`, itemType: "spell", listSelector: ".spell-list", header: game.i18n.localize("aoa.spells") },
                 {list: "ritual", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "ritual", listSelector: ".ritual-list", header: game.i18n.localize("aoa.rituals")},
-                {list: "cantrip", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "cantrip", listSelector: ".cantrip-list", header: game.i18n.localize("aoa.cantrips")}
+                {list: "cantrip", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "cantrip", listSelector: ".cantrip-list", header: game.i18n.localize("aoa.cantrips")},
+                {list: "trait", template: `systems/${CONST.MODULE_ID}/templates/item-templates/trait.hbs`, itemType: "trait", listSelector: ".trait-list", header: game.i18n.localize("aoa.traits")}
             ]
         });
     }
@@ -42,11 +43,19 @@ export class PcSheet extends AoaActorSheet {
             value.modifierDesc = game.i18n.localize(`${CONST.MODULE_SCOPE}.abilities-mod.${key}`);
         }
 
-        const arrayNames = ["weapon", "armor", "gear", "spell", "ritual", "cantrip", "language", "skill"];
+        const arrayNames = ["weapon", "armor", "gear", "spell", "ritual", "cantrip", "language", "skill", "trait"];
 
         arrayNames.forEach(an => context[an] = this.actor.items
             .filter(i => i.type === an)
             .sort((a,b)=>(a.sort || 0) - (b.sort||0)));
+
+        context.combatStances = {
+            normal: game.i18n.localize("aoa.stances.normal"),
+            aggressive: game.i18n.localize("aoa.stances.aggressive"),
+            defensive: game.i18n.localize("aoa.stances.defensive"),
+            protective: game.i18n.localize("aoa.stances.protective"),
+            commanding: game.i18n.localize("aoa.stances.commanding"),
+        }
 
         return context;
     }
@@ -68,6 +77,10 @@ export class PcSheet extends AoaActorSheet {
 
     }
 
+    async _updateObject(event, formData) {
+        return super._updateObject(event, formData);
+    }
+
     static equip(actor, html) {
         const itemId = html.closest("[data-item-id]").data("item-id");
         if(itemId) {
@@ -84,7 +97,7 @@ export class PcSheet extends AoaActorSheet {
         if(itemId) {
             const item = actor.items.get(itemId);
 
-            new ExtendedItemSheet(item).render(true, {editable: false});
+            new ExtendedItemSheet(item).render(true, {editable: game.user.isGM});
 
 
         }

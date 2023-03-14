@@ -2,6 +2,7 @@
 @import "fonts.css";
 @import "editable-list.css";
 @import "chat.css";
+@import "combat.css";
 @import "monster.css";
 
 
@@ -15,60 +16,12 @@
     padding: 0.4em 0.4em 1em;
 }
 
-.relative {
-    position: relative;
-}
-
-.darkgreen {
-    color: darkgreen;
-}
-
-.darkred {
-    color: darkred;
-}
-
-.text-centered {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.text-indent {
-    text-indent: 2em;
-}
-
-.text-form-field {
-    height: var(--form-field-height);
-    line-height: var(--form-field-height);
-}
-
-.justify-start {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.justify-end {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.justify-center {
-    display: flex;
-    justify-content: center;
-}
-
-.align-center {
-    display: flex;
-    align-items: center;
-}
-
 .level-up {
     position: absolute;
     top: 0.5em;
     left: -1em;
 }
+
 .save-value {
     font-size: var(--font-size-24);
 }
@@ -158,13 +111,18 @@
     font-variant: small-caps;
 }
 
-.aoa-sheet select option, .aoa-sheet select optgroup{
+.aoa-sheet select option, .aoa-sheet select optgroup {
     font-weight: bolder;
     background: var(--sheet-light-accent);
     letter-spacing: 0.15em;
 }
 
-.aoa-sheet h1, .aoa-sheet h2, .aoa-sheet h3, .aoa-sheet h4, .aoa-sheet h5, .aoa-sheet h6 {
+.aoa-sheet h1,
+.aoa-sheet h2,
+.aoa-sheet h3,
+.aoa-sheet h4,
+.aoa-sheet h5,
+.aoa-sheet h6 {
     font-family: var(--font-accent);
     border: none;
     margin: 0;
@@ -213,6 +171,21 @@
     height: var(--form-field-height);
 }
 
+.aoa-sheet label.checkbox {
+    height: unset;
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: stretch;
+    gap: 0.4em;
+    font-size: var(--font-size-16);
+}
+
+.aoa-sheet label.checkbox input {
+    top: -2px;
+}
+
+
 .aoa-sheet input:hover:not(:disabled) {
     background: var(--sheet-highlight);
 }
@@ -255,6 +228,19 @@
 
 .pc-sheet .specials {
     padding: 0.4em;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.trait-detail strong {
+    background: var(--text-strong);
+}
+
+.pc-sheet .specials .knacks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
 }
 
 .aoa-sheet a:hover {
@@ -264,7 +250,7 @@
 .aoa-sheet .tabs a {
     transform-origin: 100% 50%;
     transition: transform 0.5s ease,
-                color 0.5s ease;
+    color 0.5s ease;
 }
 
 .aoa-sheet .tabs a.active {
@@ -381,10 +367,12 @@
     grid-auto-flow: row;
 }
 
-.saves {}
+.saves {
+}
 
 .abilities .grid-item,
-.saves .grid-item {}
+.saves .grid-item {
+}
 
 .saves .grid-item:last-child {
     display: flex;
@@ -554,7 +542,7 @@
 }
 
 .description-editor strong {
-    background: greenyellow;
+    background: var(--text-strong);
 }
 
 .description-editor h1, .description-editor h2,
@@ -568,25 +556,39 @@
     text-decoration-skip-ink: none;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.2em;
+    text-decoration-color: darkblue;
 }
 
-.description-editor .caps {
+.aoa-sheet .description-editor .caps {
     color: darkblue;
     font-size: 150%;
+    text-decoration-color: darkblue;
+
 }
 
-.description-editor .move-up {
+.aoa-sheet .description-editor .move-up {
     position: relative;
     top: 0;
+    text-decoration-color: darkblue;
+
 }
 
-.tab[data-tab="description"] .editor {
+.tab[data-tab="description"] .editor,
+.tab[data-tab="biography"] .editor {
     height: 100%;
 }
 
-.tab[data-tab="description"] .editor.prosemirror {
+.tab[data-tab="description"] .editor.prosemirror,
+.tab[data-tab="biography"] .editor.prosemirror {
     height: 100%;
 }
+
+.pc-sheet .biography, pc-sheet .specials {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
 
 .ability-list .editor {
     height: 8em;
@@ -639,27 +641,39 @@
 .tab[data-tab] .lists > div {
     flex: 1;
     position: absolute;
-    display: block;
+    display: flex;
     height: 100%;
 }
 
-.tab[data-tab] .lists > div:first-child {
+.tab[data-tab] .lists > div:first-child:nth-last-child(1) {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.tab[data-tab] .lists > div:first-child:nth-last-child(2)  {
     top: 0;
     bottom: 0;
     left: 0;
     right: 50%;
 }
 
-.tab[data-tab] .lists > div:last-child {
+.tab[data-tab] .lists > div:nth-last-child(1) {
     top: 0;
     bottom: 0;
     left: 50%;
     right: 0;
 }
 
-.tab[data-tab="gear"] .lists > div:last-child {
+
+/*.tab[data-tab="gear"] .lists > div:last-child {
     left: 0;
 }
+
+.tab[data-tab="specials"] .lists > div:last-child {
+    left: 0;
+}*/
 
 .tab[data-tab] .lists .editable-list {
     height: auto;
@@ -670,11 +684,11 @@
     justify-content: flex-start;
 }
 
-.skill-list .editable-list .list .item > .list-row input  {
+.skill-list .editable-list .list .item > .list-row input {
     flex: 0.3;
 }
 
-.skill-list .editable-list .list .item > .list-row input:last-of-type{
+.skill-list .editable-list .list .item > .list-row input:last-of-type {
     flex: 3;
 }
 
@@ -737,6 +751,64 @@
 }
 
 .aoa-sheet option:checked {
-    background: lightgreen;
+    background: var(--text-strong);
 }
+
+.relative {
+    position: relative;
+}
+
+.darkgreen {
+    color: darkgreen;
+}
+
+.darkred {
+    color: darkred;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-indent {
+    text-indent: 2em;
+}
+
+.text-form-field {
+    height: var(--form-field-height);
+    line-height: var(--form-field-height);
+}
+
+.justify-start {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.justify-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
+}
+
 

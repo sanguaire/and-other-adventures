@@ -17,6 +17,11 @@
 
 
 </div>
+<div class="flexrow align-center" style="margin-bottom: 0.5em; border-bottom: 2px solid var(--sheet-dark-accent)">
+    <label>{{localize "aoa.stances.header"}}:</label>
+    {{radioBoxes "system.combatStance" combatStances checked=actor.system.combatStance}}
+</div>
+
 <div class="lists">
     <div class="weapon-list"></div>
     <div class="armor-list"></div>

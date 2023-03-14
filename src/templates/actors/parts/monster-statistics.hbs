@@ -1,12 +1,10 @@
 <div class="statistics">
     <div class="flexrow align-center">
-        <span><a data-action="hitDie">
-                <i class="fa-solid fa-dice-d20"></i></a>
-            <label>{{localize "aoa.hit-die"}}:</label>
-
+        <span class="flex1">
+            <label>{{localize "aoa.hd"}}:</label>
         </span>
-        <div class="flexrow align-center" style="gap:0;">
-            <input name="system.hitDie.number" type="text" data-dtype="Number" value="{{actor.system.hitDie.number}}">
+        <div class="flexrow align-center flex3" style="gap:0;">
+            <input name="system.hitDie.number" style="text-align: right;" type="text" data-dtype="Number" value="{{actor.system.hitDie.number}}">
             <select class="text-centered" name="system.hitDie.dieType">
                 {{#select actor.system.hitDie.dieType}}
                     <option value="d4">{{localize 'aoa.d4'}}</option>
@@ -16,25 +14,35 @@
                     <option value="d12">{{localize 'aoa.d12'}}</option>
                 {{/select}}
             </select>
-            <input name="system.hitDie.bonus" type="text" data-dtype="Number" value="{{numberFormat actor.system.hitDie.bonus sign=true decimals=0}}">
+            <input name="system.hitDie.bonus" style="text-align: left;" type="text" data-dtype="Number" value="{{numberFormat actor.system.hitDie.bonus sign=true decimals=0}}">
         </div>
 
 
     </div>
     <div class="flexrow align-center">
-        <label for="system.ac">{{localize "aoa.ac-abr"}}: </label>
-        <input name="system.ac" type="text" data-dtype="Number" value="{{actor.system.ac}}">
-        <label for="system.resources.hp.value" class="text-right">{{localize "aoa.hp"}}: </label>
-        <input name="system.resources.hp.value" type="text" data-dtype="Number" value="{{actor.system.resources.hp.value}}">
-        <input name="system.resources.hp.max" type="text" data-dtype="Number" value="{{actor.system.resources.hp.max}}">
+        <div class="flexrow align-center justify-start">
+            <label for="system.ac">{{localize "aoa.ac-abr"}}: </label>
+            <input name="system.ac" type="text" data-dtype="Number" value="{{actor.system.ac}}">
+        </div>
+        <div class="flexrow align-center flex2">
+            <span>
+                <a data-action="hitDie">
+                <i class="fa-solid fa-dice-d20"></i></a>
+            <label for="system.resources.hp.value" class="text-right">{{localize "aoa.hp"}}: </label>
+
+            </span>
+            <input name="system.hp.value" type="text" data-dtype="Number" value="{{actor.system.hp.value}}">
+            <input name="system.hp.max" type="text" data-dtype="Number" value="{{actor.system.hp.max}}">
+        </div>
+
     </div>
     <div class="flexrow align-center">
-        <label for="system.alignment">{{localize "aoa.alignment"}}: </label>
-        <input name="system.alignment" type="text" data-dtype="text" value="{{actor.system.alignment}}">
+        <label class="flex1" for="system.alignment">{{localize "aoa.alignment"}}: </label>
+        <input class="flex2" name="system.alignment" style="text-align: center" type="text" data-dtype="text" value="{{actor.system.alignment}}">
     </div>
     <div class="flexrow align-center">
-        <label for="system.xp">{{localize "aoa.xp"}}: </label>
-        <input name="system.xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
+        <label class="flex1" for="system.xp">{{localize "aoa.xp"}}: </label>
+        <input class="flex2" name="system.xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
     </div>
     <div class="lists">
         <div class="attack-list"></div>

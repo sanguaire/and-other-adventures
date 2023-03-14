@@ -20,11 +20,34 @@
     </div>
 </div>
 <div class="ability-list">
-    <div class="flexrow" style="margin-bottom: 0.4em;">
-        <label for="system.hasKnacks">{{localize "aoa.has-knacks"}}</label>
-        <input name="system.hasKnacks" type="checkbox" {{checked item.system.hasKnacks}}>
+    <div class="flexrow" style="margin-bottom: 0.4em; height: auto; align-items: start;">
+        <div class="flexcol">
+            <div class="flexrow">
+                <label for="system.hasCantrips">{{localize "aoa.has-cantrips"}}?</label>
+                <input name="system.hasCantrips" type="checkbox" {{checked item.system.hasCantrips}}>
+            </div>
+            <div class="flexrow">
+                <label for="system.hasSpells">{{localize "aoa.has-spells"}}?</label>
+                <input name="system.hasSpells" type="checkbox" {{checked item.system.hasSpells}}>
+            </div>
+            <div class="flexrow">
+                <label for="system.hasRituals">{{localize "aoa.has-rituals"}}?</label>
+                <input name="system.hasRituals" type="checkbox" {{checked item.system.hasRituals}}>
+            </div>
+        </div>
+        <div class="flexcol">
+            <div class="flexrow">
+                <label for="system.hasSpecialization">{{localize "aoa.has-specialization"}}?</label>
+                <input name="system.hasSpecialization" type="checkbox" {{checked item.system.hasSpecialization}}>
+            </div>
+            <div class="flexrow" >
+                <label for="system.hasKnacks">{{localize "aoa.has-knacks"}}?</label>
+                <input name="system.hasKnacks" type="checkbox" {{checked item.system.hasKnacks}}>
+            </div>
+        </div>
     </div>
-    {{#each system.classAbilities as |item index|}}
+
+    {{#each item.system.classAbilities as |item index|}}
         <div data-item-id="{{item.id}}">
             <input type="text" data-property="name" class="change-ability" value="{{item.name}}">
             <textarea data-property="description" class="change-ability" rows="5" style="resize: none;">{{item.description}}

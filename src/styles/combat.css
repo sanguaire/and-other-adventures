@@ -1,0 +1,7 @@
+.combat-sidebar li.monster.combatant .token-initiative {
+    background: rgba(255, 0, 0, 0.5);
+}
+
+.combat-sidebar li.pc.combatant .token-initiative {
+    background: rgba(0, 255, 0, 0.5);
+}

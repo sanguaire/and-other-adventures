@@ -8,7 +8,7 @@
                      data-tooltip="{{localize 'aoa.attack-bonus'}} {{numberFormat item.system.toHit sign=true decimals=0}}">
                 <i class="fa-solid fa-dice-d20"></i></a>
             </span>
-            <a data-action="damage" >{{item.system.damage.formula}}</a>
+            <a data-action="damage" style="margin-left: 0.4em;" >{{item.system.damage.localizedFormula}}</a>
             {{#if item.system.description}}
                 <span data-tooltip="{{item.system.description}}"><i class="fa-solid fa-asterisk"></i></span>
             {{/if}}

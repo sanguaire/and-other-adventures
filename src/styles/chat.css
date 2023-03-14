@@ -59,7 +59,7 @@
 }
 
 .aoa-chat .description strong {
-    background: lightgreen;
+    background: var(--text-strong);
 }
 
 .aoa-chat .description .inline-roll {

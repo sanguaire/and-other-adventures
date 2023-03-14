@@ -7,6 +7,9 @@ import {ExtendedItemSheet} from "./sheets/items/extended-item-sheet.mjs";
 import {registerHelpers} from "./handlebars.mjs";
 import {chatMessageHandler} from "./chat-message-handler.mjs";
 import {SystemRoll} from "./systems-roll.mjs";
+import {registerSettings} from "./settings.mjs";
+import {configure} from "./config.mjs";
+import {updateActorHandler} from "./update-actor-handler.mjs";
 
 const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/parts/header.hbs`,
@@ -21,12 +24,14 @@ const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/item-templates/armor.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/skill.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/only-name.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/item-templates/trait.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`,
     `systems/${CONST.MODULE_ID}/templates/item-templates/spell.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/spell-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/cantrip-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/ritual-sheet.hbs`,
-    `systems/${CONST.MODULE_ID}/templates/items/attack-sheet.hbs`
+    `systems/${CONST.MODULE_ID}/templates/items/attack-sheet.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/items/trait-sheet.hbs`
 ];
 
 const pcTemplates = {
@@ -39,6 +44,7 @@ const pcTemplates = {
     pcGear: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-gear.hbs`,
     pcSpell: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-spell.hbs`,
     pcSpecials: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-specials.hbs`,
+    pcBiography: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-biography.hbs`,
     monsterHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-header.hbs`,
     monsterStatistics: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-statistics.hbs`,
     monsterDescription: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-description.hbs`,
@@ -52,6 +58,8 @@ const componentTemplates = {
 Hooks.once("init", async () => {
     CONFIG.Actor.documentClass = ActorProxy;
     CONFIG.Item.documentClass = ItemProxy;
+
+    registerSettings();
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet(CONST.MODULE_SCOPE, PcSheet, {types: ["pc"], makeDefault: true});
@@ -67,8 +75,10 @@ Hooks.once("init", async () => {
     loadTemplates(componentTemplates);
 
     Hooks.on("renderChatMessage", chatMessageHandler );
+    Hooks.on("updateActor", updateActorHandler);
 
-    CONFIG.Dice.rolls.push(SystemRoll);
+    configure();
+
 });
 
 

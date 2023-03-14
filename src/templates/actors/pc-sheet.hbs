@@ -8,19 +8,28 @@
 
 
     <div class="tabbed-content">
-        <div class="tabs" data-group="primary">
+        <div class="tabs" data-group="primary" data-tooltip-direction="LEFT">
             <a data-tab="combat" data-tooltip="{{localize 'aoa.combat-header'}}"><i class="fa-solid fa-swords"></i></a>
             <a data-tab="skill" data-tooltip="{{localize 'aoa.skill-header'}}"><i class="fa-solid fa-hands"></i></a>
-            <a data-tab="gear"><i class="fa-solid fa-sack"></i></a>
-            <a data-tab="spell"><i class="fa-solid fa-hand-sparkles"></i></a>
-            <a data-tab="specials"><i class="fa-solid fa-book-open-cover"></i></a>
+            <a data-tab="gear" data-tooltip="{{localize 'aoa.gear-header'}}"><i class="fa-solid fa-sack"></i></a>
+            {{#if actor.system.isSpellcaster}}
+                <a data-tab="spell" data-tooltip="{{localize 'aoa.spell-header'}}"><i
+                        class="fa-solid fa-hand-sparkles"></i></a>
+            {{/if}}
+            <a data-tab="specials" data-tooltip="{{localize 'aoa.specials-header'}}"><i
+                    class="fa-solid fa-book-open-cover"></i></a>
+            <a data-tab="biography" data-tooltip="{{localize 'aoa.biography-header'}}"><i
+                    class="fa-solid fa-book-open-cover"></i></a>
         </div>
         <div class="tab-content">
             <div class="tab" data-tab="combat" data-group="primary">{{> pcCombat}}</div>
             <div class="tab" data-tab="skill" data-group="primary">{{> pcSkill}}</div>
             <div class="tab" data-tab="gear" data-group="primary">{{> pcGear}}</div>
-            <div class="tab" data-tab="spell" data-group="primary">{{> pcSpell}}</div>
+            {{#if actor.system.isSpellcaster}}
+                <div class="tab" data-tab="spell" data-group="primary">{{> pcSpell}}</div>
+            {{/if}}
             <div class="tab" data-tab="specials" data-group="primary">{{> pcSpecials}}</div>
+            <div class="tab" data-tab="biography" data-group="primary">{{> pcBiography}}</div>
         </div>
     </div>
 

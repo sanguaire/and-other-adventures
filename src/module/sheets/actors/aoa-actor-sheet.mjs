@@ -40,12 +40,30 @@ export class AoaActorSheet extends ActorSheet {
 
         html.find(".drag").on("dragstart", this._onDragStart.bind(this));
 
-        html.find(":header").html(function() {
-            return $(this)
-                .text()
-                .replace(/[a-zä-ü]*/g, '<span class="move-up">$&</span>')
-                .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
-        });
+        this.beautifyHeaders(html.find(":header"));
+
+    }
+
+    beautifyHeaders(html) {
+
+        let target = html
+
+        target.html(beautify);
+
+        function beautify() {
+            const el = $(this);
+
+            if(el.children().length > 0){
+                el.children().html(beautify);
+            }
+            else {
+                const newText = el
+                    .text()
+                    .replace(/[a-zä-ü]*/g, '<span class="move-up">$&</span>')
+                    .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
+                return newText;
+            }
+        }
     }
 
     _onDragStart(event) {

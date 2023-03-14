@@ -4,8 +4,6 @@ import {WeaponItem} from "./items/weapon-item.mjs";
 import {ArmorItem} from "./items/armor-item.mjs";
 import {SkillItem} from "./items/skill-item.mjs";
 import {SpellItem} from "./items/spell-item.mjs";
-import {PlaybookItem} from "./items/playbook-item.mjs";
-import {PlaybookPhaseItem} from "./items/playbook-phase-item.mjs";
 import {ClassItem} from "./items/class-item.mjs";
 import {ClassAbilityItem} from "./items/class-ability-item.mjs";
 import {LanguageItem} from "./items/language-item.mjs";
@@ -19,8 +17,6 @@ const mappings = {
     armor: ArmorItem,
     skill: SkillItem,
     spell: SpellItem,
-    playbook: PlaybookItem,
-    "pb-phase": PlaybookPhaseItem,
     class: ClassItem,
     trait: ClassAbilityItem,
     language: LanguageItem,

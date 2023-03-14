@@ -75,10 +75,6 @@ export class ExtendedItemSheet extends ItemSheet {
 
     }
 
-    _onChangeRange(event) {
-        super._onChangeRange(event);
-    }
-
     newAbility(ev) {
         const ct = $(ev.currentTarget);
         let value = ct.val();
@@ -128,6 +124,7 @@ export class ExtendedItemSheet extends ItemSheet {
     };
 
     async _updateObject(event, formData) {
+        console.log(formData);
         return super._updateObject(event, formData);
     }
 

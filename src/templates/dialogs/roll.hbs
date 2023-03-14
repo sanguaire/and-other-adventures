@@ -1,5 +1,16 @@
 <form class="{{cssClass}}" autocomplete="off">
     <h2>{{dialogHeader}}</h2>
+    {{#if skills}}
+        <div class="flexrow align-center">
+            <label for="skill">{{localize "aoa-usedSkill"}}</label>
+            <select name="skill">
+                <option value=""></option>
+                {{#each skills as |skill|}}
+                    <option value="{{skill.id}}">{{numberFormat skill.system.bonus sign=true decimals=0}} {{skill.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+    {{/if}}
     <div class="flexrow align-center">
         <label for="modifier">{{localize "aoa.modifier"}}:</label>
         <input name="modifier" type="text" data-dtype="Number" value="0" />

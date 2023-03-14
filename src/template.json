@@ -91,16 +91,14 @@
         "strike": 0,
         "resilience": 0
       },
-      "weaponSpecializations": ""
+      "weaponSpecializations": "",
+      "combatStance": "normal"
     },
     "monster": {
       "templates": ["background"],
-      "resources": {
-        "hp": {
+      "hp": {
           "value": 10,
-          "max": 10
-        }
-      },
+          "max": 10 },
       "hitDie": {
         "number": 1,
         "type": "d8",
@@ -121,8 +119,6 @@
       "cantrip",
       "skill",
       "class",
-      "playbook",
-      "pb-phase",
       "trait",
       "language",
       "attack"
@@ -200,16 +196,6 @@
         "basic", "rollOn"
       ]
     },
-    "playbook": {
-      "templates": [
-        "basic"
-      ]
-    },
-    "pb-phase": {
-      "templates": [
-        "basic"
-      ]
-    },
     "skill": {
       "templates": [
         "basic"
@@ -241,6 +227,10 @@
       "initiativeBonus": 0,
       "allowedArmor": "",
       "hasKnacks": false,
+      "hasSpecialization": false,
+      "hasCantrips": false,
+      "hasSpells": false,
+      "hasRituals": false,
       "classAbilities": [],
       "levelProgression": {
         "1": {

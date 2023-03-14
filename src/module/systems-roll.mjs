@@ -19,23 +19,31 @@ export class SystemRoll extends Roll {
     result;
 
     static toModString = (value) => (value === 0 ? '' : value > 0 ? ` + ${value}` : ` - ${Math.abs(value)}`);
-    constructor({roller, key, type, mod, skill, item, flavor}={}) {
 
+    constructor({roller, key, type, mod, skill, item, flavor, target}={}) {
         let attackMod = 0;
+        let modString = "";
 
         switch (type) {
-            case 'skill':
-                super(`1d20`);
+            case 'ability':
+                const abilityRollFlavor = game.settings.get(`${AOA_CONST.MODULE_ID}`, "abilityRollFlavor");
+                const abilityMod = abilityRollFlavor === "b" ? roller.system.abilities[key].modifier :
+                             abilityRollFlavor === "c" ? roller.system.abilities[key].value : 0;
+                modString = SystemRoll.toModString(mod + abilityMod + (skill ? skill.system.bonus : 0));
+                super(abilityRollFlavor === "a" ? `1d20` : `1d20${modString}`);
+
                 this.name = `${game.i18n.localize("aoa.rolls." + key)}`;
-                this.modifier = mod;
+                this.modifier = mod + abilityMod + (skill ? skill.system.bonus : 0);
                 this.baseValue = roller.system.abilities[key].value;
-                this.target = roller.system.abilities[key].value + mod;
-                this.direction = RollDirection.low;
+                this.target = abilityRollFlavor === "a" ? roller.system.abilities[key].value + mod :
+                              abilityRollFlavor === "c" ? 20 :
+                              undefined;
+                this.direction = abilityRollFlavor === "a" ? RollDirection.low: RollDirection.high;
                 this.skill = skill;
                 this.showOffset = true;
                 break;
             case 'save':
-                const modString = SystemRoll.toModString(mod);
+                modString = SystemRoll.toModString(mod);
                 super(`1d20${modString}`);
                 this.name = `${game.i18n.localize("aoa.rolls." + key)}`;
                 this.modifier = mod;
@@ -49,24 +57,27 @@ export class SystemRoll extends Roll {
                 super(`1d20${attackMod}`);
                 this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
                 this.modifier = attackMod;
-                this.target = NaN;
+                this.target = target;
                 this.direction = RollDirection.high;
+                this.showOffset = target !== undefined;
                 break;
             case 'ranged':
                 attackMod = SystemRoll.toModString(item.system.attack.ranged + mod);
                 super(`1d20${attackMod}`);
                 this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
                 this.modifier = attackMod;
-                this.target = NaN;
+                this.target = target;
                 this.direction = RollDirection.high;
+                this.showOffset = target !== undefined;
                 break;
             case 'monster':
                 attackMod = SystemRoll.toModString(item.system.toHit + mod);
                 super(`1d20${attackMod}`);
                 this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
                 this.modifier = attackMod;
-                this.target = NaN;
+                this.target = target;
                 this.direction = RollDirection.high;
+                this.showOffset = target !== undefined;
                 break;
             case 'damageRanged':
                 super(item.system.damage.ranged);
@@ -114,11 +125,11 @@ export class SystemRoll extends Roll {
             offset = this.showOffset ? ` (${Math.abs(this.total - this.target)})` : '';
             switch (this.direction) {
                 case RollDirection.low:
-                    vs = `<= ${this.target} `
+                    vs = `&#8804 ${this.target} `
                     this.result = this.total <= this.target || this.dice[0].total === 1 ? 'success' : 'failure';
                     break;
                 case RollDirection.high:
-                    vs = `>= ${this.target}`
+                    vs = `&#8805 ${this.target}`
                     this.result = this.total >= this.target || this.dice[0].total === 20 ? 'success' : 'failure';
                     break;
             }
