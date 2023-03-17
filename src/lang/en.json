@@ -87,6 +87,7 @@
     "hp": "HP",
     "initiative": "Initiative",
     "initiative-bonus": "Initiative bonus",
+    "is-ammo": "Is ammunation",
     "item-type": "Item type",
     "knacks": {
       "defensive": "Defensive fighter",
@@ -103,6 +104,8 @@
     "melee": "Melee",
     "modifier": "Modifier",
     "name": "Name",
+    "no-ammo": "No ammunition for",
+    "notes-header": "Notes",
     "quantity": "Quantity",
     "range": {
       "cosmos": "The cosmos",
@@ -146,6 +149,7 @@
       "polymorph": "Polymorph",
       "spell": "Spell"
     },
+    "selected-weapon": "Selected weapon",
     "silver": "Silver",
     "skill-header": "Skills & Languages",
     "skills": "Skills",
@@ -163,8 +167,10 @@
     },
     "statistics": "Stats",
     "traits": "Traits",
+    "used-skill": "Used skill",
     "used-spells": "Used Spells",
     "uses": "Uses",
+    "uses-ammo": "Uses ammunition",
     "weapon": "Weapon",
     "weapon-specializations": "Weapon specializations",
     "weapons": "Weapons",

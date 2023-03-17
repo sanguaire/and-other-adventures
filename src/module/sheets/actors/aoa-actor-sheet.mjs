@@ -13,7 +13,7 @@ export class AoaActorSheet extends ActorSheet {
     };
 
     async activateListeners(html) {
-        super.activateListeners(html);
+        await super.activateListeners(html);
 
         this.editableLists = this.options.editableLists.map(el => {
             el.context = this.getData();
@@ -32,7 +32,7 @@ export class AoaActorSheet extends ActorSheet {
 
 
             if(action) {
-                el.click(action.bind(null, this.actor, el));
+                el.click(action.bind(this, this.actor, el));
             } else {
                 console.error(`No definition for '${actionSelector}' found`);
             }

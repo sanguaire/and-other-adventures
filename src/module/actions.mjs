@@ -138,6 +138,15 @@ const rangedAttack = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
     if(item) {
+        if(item.system.usesAmmo) {
+            const ammoItem = actor.items.get(item.system.ammoId);
+
+            if(!ammoItem || ammoItem.system.quantity.value < 1) {
+                ui.notifications.error(`${game.i18n.localize("aoa.no-ammo")} '${item.name}'`);
+                return;
+            }
+        }
+
         const content = await renderDialogContent("ranged");
 
         new Dialog({
@@ -166,6 +175,16 @@ const rangedAttack = async (actor, itemId) => {
 
         const targetToken = game.user.targets.first();
         let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+
+        if(item.system.usesAmmo) {
+            const ammoItem = actor.items.get(item.system.ammoId);
+
+            if(ammoItem) {
+                await ammoItem.update({
+                    "system.quantity.value": ammoItem.system.quantity.value - 1
+                });
+            }
+        }
 
         const roll = new SystemRoll({roller: actor, type: "ranged", mod: modifier, item: item, target});
         await roll.toMessage();

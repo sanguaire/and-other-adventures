@@ -1,35 +1,41 @@
 <div class="sheet-header">
-    <img src="{{actor.img}}" data-edit="img" alt="actor.img">
+    {{#unless condensed}}
+        <img src="{{actor.img}}" data-edit="img" alt="actor.img">
+    {{/unless}}
     <div class="information">
         <label for="name">{{localize "aoa.name"}}: </label>
         <input name="name" type="text" data-dtype="text" value="{{actor.name}}">
-        <div class="flexrow">
-            <div>
-                <label for="system.class">{{localize "aoa.class"}}: </label>
-                <div class="text-indent text-form-field">{{actor.system.class.name}} <a data-action="showItem" data-item-id="{{actor.system.class._id}}"><i class="fa-solid fa-circle-info"></i></a></div>
+        {{#unless condensed}}
+            <div class="flexrow">
+                <div>
+                    <label for="system.class">{{localize "aoa.class"}}: </label>
+                    <div class="text-indent text-form-field">{{actor.system.class.name}} <a data-action="showItem" data-item-id="{{actor.system.class._id}}"><i class="fa-solid fa-circle-info"></i></a></div>
+                </div>
+                <div>
+                    <label for="system.alignment">{{localize "aoa.alignment"}}: </label>
+                    <input name="system.alignment" type="text" data-dtype="text" value="{{actor.system.alignment}}">
+                </div>
             </div>
-            <div>
-                <label for="system.alignment">{{localize "aoa.alignment"}}: </label>
-                <input name="system.alignment" type="text" data-dtype="text" value="{{actor.system.alignment}}">
-            </div>
-        </div>
-        <div class="flexrow">
-            <div>
-                <label for="system.xp">{{localize "aoa.xp"}}: </label>
-                <input name="system.xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
-            </div>
-            <div>
-                <label >{{localize "aoa.xp-next"}}: </label>
-                <div class="text-indent text-form-field">{{actor.system.nextLevel}}</div>
-            </div>
-            <div>
-                <label for="system.level">{{localize "aoa.level"}}: </label>
-                <input name="system.level" type="text" data-dtype="Number" value="{{actor.system.level}}">
-                {{#if actor.system.levelUp}}
-                    <i class="level-up fa-duotone fa-award darkgreen fa-2xl fa-beat" style="--fa-animation-iteration-count: 2;"></i>
-                {{/if}}
+            <div class="flexrow">
+                <div>
+                    <label for="system.xp">{{localize "aoa.xp"}}: </label>
+                    <input name="system.xp" type="text" data-dtype="Number" value="{{actor.system.xp}}">
+                </div>
+                <div>
+                    <label >{{localize "aoa.xp-next"}}: </label>
+                    <div class="text-indent text-form-field">{{actor.system.nextLevel}}</div>
+                </div>
+                <div>
+                    <label for="system.level">{{localize "aoa.level"}}: </label>
+                    <input name="system.level" type="text" data-dtype="Number" value="{{actor.system.level}}">
+                    {{#if actor.system.levelUp}}
+                        <i class="level-up fa-duotone fa-award darkgreen fa-2xl fa-beat" style="--fa-animation-iteration-count: 2;"></i>
+                    {{/if}}
+                </div>
+
             </div>
 
-        </div>
+        {{/unless}}
+
     </div>
 </div>

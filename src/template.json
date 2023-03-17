@@ -92,7 +92,9 @@
         "resilience": 0
       },
       "weaponSpecializations": "",
-      "combatStance": "normal"
+      "combatStance": "normal",
+      "selectedWeapon": "",
+      "notes": ""
     },
     "monster": {
       "templates": ["background"],
@@ -151,7 +153,8 @@
     "gear": {
       "templates": [
         "basic", "equippable", "quantity"
-      ]
+      ],
+      "isAmmo": false
     },
     "weapon": {
       "templates": [
@@ -172,7 +175,9 @@
         "ranged": 0
       },
       "magical": false,
-      "specialized": false
+      "specialized": false,
+      "usesAmmo": false,
+      "ammoId": ""
     },
     "spell": {
       "templates": [

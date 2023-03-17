@@ -21,7 +21,7 @@
     <span class="flex-fill"></span>
     {{#if system.showMelee}}
         <span data-action-type="melee">
-            <a data-action="attack">
+            <a data-action="attack" data-tooltip="{{numberFormat system.attack.melee sign=true decimals=0}}">
                 <i class="fa-solid fa-sword fa-xl"></i>
             </a>
             <a data-action="damage" >{{system.localizedDamage.melee}}</a>
@@ -29,10 +29,13 @@
     {{/if}}
     {{#if system.ranged}}
         <span data-action-type="ranged">
-            <a data-action="attack">
+            <a data-action="attack" data-tooltip="{{numberFormat system.attack.ranged sign=true decimals=0}}">
                 <i class="fa-solid fa-bow-arrow fa-xl"></i>
             </a>
             <a data-action="damage">{{system.localizedDamage.ranged}}</a>
+            {{#if system.usesAmmo}}
+                ({{system.ammoQuantity}})
+            {{/if}}
         </span>
     {{/if}}
 </div>

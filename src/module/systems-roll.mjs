@@ -63,8 +63,9 @@ export class SystemRoll extends Roll {
                 break;
             case 'ranged':
                 attackMod = SystemRoll.toModString(item.system.attack.ranged + mod);
+                const ammoString = item.system.usesAmmo ? `(${roller.items.get(item.system.ammoId)?.name})` : "";
                 super(`1d20${attackMod}`);
-                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
+                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name} ${ammoString}`;
                 this.modifier = attackMod;
                 this.target = target;
                 this.direction = RollDirection.high;

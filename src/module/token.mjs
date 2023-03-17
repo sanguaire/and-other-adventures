@@ -19,12 +19,12 @@ export class AoaToken extends Token {
         const metrics = PIXI.TextMetrics.measureText(text, style);
         const graphics = new PIXI.Graphics();
 
-        graphics.beginFill(0xFFFFFF, 0.8);
-        graphics.drawRoundedRect(-metrics.width, 0, metrics.width + 20, metrics.height, 5);
+        graphics.beginFill(0x000000, 0.8);
+        graphics.drawRoundedRect(-metrics.width, -10, metrics.width + 20, metrics.height, 5);
         graphics.endFill();
 
         acText.anchor.set(1, 0);
-        acText.position.set(10, 0);
+        acText.position.set(10, -10);
 
         this.ac.addChild(graphics);
         this.ac.addChild(acText);

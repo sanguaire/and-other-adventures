@@ -48,6 +48,9 @@ export class ExtendedItemSheet extends ItemSheet {
     getData(options = {}) {
         const context = super.getData(options);
         context.cssClass = `aoa-sheet item-sheet ${context.cssClass}`
+
+        context.ammo = this.actor?.items?.filter(i => i.type === 'gear' && i.system.isAmmo).sort((a,b)=>(a.sort || 0) - (b.sort||0));
+
         return context;
     }
 

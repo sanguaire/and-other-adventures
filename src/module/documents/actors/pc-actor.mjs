@@ -82,11 +82,11 @@ export class PcActor extends Actor {
     _prepareWeapons() {
         for (const weapon of this.itemTypes.weapon) {
             if (weapon.actor) {
-                const specializedDamageBonus = weapon.system.specialized ? 2 : 0;
+                const specializedDamageBonus = this.system.class?.hasSpecialization && weapon.system.specialized ? 2 : 0;
                 // noinspection JSDeprecatedSymbols
                 const knackDamageBonus = this.system.class?.hasKnacks ? this.system.knacks.strike : 0
                 const meleeDamageBonus = weapon.system.damageBonus.melee
-                    + weapon.actor.system.abilities.str.modifier
+                    + this.system.abilities.str.modifier
                     + specializedDamageBonus
                     + knackDamageBonus;
                 const rangedDamageBonus = weapon.system.damageBonus.ranged
@@ -103,16 +103,19 @@ export class PcActor extends Actor {
                     ranged: `${weapon.system.baseDamage.noOfDie}${game.i18n.localize("aoa." + weapon.system.baseDamage.dieType)}${rangedDamageBonus === 0 ? "" : rangedDamageBonus > 0 ? `+${rangedDamageBonus}` : rangedDamageBonus}`
                 }
 
-                const specializedAttackBonus = weapon.system.specialized ? 1 : 0;
+                const specializedAttackBonus = this.system.class?.hasSpecialization && weapon.system.specialized ? 1 : 0;
 
                 weapon.system.attack = {
-                    melee: weapon.system.attackBonus.melee + weapon.actor.system.attackBonus.melee + specializedAttackBonus,
-                    ranged: weapon.system.attackBonus.ranged + weapon.actor.system.attackBonus.ranged + specializedAttackBonus
+                    melee: weapon.system.attackBonus.melee + this.system.attackBonus.melee + specializedAttackBonus,
+                    ranged: weapon.system.attackBonus.ranged + this.system.attackBonus.ranged + specializedAttackBonus
                 }
+
+                weapon.system.ammoQuantity = weapon.system.usesAmmo ? this.items.get(weapon.system.ammoId)?.system.quantity.value ?? 0 : 0
+
+                weapon.system.showMelee = !weapon.system.ranged || weapon.system.hasMeleeOption;
 
             }
 
-            weapon.system.showMelee = !weapon.system.ranged || weapon.system.hasMeleeOption;
         }
     }
 

@@ -6,18 +6,20 @@ import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
 
 export class PcSheet extends AoaActorSheet {
 
+
     static actions = foundry.utils.mergeObject(super.actions, {
         equip: PcSheet.equip,
-        showItem: PcSheet.showItem,
+        showItem: PcSheet.showItem
     })
+    static condensed = true;
 
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol"],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
-            width: 800,
-            height: 900,
+            width: PcSheet.condensed ? 600 : 800,
+            height: PcSheet.condensed? "auto" : 900,
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "combat"}],
             resizable: false,
             editableLists: [
@@ -34,10 +36,27 @@ export class PcSheet extends AoaActorSheet {
         });
     }
 
+    async activateListeners(html) {
+        return super.activateListeners(html);
+    }
+
+    _getHeaderButtons() {
+        const buttons =  super._getHeaderButtons();
+
+        buttons.splice(1, 0, {
+            label: "",
+            class: "toggle-condense",
+            icon: PcSheet.condensed ? "fa-solid fa-arrows-maximize" : "fa-solid fa-arrows-minimize",
+            onclick: ev => PcSheet.toggleCondense(ev)
+        });
+
+        return buttons;
+    }
+
     getData(options = {}) {
         const context = super.getData(options);
 
-        context.cssClass = `aoa-sheet pc-sheet ${context.cssClass}`
+        context.cssClass = `aoa-sheet pc-sheet ${PcSheet.condensed ? "condensed" : ""} ${context.cssClass}`
 
         for(const [key, value] of Object.entries(context.actor.system.abilities)) {
             value.modifierDesc = game.i18n.localize(`${CONST.MODULE_SCOPE}.abilities-mod.${key}`);
@@ -49,6 +68,7 @@ export class PcSheet extends AoaActorSheet {
             .filter(i => i.type === an)
             .sort((a,b)=>(a.sort || 0) - (b.sort||0)));
 
+
         context.combatStances = {
             normal: game.i18n.localize("aoa.stances.normal"),
             aggressive: game.i18n.localize("aoa.stances.aggressive"),
@@ -57,39 +77,43 @@ export class PcSheet extends AoaActorSheet {
             commanding: game.i18n.localize("aoa.stances.commanding"),
         }
 
+        context.equippedWeapons = context.weapon.filter(w => w.system.equipped);
+
+        context.condensed = PcSheet.condensed;
+
+        context.selectedWeaponItem = this.actor.items.get(this.actor.system.selectedWeapon);
+
         return context;
     }
 
     render(force = false, options = {}) {
-
-
         return super.render(force, options);
     }
 
-    async _renderInner(...args) {
-        return super._renderInner(...args);
-    }
-
-    async _injectHTML(html) {
-        super._injectHTML(html);
-
-
-
-    }
-
-    async _updateObject(event, formData) {
-        return super._updateObject(event, formData);
-    }
-
-    static equip(actor, html) {
+    static async equip(actor, html) {
         const itemId = html.closest("[data-item-id]").data("item-id");
-        if(itemId) {
-            const item = actor.items.get(itemId);
 
-            item.update({
-               "system.equipped": !item.system.equipped
-            });
+        if (!itemId) {
+            return;
         }
+
+        const item = actor.items.get(itemId);
+        const equip = !item.system.equipped
+
+        if (item.type === "weapon" && equip) {
+            const equippedWeapons = actor.items.filter(i => i.type === "weapon" && i.system.equipped);
+
+            if (equippedWeapons.length >= 2) {
+                const lastWeapon = equippedWeapons.slice(-1);
+
+                await lastWeapon[0]?.update({
+                    "system.equipped": !lastWeapon[0].system.equipped
+                });
+            }
+        }
+        await item.update({
+            "system.equipped": !item.system.equipped
+        });
     }
 
     static showItem(actor, html) {
@@ -100,6 +124,22 @@ export class PcSheet extends AoaActorSheet {
             new ExtendedItemSheet(item).render(true, {editable: game.user.isGM});
 
 
+        }
+    }
+
+
+    static toggleCondense() {
+        let icon;
+
+        if(PcSheet.condensed) {
+            PcSheet.condensed = !PcSheet.condensed;
+            ui.activeWindow.render(true, {width: 800, height: 900});
+            ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-minimize";
+
+        } else {
+            PcSheet.condensed = !PcSheet.condensed;
+            ui.activeWindow.render(true, {width: 600, height: "auto"});
+            ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-maximize";
         }
     }
 

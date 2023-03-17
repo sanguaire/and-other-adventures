@@ -1,36 +1,94 @@
+{{log .}}
 <form class="{{cssClass}}" autocomplete="off">
     {{> pcHeader}}
     <div class="abilities-saves">
         {{> pcAbilities}}
-        {{> pcSaves}}
-    </div>
-    {{> pcResources}}
 
+        {{#if condensed}}
+            <div class="flexcol">
+                {{> pcSaves}}
+                <div style="padding: 0.4em;display: flex;flex-direction: column; gap:0.4em;">
+                    <label for="system.selectedWeapon">{{localize "aoa.selected-weapon"}}:</label>
+                    <select name="system.selectedWeapon" {{#unless equippedWeapons}}disabled{{/unless}}>
+                        {{#select actor.system.selectedWeapon}}
+                            {{#each equippedWeapons}}
+                                <option value="{{id}}">{{name}} {{#if system.specialized}}&#xf004;{{/if}}{{#if system.magical}}&#xf890;{{/if}}
+                                </option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <div class="flexrow align-center text-centered" data-item-id="{{selectedWeaponItem.id}}">
+                        <div>
+                            {{#if selectedWeaponItem.system.showMelee}}
+                                <span data-action-type="melee">
+                                    <a data-action="attack" data-tooltip="{{numberFormat selectedWeaponItem.system.attack.melee sign=true decimals=0}}">
+                                    <i class="fa-solid fa-sword fa-xl"></i></a>
+                                    <a data-action="damage" >{{selectedWeaponItem.system.localizedDamage.melee}}</a>
+                                </span>
+                            {{/if}}
+                            {{#if selectedWeaponItem.system.ranged}}
+                                <span data-action-type="ranged">
 
-    <div class="tabbed-content">
-        <div class="tabs" data-group="primary" data-tooltip-direction="LEFT">
-            <a data-tab="combat" data-tooltip="{{localize 'aoa.combat-header'}}"><i class="fa-solid fa-swords"></i></a>
-            <a data-tab="skill" data-tooltip="{{localize 'aoa.skill-header'}}"><i class="fa-solid fa-hands"></i></a>
-            <a data-tab="gear" data-tooltip="{{localize 'aoa.gear-header'}}"><i class="fa-solid fa-sack"></i></a>
-            {{#if actor.system.isSpellcaster}}
-                <a data-tab="spell" data-tooltip="{{localize 'aoa.spell-header'}}"><i
-                        class="fa-solid fa-hand-sparkles"></i></a>
-            {{/if}}
-            <a data-tab="specials" data-tooltip="{{localize 'aoa.specials-header'}}"><i
-                    class="fa-solid fa-book-open-cover"></i></a>
-            <a data-tab="biography" data-tooltip="{{localize 'aoa.biography-header'}}"><i
-                    class="fa-solid fa-book-open-cover"></i></a>
-        </div>
-        <div class="tab-content">
-            <div class="tab" data-tab="combat" data-group="primary">{{> pcCombat}}</div>
-            <div class="tab" data-tab="skill" data-group="primary">{{> pcSkill}}</div>
-            <div class="tab" data-tab="gear" data-group="primary">{{> pcGear}}</div>
-            {{#if actor.system.isSpellcaster}}
-                <div class="tab" data-tab="spell" data-group="primary">{{> pcSpell}}</div>
-            {{/if}}
-            <div class="tab" data-tab="specials" data-group="primary">{{> pcSpecials}}</div>
-            <div class="tab" data-tab="biography" data-group="primary">{{> pcBiography}}</div>
-        </div>
+                                    <a data-action="attack" data-tooltip="{{numberFormat selectedWeaponItem.system.attack.ranged sign=true decimals=0}}">
+                                    <i class="fa-solid fa-bow-arrow fa-xl"></i></a>
+                                    <a data-action="damage">{{selectedWeaponItem.system.localizedDamage.ranged}}</a>
+                                    {{#if selectedWeaponItem.system.usesAmmo}}
+                                        ({{selectedWeaponItem.system.ammoQuantity}})
+                                    {{/if}}
+                                </span>
+                            {{/if}}
+                        </div>
+
+                    </div>
+                </div>
+                <div style="padding: 0.4em;display: flex;flex-direction: column; gap:0.4em;">
+                    <label>{{localize "aoa.stances.header"}}:</label>
+                    <select name="system.combatStance">
+                        {{#select actor.system.combatStance}}
+                            {{selectOptions combatStances selected=actor.system.combatStances}}
+                        {{/select}}
+                    </select>
+                </div>
+
+            </div>
+
+        {{else}}
+            {{> pcSaves}}
+        {{/if}}
+        {{#if condensed}}
+            {{> pcResources}}
+        {{/if}}
     </div>
+
+    {{#unless condensed}}
+        {{> pcResources}}
+
+        <div class="tabbed-content">
+            <div class="tabs" data-group="primary" data-tooltip-direction="LEFT">
+                <a data-tab="combat" data-tooltip="{{localize 'aoa.combat-header'}}"><i class="fa-solid fa-swords"></i></a>
+                <a data-tab="skill" data-tooltip="{{localize 'aoa.skill-header'}}"><i class="fa-solid fa-hands"></i></a>
+                <a data-tab="gear" data-tooltip="{{localize 'aoa.gear-header'}}"><i class="fa-solid fa-sack"></i></a>
+                {{#if actor.system.isSpellcaster}}
+                    <a data-tab="spell" data-tooltip="{{localize 'aoa.spell-header'}}"><i
+                            class="fa-solid fa-hand-sparkles"></i></a>
+                {{/if}}
+                <a data-tab="specials" data-tooltip="{{localize 'aoa.specials-header'}}"><i class="fa-solid fa-ballot-check"></i></a>
+                <a data-tab="biography" data-tooltip="{{localize 'aoa.biography-header'}}"><i class="fa-solid fa-book-open-cover"></i></a>
+                <a data-tab="notes" data-tooltip="{{localize 'aoa.notes-header'}}"><i class="fa-solid fa-feather"></i></a>
+            </div>
+            <div class="tab-content">
+                <div class="tab" data-tab="combat" data-group="primary">{{> pcCombat}}</div>
+                <div class="tab" data-tab="skill" data-group="primary">{{> pcSkill}}</div>
+                <div class="tab" data-tab="gear" data-group="primary">{{> pcGear}}</div>
+                {{#if actor.system.isSpellcaster}}
+                    <div class="tab" data-tab="spell" data-group="primary">{{> pcSpell}}</div>
+                {{/if}}
+                <div class="tab" data-tab="specials" data-group="primary">{{> pcSpecials}}</div>
+                <div class="tab" data-tab="biography" data-group="primary">{{> pcBiography}}</div>
+                <div class="tab" data-tab="notes" data-group="primary">{{> pcNotes}}</div>
+            </div>
+        </div>
+    {{/unless}}
+
 
 </form>

@@ -2,3 +2,7 @@
     <label for="system.quantity.value">{{localize "aoa.quantity"}}</label>
     <input name="system.quantity.value" value="{{item.system.quantity.value}}" type="text" data-dtype="Number" min="{{item.system.quantity.min}}">
 </div>
+<div class="flexrow">
+    <label for="system.isAmmo">{{localize "aoa.is-ammo"}}:</label>
+    <input name="system.isAmmo" type="checkbox" {{checked item.system.isAmmo}}>
+</div>

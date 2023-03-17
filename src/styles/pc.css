@@ -1,0 +1,247 @@
+.pc-sheet .specials .editor {
+    height: 100%;
+}
+
+.pc-sheet .specials > * {
+    margin-bottom: 0.4em;
+}
+
+.pc-sheet .sheet-header {
+    height: 20%;
+}
+
+.pc-sheet.condensed .sheet-header {
+    height: auto;
+    padding-bottom: 0.4em;
+}
+
+.pc-sheet .abilities,
+.pc-sheet .saves {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.pc-sheet .abilities input,
+.pc-sheet .saves input {
+    flex: 0 0 4em;
+}
+
+.pc-sheet .abilities > .flexrow,
+.pc-sheet .saves > .flexrow {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.2em;
+}
+
+.pc-sheet .ability,
+.pc-sheet .save {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pc-sheet.condensed .ability label {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.pc-sheet.condensed .abilities,
+.pc-sheet.condensed .saves {
+    padding: 0.4em;
+}
+
+
+.pc-sheet .save {
+    width: 100px;
+    text-align: center;
+}
+
+.pc-sheet .save-value {
+    font-size: var(--font-size-24);
+}
+
+.pc-sheet .information .flexrow > div {
+    position: relative;
+}
+
+.pc-sheet.condensed .information {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4em;
+}
+
+.pc-sheet .ability > .flexrow,
+.pc-sheet .save > .flexrow {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.1em;
+}
+
+.pc-sheet .biography, .pc-sheet .notes, .pc-sheet .specials {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex: revert;
+    font-size: revert;
+    line-height: revert;
+    color: revert;
+    margin: revert;
+}
+
+.pc-sheet .abilities-saves {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0.5em;
+    border-bottom: var(--section-border);
+}
+
+.pc-sheet.condensed .abilities-saves {
+    border-bottom: none;
+}
+
+.pc-sheet .abilities {
+    flex: 1.5;
+    border-right: var(--section-border);
+}
+
+.pc-sheet  .saves {
+    flex: 1;
+}
+
+.pc-sheet.condensed .abilities,
+.pc-sheet.condensed .saves {
+    border-bottom: none;
+    flex: 1;
+}
+
+.pc-sheet.condensed .saves {
+    border-bottom: var(--section-border);
+}
+
+.pc-sheet .abilities .values,
+.pc-sheet .saves .values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    grid-gap: 0.2em;
+    justify-items: center;
+    align-items: center;
+    grid-auto-flow: row;
+}
+
+.pc-sheet .saves .grid-item:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+}
+
+.pc-sheet .saves .grid-item:last-child > .save > label {
+    white-space: nowrap;
+}
+
+.pc-sheet.condensed .abilities .values,
+.pc-sheet.condensed .saves .values {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 1fr;
+    grid-gap: 0.2em;
+    justify-items: center;
+    align-items: center;
+    grid-auto-flow: row;
+}
+
+.pc-sheet .resources {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 2em;
+    padding: 0.5em;
+    border-bottom: var(--section-border);
+}
+
+.pc-sheet.condensed .resources {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.4em;
+    padding: 0.4em;
+    border-bottom: none;
+    border-left: var(--section-border);
+    flex: 1.2;
+}
+
+.pc-sheet .resources .resource {
+    text-align: center;
+}
+
+.pc-sheet:not(.condensed) .resources .resource:first-child .flexrow {
+    justify-content: flex-start;
+}
+
+.pc-sheet:not(.condensed) .resources .resource:last-child .flexrow {
+    justify-content: flex-end;
+}
+
+/*.pc-sheet.condensed .resources .resource:first-child .flexrow,
+.pc-sheet.condensed .resources .resource:last-child .flexrow {
+    justify-content: center;
+}*/
+
+.pc-sheet .resources .resource > span {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.pc-sheet .resources .resource:first-child > span {
+    justify-content: flex-start;
+}
+
+.pc-sheet .resources .resource:last-child > span {
+    justify-content: flex-end;
+}
+
+.pc-sheet.condensed .resources .resource:first-child > span,
+.pc-sheet.condensed .resources .resource:last-child > span {
+    justify-content: center;
+}
+
+.resources .resource i {
+    font-size: 30px;
+    align-self: center;
+    mix-blend-mode: overlay;
+}
+
+.pc-sheet:not(.condensed) .resources .resource input {
+    font-size: var(--font-size-20);
+    flex: 0 0 2em;
+    width: 2em;
+    height: 4em;
+}
+
+.resources .resource .flexrow {
+    justify-content: center;
+}
+
+.resource.ac div {
+    border-bottom-right-radius: 50% 70%;
+    border-bottom-left-radius: 50% 70%;
+}
+
+.pc-sheet:not(.condensed) .resources .resource input:first-of-type {
+    border-top-left-radius: 100% 50%;
+    border-bottom-left-radius: 100% 50%;
+}
+
+.pc-sheet:not(.condensed) .resources .resource input:last-of-type {
+    border-top-right-radius: 100% 50%;
+    border-bottom-right-radius: 100% 50%;
+    border-left: 1px solid var(--sheet-dark-accent);
+}

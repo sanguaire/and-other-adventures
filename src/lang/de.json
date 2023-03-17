@@ -87,6 +87,7 @@
     "hp": "TP",
     "initiative": "Initiative",
     "initiative-bonus": "Initiativebonus",
+    "is-ammo": "Ist Munition",
     "item-type": "Elementtyp",
     "knacks": {
       "defensive": "Defensiver Kämpfer",
@@ -103,6 +104,8 @@
     "melee": "Nahkampf",
     "modifier": "Modifikator",
     "name": "Name",
+    "no-ammo": "Keine Munition für",
+    "notes-header": "Notizen",
     "quantity": "Menge",
     "range": {
       "cosmos": "Kosmisch",
@@ -146,6 +149,7 @@
       "polymorph": "Verwandlung",
       "spell": "Zauber"
     },
+    "selected-weapon": "Ausgewählte Waffe",
     "silver": "Silber",
     "skill-header": "Fertigkeiten & Sprachen",
     "skills": "Fertigkeiten",
@@ -163,8 +167,10 @@
     },
     "statistics": "Werte",
     "traits": "Talente",
+    "used-skill": "Verwendete Fertigkeit",
     "used-spells": "Verwendete Zauber",
     "uses": "Verwendet",
+    "uses-ammo": "Verwendet Munition",
     "weapon": "Waffe",
     "weapon-specializations": "Waffenspezialisierungen",
     "weapons": "Waffen",

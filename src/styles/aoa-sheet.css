@@ -1,0 +1,218 @@
+.aoa-sheet {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-16);
+    font-weight: bolder;
+    gap: 0.2em
+}
+
+.aoa-sheet {
+    --font-primary: var(--font-normal);
+}
+
+.aoa-sheet.item-sheet .item-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.aoa-sheet label {
+    font-variant: small-caps;
+}
+
+.aoa-sheet select option, .aoa-sheet select optgroup {
+    font-weight: bolder;
+    background: var(--sheet-light-accent);
+    letter-spacing: 0.15em;
+}
+
+.aoa-sheet h1,
+.aoa-sheet h2,
+.aoa-sheet h3,
+.aoa-sheet h4,
+.aoa-sheet h5,
+.aoa-sheet h6 {
+    font-family: var(--font-accent);
+    border: none;
+    margin: 0;
+    text-align: center;
+    font-weight: bolder;
+    letter-spacing: 0.1em;
+    line-height: 2em;
+}
+
+.aoa-sheet h1 {
+    font-size: var(--font-size-18);
+}
+
+.aoa-sheet .caps {
+    color: darkred;
+}
+
+.aoa-sheet .move-up {
+    position: relative;
+    top: -0.5em;
+}
+
+.aoa-sheet h1 .move-up {
+    text-decoration: 2px underline darkred;
+}
+
+.aoa-sheet h2 {
+    font-size: var(--font-size-14);
+}
+
+.aoa-sheet h3 {
+    font-size: var(--font-size-13);
+}
+
+.aoa-sheet input {
+    background: var(--sheet-light-accent);
+    border: none;
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    border-radius: 0;
+    color: darkblue;
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    text-indent: 0.1em;
+    letter-spacing: 0.15em;
+    font-variant: small-caps slashed-zero;
+    height: var(--form-field-height);
+}
+
+.aoa-sheet label.checkbox {
+    height: unset;
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: stretch;
+    gap: 0.4em;
+    font-size: var(--font-size-16);
+}
+
+.aoa-sheet label.checkbox input {
+    top: -2px;
+}
+
+
+.aoa-sheet input:hover:not(:disabled) {
+    background: var(--sheet-highlight);
+}
+
+.aoa-sheet input[type="text"][data-dtype="Number"] {
+    text-align: center;
+}
+
+.aoa-sheet input:disabled:hover {
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    box-shadow: initial;
+    outline: initial;
+    cursor: default;
+}
+
+.aoa-sheet select,
+.aoa-sheet textarea {
+    border: none;
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    border-radius: 0;
+    background: var(--sheet-light-accent);
+    color: darkblue;
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    text-indent: 0.1em;
+    height: var(--form-field-height);
+    letter-spacing: 0.15em;
+    font-variant: small-caps;
+}
+
+.aoa-sheet textarea:read-only {
+    cursor: default;
+}
+
+.aoa-sheet textarea {
+    font-size: inherit;
+    line-height: 1;
+    overflow-y: hidden;
+}
+
+.aoa-sheet a:hover {
+    text-shadow: 0 0 6px darkred;
+}
+
+.aoa-sheet .tabs a {
+    transform-origin: 100% 50%;
+    transition: transform 0.5s ease,
+    color 0.5s ease;
+}
+
+.aoa-sheet .tabs a.active {
+    transform: scale(1.5);
+    color: darkred;
+}
+
+.aoa-sheet .tabs a.active:hover {
+    text-shadow: none;
+}
+
+.aoa-sheet .coins {
+    background: var(--sheet-light-accent);
+    border-bottom: 1px solid var(--sheet-dark-accent);
+    align-items: center;
+    font-family: var(--font-hand);
+    font-weight: bolder;
+    font-variant: small-caps;
+    letter-spacing: 0.15em;
+    color: darkblue;
+    padding: 0 1.2em;
+    gap: 0.2em;
+}
+
+.aoa-sheet .coins [type="text"][data-dtype="Number"] {
+    flex-basis: 4em;
+    background: transparent;
+    border: none;
+    text-align: right;
+}
+
+.aoa-sheet .coins.flexrow > * {
+    flex: 0;
+}
+
+.aoa-sheet option:checked {
+    background: var(--text-strong);
+}
+
+.aoa-sheet .description-editor .caps {
+    color: darkblue;
+    font-size: 150%;
+    text-decoration-color: darkblue;
+
+}
+
+.aoa-sheet .description-editor .move-up {
+    position: relative;
+    top: 0;
+    text-decoration-color: darkblue;
+
+}
+
+.aoa-sheet .prosemirror .editor-container {
+    margin: 0.5rem 0px;
+}
+
+.aoa-sheet a i {
+    transition: 500ms ease;
+    transform-origin: 50% 50%;
+}
+
+.aoa-sheet a:hover i {
+    transform: scale(1.1);
+}
+
+.aoa-sheet a:hover i.fa-dice-d20 {
+    transform: scale(1.1) rotate(10deg);
+}
