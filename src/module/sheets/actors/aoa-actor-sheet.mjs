@@ -1,6 +1,8 @@
 import {EditableList} from "../../editable-list.mjs";
 import {actionHandler} from "../../actions.mjs";
 import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
+import {inputMousewheel} from "../../utils.mjs";
+import gsap from "/scripts/greensock/esm/all.js";
 
 export class AoaActorSheet extends ActorSheet {
 
@@ -14,6 +16,8 @@ export class AoaActorSheet extends ActorSheet {
 
     async activateListeners(html) {
         await super.activateListeners(html);
+
+        const actor = this.actor;
 
         this.editableLists = this.options.editableLists.map(el => {
             el.context = this.getData();
@@ -39,6 +43,27 @@ export class AoaActorSheet extends ActorSheet {
         });
 
         html.find(".drag").on("dragstart", this._onDragStart.bind(this));
+        html.find("[data-dtype='Number'][type='text']").on('wheel', (ev) => inputMousewheel(ev, actor));
+
+        /* html.find("i.fa-dice-d20").hover(this.onRollHoverIn.bind(this), this.onRollHoverOut.bind(this));*/
+
+        html.find("i.fa-dice-d20").each((i, e) => {
+           const ease = "none";
+           const duration = 0.5;
+           const animation = gsap.to(e, {paused: true, scale: 1.2, rotation: "random(-45, 45, 5)",  ease, duration});
+
+           e.addEventListener("mouseenter", () => {
+               animation.duration(duration);
+               animation.ease = ease;
+               animation.play();
+           });
+           e.addEventListener("mouseleave", () => {
+               animation.duration(0.5);
+               animation.ease = "none";
+               animation.reverse();
+           });
+        });
+
 
         this.beautifyHeaders(html.find(":header"));
 
@@ -108,6 +133,15 @@ export class AoaActorSheet extends ActorSheet {
         }
 
         return super._onDropItemCreate(itemData);
+    }
+
+    onRollHoverIn(ev) {
+        const rotation = -45 + Math.random() * 90;
+        gsap.to(ev.target, {rotation: rotation, scale: 1.2, ease: "elastic.out", duration: 1});
+    }
+
+    onRollHoverOut(ev) {
+        gsap.to(ev.target, {rotation: 0, scale: 1, ease: "none", duration: 0.1});
     }
 
     static editItem(actor, html) {

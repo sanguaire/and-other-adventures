@@ -16,7 +16,8 @@
   ],
   "scripts": [],
   "esmodules": [
-    "module/main.mjs"
+    "module/main.mjs",
+    "greensock/esm/all.js"
   ],
   "styles": [
     "styles/aoa.css"

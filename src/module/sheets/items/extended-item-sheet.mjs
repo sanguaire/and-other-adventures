@@ -1,5 +1,5 @@
 import {CONST} from "../../const.mjs";
-import {trimNewLineWhitespace} from "../../utils.mjs";
+import {inputMousewheel, trimNewLineWhitespace} from "../../utils.mjs";
 
 export class ExtendedItemSheet extends ItemSheet {
 
@@ -57,6 +57,8 @@ export class ExtendedItemSheet extends ItemSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
+        const item = this.item;
+
         html.find(":header").html(function() {
             return $(this)
                 .text()
@@ -66,6 +68,8 @@ export class ExtendedItemSheet extends ItemSheet {
 
         html.find(".new-ability").change(this.newAbility.bind(this));
         html.find(".change-ability").change(this.changeAbility.bind(this));
+
+        html.find("[data-dtype='Number'][type='text']").on('wheel', (ev) => inputMousewheel(ev, item));
 
         html.find("textarea").html(function() {
            return $(this)

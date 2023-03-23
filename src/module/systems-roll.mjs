@@ -53,19 +53,19 @@ export class SystemRoll extends Roll {
                 this.showOffset = true;
                 break;
             case 'melee':
-                attackMod = SystemRoll.toModString(item.system.attack.melee + mod);
+                attackMod = SystemRoll.toModString(item ? item.system.attack.melee + mod : roller.system.attack.melee + mod);
                 super(`1d20${attackMod}`);
-                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name}`;
+                this.name = item ? `${game.i18n.localize("aoa.attack-with")} ${item.name}` : `${game.i18n.localize("aoa.rolls.melee")}`;
                 this.modifier = attackMod;
                 this.target = target;
                 this.direction = RollDirection.high;
                 this.showOffset = target !== undefined;
                 break;
             case 'ranged':
-                attackMod = SystemRoll.toModString(item.system.attack.ranged + mod);
-                const ammoString = item.system.usesAmmo ? `(${roller.items.get(item.system.ammoId)?.name})` : "";
+                attackMod = SystemRoll.toModString(item ? item.system.attack.ranged + mod : roller.system.attack.ranged + mod);
+                const ammoString = item?.system.usesAmmo ? `(${roller.items.get(item.system.ammoId)?.name})` : "";
                 super(`1d20${attackMod}`);
-                this.name = `${game.i18n.localize("aoa.attack-with")} ${item.name} ${ammoString}`;
+                this.name = item ? `${game.i18n.localize("aoa.attack-with")} ${item.name} ${ammoString}` : `${game.i18n.localize("aoa.rolls.ranged")}`;
                 this.modifier = attackMod;
                 this.target = target;
                 this.direction = RollDirection.high;

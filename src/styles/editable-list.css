@@ -26,8 +26,12 @@
 .editable-list .list .item {
     box-sizing: border-box;
     display: flex;
+    background: var(--sheet-light-accent);
     flex-direction: column;
+}
 
+.editable-list .list .item:nth-child(even) {
+    background: var(--sheet-light-dark-accent);
 }
 
 .editable-list .list .item > .list-row {
@@ -35,7 +39,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    background: var(--sheet-light-accent);
     height: var(--form-field-height);
     padding: 0 0.4em;
 }

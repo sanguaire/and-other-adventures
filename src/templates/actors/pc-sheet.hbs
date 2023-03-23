@@ -1,15 +1,15 @@
 {{log .}}
 <form class="{{cssClass}}" autocomplete="off">
     {{> pcHeader}}
-    <div class="abilities-saves">
+    <div class="abilities-saves section-border-horizontal">
         {{> pcAbilities}}
 
         {{#if condensed}}
-            <div class="flexcol">
+            <div class="flexcol section-border-vertical">
                 {{> pcSaves}}
                 <div style="padding: 0.4em;display: flex;flex-direction: column; gap:0.4em;">
                     <label for="system.selectedWeapon">{{localize "aoa.selected-weapon"}}:</label>
-                    <select name="system.selectedWeapon" {{#unless equippedWeapons}}disabled{{/unless}}>
+                    <select name="system.selectedWeapon" class="text-centered" {{#unless equippedWeapons}}disabled{{/unless}}>
                         {{#select actor.system.selectedWeapon}}
                             {{#each equippedWeapons}}
                                 <option value="{{id}}">{{name}} {{#if system.specialized}}&#xf004;{{/if}}{{#if system.magical}}&#xf890;{{/if}}
@@ -43,7 +43,7 @@
                 </div>
                 <div style="padding: 0.4em;display: flex;flex-direction: column; gap:0.4em;">
                     <label>{{localize "aoa.stances.header"}}:</label>
-                    <select name="system.combatStance">
+                    <select name="system.combatStance" class="text-centered">
                         {{#select actor.system.combatStance}}
                             {{selectOptions combatStances selected=actor.system.combatStances}}
                         {{/select}}

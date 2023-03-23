@@ -94,6 +94,21 @@
     font-size: var(--font-size-16);
 }
 
+.dialog .aoa-sheet label.checkbox {
+    flex-direction: column-reverse;
+    gap: 0;
+    flex-wrap: nowrap;
+    flex: 1;
+}
+
+.dialog .aoa-sheet .saves {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.4em;
+    text-align: center;
+}
+
 .aoa-sheet label.checkbox input {
     top: -2px;
 }
@@ -127,6 +142,10 @@
     height: var(--form-field-height);
     letter-spacing: 0.15em;
     font-variant: small-caps;
+}
+
+.aoa-sheet select {
+    padding: 0;
 }
 
 .aoa-sheet textarea:read-only {
@@ -183,7 +202,7 @@
 }
 
 .aoa-sheet option:checked {
-    background: var(--text-strong);
+    background: var(--sheet-light-green-accent);
 }
 
 .aoa-sheet .description-editor .caps {
@@ -209,10 +228,30 @@
     transform-origin: 50% 50%;
 }
 
-.aoa-sheet a:hover i {
+.aoa-sheet a:hover i:not(.fa-dice-d20) {
     transform: scale(1.1);
 }
-
+/*
 .aoa-sheet a:hover i.fa-dice-d20 {
     transform: scale(1.1) rotate(10deg);
+}*/
+
+.aoa-sheet .section-border-horizontal {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: var(--section-border);
+    border-image-source: url(../assets/line-horizontal-normal.png);
+    border-image-repeat: stretch;
+    border-image-slice: 3;
+}
+
+.aoa-sheet .section-border-vertical {
+    border-top: 0;
+    border-left: 0;
+    border-right: var(--section-border);
+    border-bottom: 0;
+    border-image-source: url(../assets/line-vertical-normal.png);
+    border-image-repeat: stretch;
+    border-image-slice: 3;
 }

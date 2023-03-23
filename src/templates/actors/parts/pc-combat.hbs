@@ -2,17 +2,20 @@
 <div class="flexrow justify-center text-centered" style="margin-bottom: 0.5em; border-bottom: 2px solid var(--sheet-dark-accent)">
     <span>
          <label>{{localize "aoa.base-attack-bonus"}}</label>
-        {{numberFormat actor.system.attackBonus.base sign=true decimals=0}}
+        {{numberFormat actor.system.attack.base sign=true decimals=0}}
     </span>
 
     <span>
+        <a data-action="roll" data-action-type="melee"><i class="fa-solid fa-dice-d20"></i></a>
       <label>{{localize "aoa.melee"}}</label>
-        {{numberFormat actor.system.attackBonus.melee sign=true decimals=0}}
+        {{numberFormat actor.system.attack.melee sign=true decimals=0}}
     </span>
 
     <span>
+        <a data-action="roll" data-action-type="ranged"><i class="fa-solid fa-dice-d20"></i></a>
+
          <label>{{localize "aoa.ranged"}}</label>
-        {{numberFormat actor.system.attackBonus.ranged sign=true decimals=0}}
+        {{numberFormat actor.system.attack.ranged sign=true decimals=0}}
     </span>
 
 

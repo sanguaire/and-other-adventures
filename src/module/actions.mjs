@@ -1,5 +1,6 @@
 import {CONST as AOA_CONST} from "./const.mjs";
 import {SystemRoll} from "./systems-roll.mjs";
+import {inputMousewheel} from "./utils.mjs";
 
 export const actionHandler = (actor, html) => {
     const action = html.closest("[data-action]").data("action");
@@ -12,32 +13,38 @@ export const actionHandler = (actor, html) => {
 }
 
 function render(html) {
-    html.find(":header").html(function() {
+    html.find(":header").html(function () {
         return $(this)
             .text()
             .replace(/[a-zä-ü]*/g, '<span class="move-up">$&</span>')
             .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
     });
+
+    html.find("[name='modifier']").change(modifierChange);
+    html.find("[name='modifier']").on("wheel", inputMousewheel);
 }
 
-async function renderDialogContent(abilityKey, skills) {
-    const dlgTemplate = `systems/${AOA_CONST.MODULE_ID}/templates/dialogs/roll.hbs`
-    const dlgData = {
-        dialogHeader: game.i18n.localize("aoa.rolls." + abilityKey),
-        skills,
-        cssClass: "aoa-sheet"
+function modifierChange(ev) {
+    const target = ev.target;
+    const value = Number.parseInt(target.value);
+
+    if (value) {
+        target.value = HandlebarsHelpers.numberFormat(value, Object.create({
+            hash: {
+                decimals: 0,
+                sign: true
+            }
+        }));
     }
 
-    const content = await renderTemplate(dlgTemplate, dlgData);
-    return content;
 }
 
-async function renderSkillDialogContent(item) {
-    const dlgTemplate = `systems/${AOA_CONST.MODULE_ID}/templates/dialogs/roll-skill.hbs`
+async function renderDialogContent(rollKey, {skills, keys} = {}) {
+    const dlgTemplate = `systems/${AOA_CONST.MODULE_ID}/templates/dialogs/roll.hbs`
     const dlgData = {
-        dialogHeader: game.i18n.localize("aoa.rolls.skill"),
-        skillName: item.name,
-        skillValue: item.system.bonus,
+        dialogHeader: game.i18n.localize("aoa.rolls." + rollKey),
+        skills,
+        keys,
         cssClass: "aoa-sheet"
     }
 
@@ -49,7 +56,7 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
     console.log(actor);
     console.log(abilityKey);
 
-    const content = await renderDialogContent(abilityKey, actor.items.filter(i => i.type === "skill"));
+    const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill")});
 
     new Dialog({
             title: "",
@@ -77,7 +84,7 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
 
         console.log(formData);
 
-        if(formData.object.skill && formData.object.skill !== "") {
+        if (formData.object.skill && formData.object.skill !== "") {
             skill = actor.items.get(formData.object.skill);
             skillBonus = Number.parseInt(skill.system.bonus);
         }
@@ -89,12 +96,13 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
                 type: "ability",
                 mod: modifier,
                 flavor: flavor,
-                skill: skill});
+                skill: skill
+            });
         await roll.toMessage();
     }
 };
 
-const saveRoll = async (actor, saveKey)  => {
+const saveRoll = async (actor, saveKey) => {
     console.log(actor);
     console.log(saveKey);
 
@@ -125,7 +133,7 @@ const saveRoll = async (actor, saveKey)  => {
 
         const knackBonus = actor.system.class?.hasKnacks ? actor.system.knacks.resilience : 0;
 
-        const roll = new SystemRoll({roller: actor, key:saveKey, type:"save", mod:modifier + knackBonus});
+        const roll = new SystemRoll({roller: actor, key: saveKey, type: "save", mod: modifier + knackBonus});
         await roll.toMessage();
 
     };
@@ -137,11 +145,11 @@ const rangedAttack = async (actor, itemId) => {
 
     const item = actor.items.get(itemId);
 
-    if(item) {
-        if(item.system.usesAmmo) {
+    if (item) {
+        if (item.system.usesAmmo) {
             const ammoItem = actor.items.get(item.system.ammoId);
 
-            if(!ammoItem || ammoItem.system.quantity.value < 1) {
+            if (!ammoItem || ammoItem.system.quantity.value < 1) {
                 ui.notifications.error(`${game.i18n.localize("aoa.no-ammo")} '${item.name}'`);
                 return;
             }
@@ -176,10 +184,10 @@ const rangedAttack = async (actor, itemId) => {
         const targetToken = game.user.targets.first();
         let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
-        if(item.system.usesAmmo) {
+        if (item.system.usesAmmo) {
             const ammoItem = actor.items.get(item.system.ammoId);
 
-            if(ammoItem) {
+            if (ammoItem) {
                 await ammoItem.update({
                     "system.quantity.value": ammoItem.system.quantity.value - 1
                 });
@@ -191,13 +199,48 @@ const rangedAttack = async (actor, itemId) => {
     }
 };
 
+const rangedBasicRoll = async (actor) => {
+
+    const content = await renderDialogContent("ranged");
+
+    new Dialog({
+            title: "",
+            content: content,
+            buttons: {
+                roll: {
+                    label: "",
+                    callback: async (html) => await callback(html, actor,),
+                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                }
+            },
+            default: "roll",
+            render
+        },
+        {
+            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+        }
+    ).render(true);
+
+    async function callback(html, actor, item) {
+        const formElement = html[0].querySelector("form");
+        const formData = new FormDataExtended(formElement);
+        const modifier = Number.parseInt(formData.object.modifier);
+
+        const targetToken = game.user.targets.first();
+        let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+
+        const roll = new SystemRoll({roller: actor, type: "ranged", mod: modifier, target});
+        await roll.toMessage();
+    }
+};
+
 const monsterAttack = async (actor, itemId) => {
     console.log(actor);
     console.log(itemId);
 
     const item = actor.items.get(itemId);
 
-    if(item) {
+    if (item) {
         const content = await renderDialogContent("monster");
 
         new Dialog({
@@ -238,7 +281,7 @@ const meleeAttack = async (actor, itemId) => {
 
     const item = actor.items.get(itemId);
 
-    if(item) {
+    if (item) {
         const content = await renderDialogContent("melee");
 
         new Dialog({
@@ -273,37 +316,125 @@ const meleeAttack = async (actor, itemId) => {
     }
 };
 
-const meleeDamage = async(actor, itemId) => {
+const meleeBasicRoll = async (actor) => {
+    const content = await renderDialogContent("melee");
+
+    new Dialog({
+            title: "",
+            content: content,
+            buttons: {
+                roll: {
+                    label: "",
+                    callback: async (html) => await callback(html, actor),
+                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                }
+            },
+            default: "roll",
+            render
+        },
+        {
+            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+        }
+    ).render(true);
+
+    async function callback(html, actor) {
+        const formElement = html[0].querySelector("form");
+        const formData = new FormDataExtended(formElement);
+        const modifier = Number.parseInt(formData.object.modifier);
+
+        const targetToken = game.user.targets.first();
+        let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+
+        const roll = new SystemRoll({roller: actor, type: "melee", mod: modifier, target});
+        await roll.toMessage();
+    }
+};
+
+const meleeDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
-    if(item) {
+    if (item) {
         const roll = new SystemRoll({roller: actor, type: "damageMelee", item: item});
         await roll.toMessage();
     }
-}
+};
 
-const rangedDamage = async(actor, itemId) => {
+const rangedDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
-    if(item) {
+    if (item) {
         const roll = new SystemRoll({roller: actor, type: "damageRanged", item: item});
         await roll.toMessage();
     }
-}
+};
 
-const monsterDamage =  async(actor, itemId) => {
+const monsterDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
-    if(item) {
+    if (item) {
         const roll = new SystemRoll({roller: actor, type: "damageMonster", item: item});
         await roll.toMessage();
     }
-}
+};
 
-const spellUse = async(actor, itemId, flavor) => {
+const monsterSaveRoll = async (actor) => {
+    console.log(actor);
+
+    const content = await renderDialogContent("save", {
+        keys: {
+            poison: game.i18n.localize("aoa.saves.poison"),
+            breathWeapon: game.i18n.localize("aoa.saves.breathWeapon"),
+            polymorph: game.i18n.localize("aoa.saves.polymorph"),
+            spell: game.i18n.localize("aoa.saves.spell"),
+            magicItem: game.i18n.localize("aoa.saves.magicItem"),
+        }
+    });
+
+    new Dialog({
+            title: "",
+            content: content,
+            buttons: {
+                roll: {
+                    label: "",
+                    callback: async (html) => await callback(html, actor),
+                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                }
+            },
+            default: "roll",
+            render
+        },
+        {
+            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+        }
+    ).render(true);
+
+    async function callback(html, actor) {
+        const formElement = html[0].querySelector("form");
+        const formData = new FormDataExtended(formElement);
+        let abilityKey = "";
+
+        console.log(formData);
+
+        if (formData.object.key && formData.object.key !== "") {
+            abilityKey = formData.object.key;
+        }
+
+        const modifier = Number.parseInt(formData.object.modifier);
+        const roll = new SystemRoll(
+            {
+                roller: actor,
+                key: abilityKey,
+                type: "save",
+                mod: modifier
+            });
+        await roll.toMessage();
+    }
+};
+
+const spellUse = async (actor, itemId, flavor) => {
     const item = actor.items.get(itemId);
 
-    if(item) {
+    if (item) {
         const chatData = {
             name: game.i18n.localize("aoa.uses"),
             flavor,
@@ -318,7 +449,7 @@ const spellUse = async(actor, itemId, flavor) => {
             user: game.user.id,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
             content
-        }, { rollMode: game.settings.get("core", "rollMode")});
+        }, {rollMode: game.settings.get("core", "rollMode")});
 
         actor.update({
             "system.usedSpells": actor.system.usedSpells + 1
@@ -327,11 +458,13 @@ const spellUse = async(actor, itemId, flavor) => {
 
 }
 
-
 const actions = {
     roll: {
         abilities: abilityRoll,
         saves: saveRoll,
+        monsterSave: monsterSaveRoll,
+        melee: meleeBasicRoll,
+        ranged: rangedBasicRoll
     },
     attack: {
         ranged: rangedAttack,

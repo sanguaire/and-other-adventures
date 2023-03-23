@@ -1,6 +1,6 @@
 <div class="specials">
     <h1>{{localize "aoa.specials-header"}}</h1>
-    {{#if item.actor.system.class.hasSpecialization}}
+    {{#if actor.system.class.hasSpecialization}}
         <div class="flexrow align-center" style="gap: 0.4em;">
             <label for="system.weaponSpecializations">{{localize "aoa.weapon-specializations"}}:</label>
             <input name="system.weaponSpecializations" class="flex3" value="{{actor.system.weaponSpecializations}}" type="text" >

@@ -32,8 +32,8 @@ export class PcActor extends Actor {
             ...activeClass.system
         } : null
 
-        this.system.progression = this.system.class?.levelProgression[this.system.level];
-        this.system.nextLevel = this.system.class?.levelProgression[this.system.level + 1]?.xp ?? this.system.progression?.xp ?? 0;
+        this.system.progression = this.system.class?.levelProgression[Math.clamped(this.system.level, 1 , 10)];
+        this.system.nextLevel = this.system.class?.levelProgression[Math.clamped(this.system.level + 1, 1, 10)].xp ?? 0;
         this.system.levelUp = this.system.class && this.system.level < 10 && this.system.xp >= this.system.nextLevel;
 
         this.system.isSpellcaster = this.system.class?.hasCantrips || this.system.class?.hasSpells || this.system.class?.hasRituals;
@@ -53,7 +53,7 @@ export class PcActor extends Actor {
 
         const baseAttackBonus = (this.system.progression?.attackBonus ?? 0) + PcActor.stanceModifiers[this.system.combatStance].attack;
 
-        this.system.attackBonus = {
+        this.system.attack = {
             base: baseAttackBonus,
             melee: baseAttackBonus + this.system.abilities.str.modifier,
             ranged: baseAttackBonus + this.system.abilities.dex.modifier
@@ -106,8 +106,8 @@ export class PcActor extends Actor {
                 const specializedAttackBonus = this.system.class?.hasSpecialization && weapon.system.specialized ? 1 : 0;
 
                 weapon.system.attack = {
-                    melee: weapon.system.attackBonus.melee + this.system.attackBonus.melee + specializedAttackBonus,
-                    ranged: weapon.system.attackBonus.ranged + this.system.attackBonus.ranged + specializedAttackBonus
+                    melee: weapon.system.attackBonus.melee + this.system.attack.melee + specializedAttackBonus,
+                    ranged: weapon.system.attackBonus.ranged + this.system.attack.ranged + specializedAttackBonus
                 }
 
                 weapon.system.ammoQuantity = weapon.system.usesAmmo ? this.items.get(weapon.system.ammoId)?.system.quantity.value ?? 0 : 0

@@ -6,130 +6,9 @@ export class MonsterSheet extends AoaActorSheet {
 
     static actions = foundry.utils.mergeObject(super.actions, {
         hitDie: MonsterSheet.hitDie,
-        monsterSave: actionHandler
     });
 
-    static monsterSave = {
-        1:  {
-            poison: 14,
-            breathWeapon: 17,
-            polymorph: 15,
-            spell: 17,
-            magicItem: 16
-        },
-        2:  {
-            poison: 14,
-            breathWeapon: 17,
-            polymorph: 15,
-            spell: 17,
-            magicItem: 16
-        },
-        3:  {
-            poison: 13,
-            breathWeapon: 16,
-            polymorph: 14,
-            spell: 14,
-            magicItem: 15
-        },
-        4:  {
-            poison: 13,
-            breathWeapon: 16,
-            polymorph: 14,
-            spell: 14,
-            magicItem: 15
-        },
-        5:  {
-            poison: 11,
-            breathWeapon: 14,
-            polymorph: 12,
-            spell: 12,
-            magicItem: 13
-        },
-        6:  {
-            poison: 11,
-            breathWeapon: 14,
-            polymorph: 12,
-            spell: 12,
-            magicItem: 13
-        },
-        7:  {
-            poison: 10,
-            breathWeapon: 13,
-            polymorph: 11,
-            spell: 11,
-            magicItem: 12
-        },
-        8:  {
-            poison: 10,
-            breathWeapon: 13,
-            polymorph: 11,
-            spell: 11,
-            magicItem: 12
-        },
-        9:  {
-            poison: 8,
-            breathWeapon: 11,
-            polymorph: 9,
-            spell: 9,
-            magicItem: 10
-        },
-        10:  {
-            poison: 8,
-            breathWeapon: 11,
-            polymorph: 9,
-            spell: 9,
-            magicItem: 10
-        },
-        11:  {
-            poison: 7,
-            breathWeapon: 10,
-            polymorph: 8,
-            spell: 8,
-            magicItem: 9
-        },
-        12:  {
-            poison: 7,
-            breathWeapon: 10,
-            polymorph: 8,
-            spell: 8,
-            magicItem: 9
-        },
-        13:  {
-            poison: 5,
-            breathWeapon: 8,
-            polymorph: 6,
-            spell: 5,
-            magicItem: 7
-        },
-        14:  {
-            poison: 5,
-            breathWeapon: 8,
-            polymorph: 6,
-            spell: 5,
-            magicItem: 7
-        },
-        15:  {
-            poison: 4,
-            breathWeapon: 7,
-            polymorph: 5,
-            spell: 4,
-            magicItem: 6
-        },
-        16:  {
-            poison: 4,
-            breathWeapon: 7,
-            polymorph: 5,
-            spell: 4,
-            magicItem: 6
-        },
-        17:  {
-            poison: 3,
-            breathWeapon: 6,
-            polymorph: 4,
-            spell: 4,
-            magicItem: 5
-        },
-    };
+
 
 
     static get defaultOptions() {
@@ -171,12 +50,6 @@ export class MonsterSheet extends AoaActorSheet {
             "system.hp.value": roll.total,
             "system.hp.max": roll.total
         });
-
-    }
-
-    static async save(actor) {
-
-
 
     }
 }

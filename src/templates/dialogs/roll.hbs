@@ -1,5 +1,10 @@
 <form class="{{cssClass}}" autocomplete="off">
     <h2>{{dialogHeader}}</h2>
+    {{#if keys}}
+        <div class="flexrow align-center saves" >
+            {{radioBoxes "key" keys checked="poison"}}
+        </div>
+    {{/if}}
     {{#if skills}}
         <div class="flexrow align-center">
             <label for="skill">{{localize "aoa.used-skill"}}:</label>
@@ -11,8 +16,14 @@
             </select>
         </div>
     {{/if}}
-    <div class="flexrow align-center">
+    <div class="flexrow align-center" >
         <label for="modifier">{{localize "aoa.modifier"}}:</label>
-        <input name="modifier" type="text" data-dtype="Number" value="0" />
-    </div>
+        <div class="flexrow align-center" style="gap: 0.4em;">
+            <input name="modifier" type="text" data-dtype="Number" value={{numberFormat 0 sign=true decimals=0}} sign="true" />
+            <a class="flex0" style="color: darkred;"
+               onclick="document.getElementsByName('modifier')[0].value = HandlebarsHelpers.numberFormat(Number.parseInt(document.getElementsByName('modifier')[0].value) - 1, Object.create({hash: {sign: true, decimals: 0}}))"><i class="fa-solid fa-circle-arrow-down"></i></a>
+            <a class="flex0" style="color: darkgreen;"
+               onclick="document.getElementsByName('modifier')[0].value = HandlebarsHelpers.numberFormat(Number.parseInt(document.getElementsByName('modifier')[0].value) + 1, Object.create({hash: {sign: true, decimals: 0}}))"><i class="fa-solid fa-circle-arrow-up"></i></a>
+        </div>
+     </div>
 </form>

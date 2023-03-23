@@ -1,7 +1,7 @@
 <div class="statistics">
     <div class="flexrow align-center">
         <span class="flex1">
-            <label>{{localize "aoa.hd"}}:</label>
+            <label><a data-action="roll" data-action-type="monsterSave" data-tooltip="{{localize 'aoa.rolls.save'}}"><i class="fa-solid fa-shield-halved"></i></a> {{localize "aoa.hd"}}:</label>
         </span>
         <div class="flexrow align-center flex3" style="gap:0;">
             <input name="system.hitDie.number" style="text-align: right;" type="text" data-dtype="Number" value="{{actor.system.hitDie.number}}">
@@ -26,7 +26,7 @@
         </div>
         <div class="flexrow align-center flex2">
             <span>
-                <a data-action="hitDie">
+                <a data-action="hitDie" data-tooltip="{{localize 'aoa.rolls.hit-points'}}">
                 <i class="fa-solid fa-dice-d20"></i></a>
             <label for="system.resources.hp.value" class="text-right">{{localize "aoa.hp"}}: </label>
 

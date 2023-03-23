@@ -6,6 +6,9 @@ import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
 
 export class PcSheet extends AoaActorSheet {
 
+    static condensedHeight = 465;
+    static minHeight = 750;
+    static normalHeight = 900
 
     static actions = foundry.utils.mergeObject(super.actions, {
         equip: PcSheet.equip,
@@ -16,10 +19,10 @@ export class PcSheet extends AoaActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol"],
+            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", PcSheet.condensed ? "condensed" : ""],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
             width: PcSheet.condensed ? 600 : 800,
-            height: PcSheet.condensed? "auto" : 900,
+            height: PcSheet.condensed? "auto" : PcSheet.normalHeight,
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "combat"}],
             resizable: false,
             editableLists: [
@@ -133,13 +136,14 @@ export class PcSheet extends AoaActorSheet {
 
         if(PcSheet.condensed) {
             PcSheet.condensed = !PcSheet.condensed;
-            ui.activeWindow.render(true, {width: 800, height: 900});
+            ui.activeWindow.render(true, {width: 800, height: PcSheet.normalHeight});
             ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-minimize";
-
+            ui.activeWindow.element.removeClass("condensed")
         } else {
             PcSheet.condensed = !PcSheet.condensed;
             ui.activeWindow.render(true, {width: 600, height: "auto"});
             ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-maximize";
+            ui.activeWindow.element.addClass("condensed")
         }
     }
 
