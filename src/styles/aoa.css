@@ -9,6 +9,7 @@
 
 
 .aoa.sheet.window-app .window-content {
+    --font-primary: var(--font-normal);
     background: url(../assets/parchment.jpg) repeat;
     width: 100%;
     height: 100%;
@@ -20,6 +21,10 @@
 
 .aoa.sheet.actor:not(.condensed) {
     min-height: 750px;
+}
+
+.aoa.sheet.actor.condensed {
+    min-height: 465px;
 }
 
 .level-up {
@@ -334,23 +339,6 @@
 
 .skill-list .editable-list .list .item > .list-row input:last-of-type {
     flex: 3;
-}
-
-.gear-list div.quantity {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    width: auto;
-    right: 1em;
-}
-
-.gear-list div.quantity.only-hover {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.gear-list div.quantity.only-hover:hover {
-    opacity: 1;
 }
 
 .used-spells {

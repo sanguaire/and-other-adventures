@@ -256,8 +256,7 @@
     align-items: center;
 }
 
-#ac div,
-#ini div {
+#ac div, #ini div {
     display: flex;
     flex: 0 1 2em;
     border: 4px solid var(--sheet-green-accent);
@@ -268,4 +267,35 @@
     align-items: center;
     width: 2em;
     margin: auto;
+    filter: drop-shadow(2px 4px 6px grey);
+}
+
+.gear-list div.quantity,
+.weapon-list div.quantity{
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    right: 1em;
+}
+
+.weapon-list div.quantity {
+    position: relative;
+    right: unset;
+    margin-right: 0.8em;
+}
+
+.weapon-list div.quantity input {
+    width: 1.6em;
+}
+
+.gear-list div.quantity.only-hover,
+.weapon-list div.quantity.only-hover {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.gear-list div.quantity.only-hover:hover,
+.weapon-list div.quantity.only-hover:hover {
+    opacity: 1;
 }

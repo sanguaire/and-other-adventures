@@ -29,6 +29,8 @@ export class ExtendedItemSheet extends ItemSheet {
         switch(this.item.type){
             case "class":
                 return 875;
+            case "weapon":
+                return 500;
             default:
                 return 500;
         }
@@ -40,6 +42,8 @@ export class ExtendedItemSheet extends ItemSheet {
         switch(this.item.type){
             case "class":
                 return 670;
+            case "weapon":
+                return 450;
             default:
                 return 350;
         }

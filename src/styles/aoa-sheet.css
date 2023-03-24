@@ -11,10 +11,6 @@
     gap: 0.2em
 }
 
-.aoa-sheet {
-    --font-primary: var(--font-normal);
-}
-
 .aoa-sheet.item-sheet .item-content {
     overflow-x: hidden;
     overflow-y: auto;
@@ -254,4 +250,14 @@
     border-image-source: url(../assets/line-vertical-normal.png);
     border-image-repeat: stretch;
     border-image-slice: 3;
+}
+
+.aoa-sheet input[type="radio"] {
+    width: 1.3em;
+    vertical-align: middle;
+}
+
+.aoa-sheet input[type="checkbox"]:checked, .aoa-sheet input[type="radio"]:checked {
+    color: black;
+    -webkit-filter: invert(13%) sepia(0%) saturate(50%) hue-rotate(-75deg) brightness(100%) contrast(100%);
 }

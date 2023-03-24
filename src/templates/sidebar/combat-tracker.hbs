@@ -63,7 +63,7 @@
         <li class="combatant actor directory-item flexrow {{this.type}} {{this.css}}" data-combatant-id="{{this.id}}">
             <img class="token-image" data-src="{{this.img}}" alt="{{this.name}}"/>
             <div class="token-name flexcol">
-                <h4>{{this.name}}</h4>
+                <h4 style="font-family: 'Signika', 'Font Awesome 6 Pro', sans-serif">{{this.name}} {{{this.stance}}}{{#if ../user.isGM}} ({{localize "aoa.ac-abr"}}: {{this.ac}}){{/if}}</h4>
                 <div class="combatant-controls flexrow">
                     {{#if ../user.isGM}}
                     <a class="combatant-control {{#if this.hidden}}active{{/if}}" data-tooltip="COMBAT.ToggleVis" data-control="toggleHidden">
@@ -85,6 +85,7 @@
                     </div>
                 </div>
             </div>
+
 
             {{#if this.hasResource}}
             <div class="token-resource">

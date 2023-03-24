@@ -41,6 +41,15 @@ export class AoaCombatant extends Combatant {
 }
 
 export class AoaCombatTracker extends CombatTracker {
+
+    static stances = {
+        normal: "",
+        aggressive: "&#xf71d",
+        defensive: "&#xf132",
+        protective: "&#xf0e9",
+        commanding: "&#xf4af"
+    }
+
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             template: `systems/${CONST.MODULE_ID}/templates/sidebar/combat-tracker.hbs`,
@@ -51,7 +60,13 @@ export class AoaCombatTracker extends CombatTracker {
         const context = await super.getData(options);
 
         context.turns.forEach(t => {
-            t.type = context.combat.combatants.get(t.id).actor.type;
+            const actor = context.combat.combatants.get(t.id).actor;
+
+            t.type = actor.type;
+            t.stance = actor.type === "pc" ?
+                `${AoaCombatTracker.stances[actor.system.combatStance]}` :
+                "";
+            t.ac = actor.system.ac;
         });
 
         return context;
@@ -86,4 +101,6 @@ export class AoaCombatTracker extends CombatTracker {
                 return this._onPingCombatant(c);
         }
     }
+
+
 }

@@ -5,9 +5,6 @@ import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
 
 export class PcSheet extends AoaActorSheet {
-
-    static condensedHeight = 465;
-    static minHeight = 750;
     static normalHeight = 900
 
     static actions = foundry.utils.mergeObject(super.actions, {
@@ -95,25 +92,49 @@ export class PcSheet extends AoaActorSheet {
 
     static async equip(actor, html) {
         const itemId = html.closest("[data-item-id]").data("item-id");
+        const consideredTypes = ["weapon", "armor"];
 
         if (!itemId) {
             return;
         }
 
         const item = actor.items.get(itemId);
+
+        if(item.type === "weapon" && item.system.quantity.value < 1) {
+            return;
+        }
+
         const equip = !item.system.equipped
 
-        if (item.type === "weapon" && equip) {
-            const equippedWeapons = actor.items.filter(i => i.type === "weapon" && i.system.equipped);
+        if (equip && (item.type === "weapon" || (item.type === "armor" && item.system.needFreeHand))) {
+            const equippedItems = actor
+                    .items
+                    .filter(i => i.system.equipped && consideredTypes.includes(item.type))
+                    .filter(i => i.type === "weapon" || i.system.needFreeHand);
 
-            if (equippedWeapons.length >= 2) {
-                const lastWeapon = equippedWeapons.slice(-1);
+            if (equippedItems.length >= 2) {
+                const lastItem = equippedItems.slice(-1);
 
-                await lastWeapon[0]?.update({
-                    "system.equipped": !lastWeapon[0].system.equipped
+                await lastItem[0]?.update({
+                    "system.equipped": false
                 });
             }
         }
+
+        if (equip && item.type === "armor" && !item.system.stacks) {
+            const equippedArmor = actor
+                .items
+                .filter(i => i.system.equipped && i.type === "armor" && !i.system.stacks);
+
+            if(equippedArmor.length >= 1) {
+                const lastArmor = equippedArmor.slice(-1);
+
+                await lastArmor[0]?.update({
+                    "system.equipped": false
+                });
+            }
+        }
+
         await item.update({
             "system.equipped": !item.system.equipped
         });

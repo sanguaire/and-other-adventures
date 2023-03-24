@@ -146,6 +146,12 @@ const rangedAttack = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
     if (item) {
+        if(!item.system.equipped) {
+            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+            return;
+        }
+
+
         if (item.system.usesAmmo) {
             const ammoItem = actor.items.get(item.system.ammoId);
 
@@ -192,6 +198,13 @@ const rangedAttack = async (actor, itemId) => {
                     "system.quantity.value": ammoItem.system.quantity.value - 1
                 });
             }
+        } else {
+            const newQuantity = item.system.quantity.value - 1;
+
+            await item.update({
+                "system.quantity.value": newQuantity,
+                "system.equipped": item.system.equipped && newQuantity > 0
+            });
         }
 
         const roll = new SystemRoll({roller: actor, type: "ranged", mod: modifier, item: item, target});
@@ -282,6 +295,12 @@ const meleeAttack = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
     if (item) {
+        if(!item.system.equipped) {
+            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+            return;
+        }
+
+
         const content = await renderDialogContent("melee");
 
         new Dialog({
@@ -354,6 +373,12 @@ const meleeDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
     if (item) {
+        if(!item.system.equipped) {
+            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+            return;
+        }
+
+
         const roll = new SystemRoll({roller: actor, type: "damageMelee", item: item});
         await roll.toMessage();
     }
@@ -363,6 +388,12 @@ const rangedDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
     if (item) {
+        if(!item.system.equipped) {
+            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+            return;
+        }
+
+
         const roll = new SystemRoll({roller: actor, type: "damageRanged", item: item});
         await roll.toMessage();
     }

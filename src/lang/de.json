@@ -108,6 +108,7 @@
     "melee": "Nahkampf",
     "modifier": "Modifikator",
     "name": "Name",
+    "need-free-hand": "Benötigt eine freie Hand",
     "no-ammo": "Keine Munition für",
     "notes-header": "Notizen",
     "quantity": "Menge",
@@ -163,6 +164,7 @@
     "specials-header": "Besonderheiten",
     "spell-header": "Magie",
     "spells": "Zauber",
+    "stacks": "Stapelt",
     "stances": {
       "aggressive": "Aggressiv",
       "commanding": "Kommandieren",
@@ -178,6 +180,7 @@
     "uses": "Verwendet",
     "uses-ammo": "Verwendet Munition",
     "weapon": "Waffe",
+    "weapon-not-equipped": "Waffe nicht bereitgemacht",
     "weapon-specializations": "Waffenspezialisierungen",
     "weapons": "Waffen",
     "xp": "Erfahrung",

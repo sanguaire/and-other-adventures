@@ -71,9 +71,11 @@ export class PcActor extends Actor {
 
     _generateArmorClass() {
         return this.itemTypes.armor
-                .filter(a => a.system.equipped)
+                .filter(a => a.system.equipped && a.system.stacks)
                 .map(a => a.system.armorBonus)
                 .reduce((acc, cur) => acc + cur, 10)
+            + (this.itemTypes.armor
+                .find(a => a.system.equipped && !a.system.stacks)?.system.armorBonus ?? 0)
             + (this.system.abilities.dex.modifier)
             + (this.system.class?.hasKnacks ? this.system.knacks.defensive : 0)
             + (PcActor.stanceModifiers[this.system.combatStance].ac);

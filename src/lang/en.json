@@ -108,6 +108,7 @@
     "melee": "Melee",
     "modifier": "Modifier",
     "name": "Name",
+    "need-free-hand": "Needs a free hand",
     "no-ammo": "No ammunition for",
     "notes-header": "Notes",
     "quantity": "Quantity",
@@ -163,6 +164,7 @@
     "specials-header": "Specials",
     "spell-header": "Magic",
     "spells": "Spells",
+    "stacks": "Stacks",
     "stances": {
       "aggressive": "Aggressive",
       "commanding": "Commanding",
@@ -178,6 +180,7 @@
     "uses": "Uses",
     "uses-ammo": "Uses ammunition",
     "weapon": "Weapon",
+    "weapon-not-equipped": "Weapon not equipped",
     "weapon-specializations": "Weapon specializations",
     "weapons": "Weapons",
     "xp": "Experience",

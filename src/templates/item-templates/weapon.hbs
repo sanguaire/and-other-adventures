@@ -1,13 +1,17 @@
 <div class="list-row relative">
     <i class="drag fa-solid fa-grip-vertical" draggable="true"></i>
-    <input type="text" data-dtype="text" value="{{name}}" data-property="name">
+    <input type="text" data-dtype="text" value="{{name}}" data-property="name" {{#if (lt system.quantity.value 1)}}class="zero-quantity"{{/if}}>
 
     {{#if system.specialized}}
-        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-heart" data-tooltip="{{localize 'aoa.specialized'}}"></i>
     {{/if}}
     {{#if system.magical}}
-        <i class="fa-solid fa-sparkles"></i>
+        <i class="fa-solid fa-sparkles" data-tooltip="{{localize 'aoa.magical'}}"></i>
     {{/if}}
+    <div class="quantity {{#if (lt system.quantity.value 2)}}only-hover{{/if}}">
+        <label for="system.quantity">{{localize "aoa.quantity"}}:</label>
+        <input name="system.quantity" type="text" size="1" data-dtype="Number" value="{{system.quantity.value}}" data-property="system.quantity.value">
+    </div>
 </div>
 <div class="list-row justify-end" style="gap: 0.5em;">
     <span>
