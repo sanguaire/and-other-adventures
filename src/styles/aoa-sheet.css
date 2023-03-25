@@ -84,9 +84,9 @@
     height: unset;
     align-items: center;
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: stretch;
-    gap: 0.4em;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.2em;
     font-size: var(--font-size-16);
 }
 
@@ -216,7 +216,7 @@
 }
 
 .aoa-sheet .prosemirror .editor-container {
-    margin: 0.5rem 0px;
+    margin: 0.5rem 0;
 }
 
 .aoa-sheet a i {
@@ -227,10 +227,6 @@
 .aoa-sheet a:hover i:not(.fa-dice-d20) {
     transform: scale(1.1);
 }
-/*
-.aoa-sheet a:hover i.fa-dice-d20 {
-    transform: scale(1.1) rotate(10deg);
-}*/
 
 .aoa-sheet .section-border-horizontal {
     border-top: 0;
@@ -252,12 +248,63 @@
     border-image-slice: 3;
 }
 
-.aoa-sheet input[type="radio"] {
-    width: 1.3em;
+.aoa-sheet input[type="radio"],
+.aoa-sheet input[type="checkbox"] {
+    width: 1.5em;
     vertical-align: middle;
+    appearance: none;
+    background: transparent;
+    border: none;
+    align-items: center;
+    display: inline-flex;
 }
 
-.aoa-sheet input[type="checkbox"]:checked, .aoa-sheet input[type="radio"]:checked {
-    color: black;
-    -webkit-filter: invert(13%) sepia(0%) saturate(50%) hue-rotate(-75deg) brightness(100%) contrast(100%);
+.aoa-sheet input[type="radio"]:hover:not(:disabled),
+.aoa-sheet input[type="checkbox"]:hover:not(:disabled) {
+    background: transparent;
+}
+
+.aoa-sheet label > input[type="radio"]::after {
+    content: "\f111";
+    font-family: var(--font-awesome);
+    vertical-align: middle;
+    color: var(--sheet-green-accent);
+    font-size: 1.5em;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.aoa-sheet label > input[type="radio"]:checked::after {
+    content: "\f057";
+    font-family: var(--font-awesome);
+    vertical-align: middle;
+    color: var(--sheet-green-accent);
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.aoa-sheet label + input[type="checkbox"]::before {
+    content: "\f0c8";
+    font-family: var(--font-awesome);
+    vertical-align: middle;
+    color: var(--sheet-green-accent);
+    font-size: 1.5em;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.aoa-sheet label + input[type="checkbox"]:checked::before {
+    content: "\f14a";
+    font-family: var(--font-awesome);
+    vertical-align: middle;
+    color: var(--sheet-green-accent);
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.aoa-sheet input[type="radio"]:checked,
+.aoa-sheet input[type="checkbox"]:checked {
+    -webkit-filter: unset;
 }

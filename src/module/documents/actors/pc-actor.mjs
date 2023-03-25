@@ -142,4 +142,5 @@ export class PcActor extends Actor {
     get equipment() {
         return this.items.filter(i => i.system.hasOwnProperty("equipped"));
     }
+
 }

@@ -12,20 +12,32 @@
                 <h3 class="flex0">{{localize "aoa.knacks-header"}}</h3>
                 <div class="knacks" style="padding: 0.2em;">
                         <div class="flexrow align-center">
-                            <label for="system.knacks.defensive">{{localize "aoa.knacks.defensive"}}:</label>
-                            <input name="system.knacks.defensive" value="{{actor.system.knacks.defensive}}" type="text" data-dtype="Number">
+                            <label class="flex2">{{localize "aoa.knacks.defensive"}}:</label>
+                            <input name="system.knacks.defensive" value=0 type="radio" {{checked (eq 0 actor.system.knacks.defensive)}} data-dtype="Number">
+                            <input name="system.knacks.defensive" value=1 type="radio" {{checked (eq 1 actor.system.knacks.defensive)}} data-dtype="Number">
+                            <input name="system.knacks.defensive" value=2 type="radio" {{checked (eq 2 actor.system.knacks.defensive)}} data-dtype="Number">
+                            <input name="system.knacks.defensive" value=3 type="radio" {{checked (eq 3 actor.system.knacks.defensive)}} data-dtype="Number">
                         </div>
                         <div class="flexrow align-center">
-                            <label for="system.knacks.fleet">{{localize "aoa.knacks.fleet"}}:</label>
-                            <input name="system.knacks.fleet" value="{{actor.system.knacks.fleet}}" type="text" data-dtype="Number">
+                            <label class="flex2">{{localize "aoa.knacks.fleet"}}:</label>
+                            <input name="system.knacks.fleet" value=0 type="radio" {{checked (eq 0 actor.system.knacks.fleet)}} data-dtype="Number">
+                            <input name="system.knacks.fleet" value=1 type="radio" {{checked (eq 1 actor.system.knacks.fleet)}} data-dtype="Number">
+                            <input name="system.knacks.fleet" value=2 type="radio" {{checked (eq 2 actor.system.knacks.fleet)}} data-dtype="Number">
+                            <input name="system.knacks.fleet" value=3 type="radio" {{checked (eq 3 actor.system.knacks.fleet)}} data-dtype="Number">
                         </div>
                         <div class="flexrow align-center">
-                            <label for="system.knacks.strike">{{localize "aoa.knacks.strike"}}:</label>
-                            <input name="system.knacks.strike" value="{{actor.system.knacks.strike}}" type="text" data-dtype="Number">
+                            <label class="flex2">{{localize "aoa.knacks.strike"}}:</label>
+                            <input name="system.knacks.strike" value=0 type="radio" {{checked (eq 0 actor.system.knacks.strike)}} data-dtype="Number">
+                            <input name="system.knacks.strike" value=1 type="radio" {{checked (eq 1 actor.system.knacks.strike)}} data-dtype="Number">
+                            <input name="system.knacks.strike" value=2 type="radio" {{checked (eq 2 actor.system.knacks.strike)}} data-dtype="Number">
+                            <input name="system.knacks.strike" value=3 type="radio" {{checked (eq 3 actor.system.knacks.strike)}} data-dtype="Number">
                         </div>
                         <div class="flexrow align-center">
-                            <label for="system.knacks.resilience">{{localize "aoa.knacks.resilience"}}:</label>
-                            <input name="system.knacks.resilience" value="{{actor.system.knacks.resilience}}" type="text" data-dtype="Number">
+                            <label class="flex2">{{localize "aoa.knacks.resilience"}}:</label>
+                            <input name="system.knacks.resilience" value=0 type="radio" {{checked (eq 0 actor.system.knacks.resilience)}} data-dtype="Number">
+                            <input name="system.knacks.resilience" value=1 type="radio" {{checked (eq 1 actor.system.knacks.resilience)}} data-dtype="Number">
+                            <input name="system.knacks.resilience" value=2 type="radio" {{checked (eq 2 actor.system.knacks.resilience)}} data-dtype="Number">
+                            <input name="system.knacks.resilience" value=3 type="radio" {{checked (eq 3 actor.system.knacks.resilience)}} data-dtype="Number">
                         </div>
                 </div>
             </div>

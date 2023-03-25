@@ -110,6 +110,7 @@
     "name": "Name",
     "need-free-hand": "Needs a free hand",
     "no-ammo": "No ammunition for",
+    "no-attack-for-combat-stance": "No attack possible in combat stance",
     "notes-header": "Notes",
     "quantity": "Quantity",
     "range": {

@@ -52,10 +52,9 @@ async function renderDialogContent(rollKey, {skills, keys} = {}) {
     return content;
 }
 
-const abilityRoll = async (actor, abilityKey, flavor) => {
-    console.log(actor);
-    console.log(abilityKey);
+const attackNotAllowedForCombatStance = (cs) => ["protective", "commanding"].includes(cs);
 
+const abilityRoll = async (actor, abilityKey, flavor) => {
     const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill")});
 
     new Dialog({
@@ -103,9 +102,6 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
 };
 
 const saveRoll = async (actor, saveKey) => {
-    console.log(actor);
-    console.log(saveKey);
-
     const content = await renderDialogContent(saveKey);
 
     new Dialog({
@@ -140,10 +136,13 @@ const saveRoll = async (actor, saveKey) => {
 };
 
 const rangedAttack = async (actor, itemId) => {
-    console.log(actor);
-    console.log(itemId);
 
     const item = actor.items.get(itemId);
+
+    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+        return;
+    }
 
     if (item) {
         if(!item.system.equipped) {
@@ -194,17 +193,34 @@ const rangedAttack = async (actor, itemId) => {
             const ammoItem = actor.items.get(item.system.ammoId);
 
             if (ammoItem) {
-                await ammoItem.update({
-                    "system.quantity.value": ammoItem.system.quantity.value - 1
-                });
+                await actor.updateEmbeddedDocuments(
+                    "Item",
+                    [{
+                        _id: item.system.ammoId,
+                        system: {
+                            quantity: {
+                                value: ammoItem.system.quantity.value - 1
+                            }
+                        }
+                    }]);
             }
         } else {
             const newQuantity = item.system.quantity.value - 1;
 
-            await item.update({
-                "system.quantity.value": newQuantity,
-                "system.equipped": item.system.equipped && newQuantity > 0
-            });
+            await actor.updateEmbeddedDocuments(
+                "Item",
+                [
+                    {
+                        _id: item.id,
+                        system: {
+                            quantity: {
+                                value: newQuantity
+                            },
+                            equipped: item.system.equipped && newQuantity > 0
+                        }
+                    }
+                ]
+            )
         }
 
         const roll = new SystemRoll({roller: actor, type: "ranged", mod: modifier, item: item, target});
@@ -215,6 +231,11 @@ const rangedAttack = async (actor, itemId) => {
 const rangedBasicRoll = async (actor) => {
 
     const content = await renderDialogContent("ranged");
+
+    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+        return;
+    }
 
     new Dialog({
             title: "",
@@ -248,9 +269,6 @@ const rangedBasicRoll = async (actor) => {
 };
 
 const monsterAttack = async (actor, itemId) => {
-    console.log(actor);
-    console.log(itemId);
-
     const item = actor.items.get(itemId);
 
     if (item) {
@@ -289,10 +307,13 @@ const monsterAttack = async (actor, itemId) => {
 };
 
 const meleeAttack = async (actor, itemId) => {
-    console.log(actor);
-    console.log(itemId);
 
     const item = actor.items.get(itemId);
+
+    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+        return;
+    }
 
     if (item) {
         if(!item.system.equipped) {
@@ -337,6 +358,11 @@ const meleeAttack = async (actor, itemId) => {
 
 const meleeBasicRoll = async (actor) => {
     const content = await renderDialogContent("melee");
+
+    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+        return;
+    }
 
     new Dialog({
             title: "",
@@ -409,8 +435,6 @@ const monsterDamage = async (actor, itemId) => {
 };
 
 const monsterSaveRoll = async (actor) => {
-    console.log(actor);
-
     const content = await renderDialogContent("save", {
         keys: {
             poison: game.i18n.localize("aoa.saves.poison"),

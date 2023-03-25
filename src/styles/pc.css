@@ -15,6 +15,11 @@
     padding-bottom: 0.4em;
 }
 
+.pc-sheet.condensed .ability > .flexrow {
+    right: 0.4em;
+    position: relative;
+}
+
 .pc-sheet .abilities,
 .pc-sheet .saves {
     display: flex;
@@ -298,4 +303,36 @@
 .gear-list div.quantity.only-hover:hover,
 .weapon-list div.quantity.only-hover:hover {
     opacity: 1;
+}
+
+.pc-sheet .knacks div > input[type="radio"] {
+    flex: 0;
+    justify-content: center;
+}
+
+.pc-sheet .knacks div > input[type="radio"]:before {
+    font-family: var(--font-awesome);
+    font-weight: normal;
+    color: var(--sheet-green-accent);
+    font-size: var(--font-size-18);
+}
+
+.pc-sheet .knacks div > input[type="radio"]:checked:before {
+    font-weight: bold;
+}
+
+.pc-sheet .knacks div > input[type="radio"]:nth-of-type(1):before {
+    content: "\e0ed"
+}
+
+.pc-sheet .knacks div > input[type="radio"]:nth-of-type(2):before {
+    content: "\e0ee"
+}
+
+.pc-sheet .knacks div > input[type="radio"]:nth-of-type(3):before {
+    content: "\e0ef"
+}
+
+.pc-sheet .knacks div > input[type="radio"]:nth-of-type(4):before {
+    content: "\e0f0"
 }

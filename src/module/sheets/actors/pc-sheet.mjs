@@ -151,7 +151,6 @@ export class PcSheet extends AoaActorSheet {
         }
     }
 
-
     static toggleCondense() {
         let icon;
 

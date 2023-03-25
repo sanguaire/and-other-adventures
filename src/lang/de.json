@@ -110,6 +110,7 @@
     "name": "Name",
     "need-free-hand": "Benötigt eine freie Hand",
     "no-ammo": "Keine Munition für",
+    "no-attack-for-combat-stance": "Kein Angriff möglich für Kampfhaltung",
     "notes-header": "Notizen",
     "quantity": "Menge",
     "range": {

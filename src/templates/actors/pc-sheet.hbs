@@ -1,4 +1,3 @@
-{{log .}}
 <form class="{{cssClass}}" autocomplete="off">
     {{> pcHeader}}
     <div class="abilities-saves section-border-horizontal">
@@ -11,6 +10,7 @@
                     <label for="system.selectedWeapon">{{localize "aoa.selected-weapon"}}:</label>
                     <select name="system.selectedWeapon" class="text-centered" {{#unless equippedWeapons}}disabled{{/unless}}>
                         {{#select actor.system.selectedWeapon}}
+                            <option value=""></option>
                             {{#each equippedWeapons}}
                                 <option value="{{id}}">{{name}} {{#if system.specialized}}&#xf004;{{/if}}{{#if system.magical}}&#xf890;{{/if}}
                                 </option>

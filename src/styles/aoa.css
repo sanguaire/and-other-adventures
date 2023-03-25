@@ -7,7 +7,6 @@
 @import "pc.css";
 @import "monster.css";
 
-
 .aoa.sheet.window-app .window-content {
     --font-primary: var(--font-normal);
     background: url(../assets/parchment.jpg) repeat;
@@ -314,15 +313,6 @@
     left: 50%;
     right: 0;
 }
-
-
-/*.tab[data-tab="gear"] .lists > div:last-child {
-    left: 0;
-}
-
-.tab[data-tab="specials"] .lists > div:last-child {
-    left: 0;
-}*/
 
 .tab[data-tab] .lists .editable-list {
     height: auto;

@@ -10,6 +10,7 @@ import {SystemRoll} from "./systems-roll.mjs";
 import {registerSettings} from "./settings.mjs";
 import {configure} from "./config.mjs";
 import {updateActorHandler} from "./update-actor-handler.mjs";
+import {updateItemHandler} from "./update-item-handler.mjs";
 
 const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/parts/header.hbs`,
@@ -77,6 +78,7 @@ Hooks.once("init", async () => {
 
     Hooks.on("renderChatMessage", chatMessageHandler );
     Hooks.on("updateActor", updateActorHandler);
+    Hooks.on("updateItem", updateItemHandler);
 
     configure();
 
