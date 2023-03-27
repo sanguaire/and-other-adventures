@@ -31,6 +31,15 @@
       "type": "Item",
       "private": false,
       "flags": {}
+    },
+    {
+      "name": "Armor",
+      "label": "Armor",
+      "system": "and-other-adventures",
+      "path": "packs/armor.db",
+      "type": "Item",
+      "private": false,
+      "flags": {}
     }
   ],
   "languages": [

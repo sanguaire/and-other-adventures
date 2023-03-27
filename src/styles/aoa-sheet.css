@@ -316,3 +316,7 @@
 .aoa-sheet input[type="checkbox"]:checked {
     -webkit-filter: unset;
 }
+
+.ability input[type="text"]:not(:focus) {
+    box-shadow: 0 0 5px black;
+}

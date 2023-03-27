@@ -35,8 +35,7 @@
 }
 
 .pc-sheet.condensed .ability > .flexrow {
-    right: 0.4em;
-    position: relative;
+
 }
 
 .pc-sheet .abilities,
@@ -49,7 +48,12 @@
 
 .pc-sheet .abilities input,
 .pc-sheet .saves input {
-    flex: 0 0 4em;
+    flex: 0 0 3.5em;
+}
+
+.pc-sheet .abilities .modifier {
+    text-align: center;
+    flex: 1;
 }
 
 .pc-sheet .abilities > .flexrow,
@@ -65,6 +69,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.pc-sheet .ability {
+    align-items: flex-start;
 }
 
 .pc-sheet.condensed .ability label {
