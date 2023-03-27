@@ -22,7 +22,17 @@
   "styles": [
     "styles/aoa.css"
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "Classes",
+      "label": "Classes",
+      "system": "and-other-adventures",
+      "path": "packs/classes.db",
+      "type": "Item",
+      "private": false,
+      "flags": {}
+    }
+  ],
   "languages": [
     {
       "lang": "en",

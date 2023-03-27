@@ -60,7 +60,7 @@ export class PcActor extends Actor {
 
         this.system.attack = {
             base: baseAttackBonus,
-            melee: baseAttackBonus + this.system.abilities.str.modifier,
+            melee: baseAttackBonus + this.system.abilities[this.system.meleeBonusBasedOn].modifier,
             ranged: baseAttackBonus + this.system.abilities.dex.modifier
         };
 
@@ -69,19 +69,19 @@ export class PcActor extends Actor {
             + (this.system.class?.initiativeBonus ?? 0)
             + (this.system.class?.hasKnacks ? this.system.knacks.fleet : 0);
 
-        this.system.ac += this._generateArmorClass();
+        this.system.ac += this._getArmorClassBonus();
 
         this._prepareWeapons()
     }
 
-    _generateArmorClass() {
+    _getArmorClassBonus() {
         return this.itemTypes.armor
                 .filter(a => a.system.equipped && a.system.stacks)
                 .map(a => a.system.armorBonus)
                 .reduce((acc, cur) => acc + cur, 0)
             + (this.itemTypes.armor
                 .find(a => a.system.equipped && !a.system.stacks)?.system.armorBonus ?? 0)
-            + (this.system.abilities.dex.modifier)
+            + (this.system.abilities[this.system.acBonusBasedOn].modifier)
             + (this.system.class?.hasKnacks ? this.system.knacks.defensive : 0)
             + (PcActor.stanceModifiers[this.system.combatStance].ac);
     }

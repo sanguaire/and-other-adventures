@@ -98,20 +98,18 @@ export class AoaActorSheet extends ActorSheet {
         // Create drag data
         let dragData;
 
-        const itemId = li.closest("[data-item-id]").data("item-id");
+        const id = li.closest("[data-item-id]").data("item-id");
+        const documentType = li.closest("[data-document-type]").data("document-type");
 
         // Owned Items
-        if ( itemId ) {
-            const item = this.actor.items.get(itemId);
+        if ( id ) {
+            const item = documentType === "Item"
+                ? this.actor.items.get(id)
+                : documentType === "ActiveEffect"
+                    ? this.actor.effects.get(id)
+                : console.error(`No drag for '${documentType}`);
+
             dragData = item.toDragData();
-        }
-
-        const effectId = li.closest("[data-effect-id]").data("effect-id");
-
-        // Active Effect
-        if ( effectId ) {
-            const effect = this.actor.effects.get(effectId);
-            dragData = effect.toDragData();
         }
 
         if ( !dragData ) return;

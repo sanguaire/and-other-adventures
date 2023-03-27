@@ -23,6 +23,7 @@ export class EditableList {
                list: this.list,
                template: this._template,
                itemType: this.itemType,
+               documentType: this.documentType,
                editable: game.user.isGM || !this.gmEdit,
                header: this._header});
        const target = html.find(this._listSelector);

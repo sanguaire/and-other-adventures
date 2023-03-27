@@ -1,5 +1,6 @@
 import {CONST} from "../../const.mjs";
 import {inputMousewheel, trimNewLineWhitespace} from "../../utils.mjs";
+import {EditableList} from "../../editable-list.mjs";
 
 export class ExtendedItemSheet extends ItemSheet {
 
@@ -58,7 +59,7 @@ export class ExtendedItemSheet extends ItemSheet {
         return context;
     }
 
-    activateListeners(html) {
+    async activateListeners(html) {
         super.activateListeners(html);
 
         const item = this.item;

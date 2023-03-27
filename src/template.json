@@ -94,7 +94,9 @@
       "weaponSpecializations": "",
       "combatStance": "normal",
       "selectedWeapon": "",
-      "notes": ""
+      "notes": "",
+      "meleeBonusBasedOn": "str",
+      "acBonusBasedOn": "dex"
     },
     "monster": {
       "templates": ["background"],

@@ -76,11 +76,11 @@
             <tr>
                 <td>{{key}}:</td>
                 <td><input type="text" data-dtype="Number" name="system.levelProgression.{{key}}.xp" value="{{progression.xp}}"></td>
-                <td><input type="text" data-dtype="Number" name="system.levelProgression.{{key}}.attackBonus" value="{{numberFormat progression.attackBonus sign=true decimals=0}}"></td>
+                <td><input no-wheel="true" type="text" data-dtype="Number" name="system.levelProgression.{{key}}.attackBonus" value="{{numberFormat progression.attackBonus sign=true decimals=0}}"></td>
                 {{# with progression as |progression|}}
                     {{# with key as |progressionkey|}}
                         {{#each progression.saves as |save key|}}
-                            <td><input type="text" data-dtype="Number" name="system.levelProgression.{{progressionkey}}.saves.{{key}}" value="{{save}}"></td>
+                            <td><input no-wheel="true" type="text" data-dtype="Number" name="system.levelProgression.{{progressionkey}}.saves.{{key}}" value="{{save}}"></td>
                         {{/each}}
                     {{/with}}
                 {{/with}}

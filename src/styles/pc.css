@@ -6,6 +6,21 @@
     margin-bottom: 0.4em;
 }
 
+.pc-sheet .abilities .ability label span:first-letter {
+    font-size: var(--font-size-20);
+}
+
+.pc-sheet .abilities .ability label {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.4em;
+}
+
+.pc-sheet .saves .save label:first-letter {
+    font-size: var(--font-size-20);
+}
+
 .pc-sheet .sheet-header {
     height: 20%;
 }
@@ -124,10 +139,20 @@
     flex: 1;
 }
 
+.pc-sheet:not(.condensed) .saves {
+    transform: rotate(-1.5deg);
+}
+
 .pc-sheet.condensed .abilities,
 .pc-sheet.condensed .saves {
     border-bottom: none;
     flex: 1;
+}
+
+.pc-sheet.condensed .abilities {
+    transform: rotate(1deg);
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50%  45%;
 }
 
 .pc-sheet.condensed .saves {
@@ -278,6 +303,23 @@
     margin: auto;
     filter: drop-shadow(2px 4px 6px grey);
 }
+
+.pc-sheet:not(.condensed) #ac {
+    transform: rotate(-4deg);
+}
+
+.pc-sheet:not(.condensed) #ac div span {
+    transform: rotate(4deg);
+}
+
+#ini div {
+    transform: rotate(45deg);
+}
+
+#ini div span {
+    transform: rotate(-45deg);
+}
+
 
 .gear-list div.quantity,
 .weapon-list div.quantity{

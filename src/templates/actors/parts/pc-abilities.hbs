@@ -5,7 +5,7 @@
             <div class="grid-item">
                 <div class="ability" data-action-type="abilities" data-action-key="{{key}}">
                     {{#with (concat 'aoa.abilities.' key)}}
-                        <label><a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a> {{localize string}}</label>
+                        <label><a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a><span>{{localize string}}</span> </label>
                     {{/with}}
                     <div class="flexrow">
                         <input type="text" data-dtype="Number" name="system.abilities.{{key}}.value" value="{{ability.value}}">
