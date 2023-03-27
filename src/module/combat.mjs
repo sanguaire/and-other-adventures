@@ -13,6 +13,12 @@ export class AoaCombat extends Combat {
         super._onCreateEmbeddedDocuments(type, documents, result, options, userId);
     }*/
 
+    _onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
+        super._onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        console.log(documents);
+        this._sortCombatants();
+    }
+
     _sortCombatants(a, b) {
         const ia = Number.isNumeric(a.initiative) ? a.initiative : -Infinity;
         const ib = Number.isNumeric(b.initiative) ? b.initiative : -Infinity;

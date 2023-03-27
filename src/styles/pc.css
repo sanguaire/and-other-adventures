@@ -10,6 +10,10 @@
     height: 20%;
 }
 
+.pc-sheet:not(.condensed) .sheet-header {
+    gap: 0.5em;
+}
+
 .pc-sheet.condensed .sheet-header {
     height: auto;
     padding-bottom: 0.4em;
@@ -308,6 +312,12 @@
 .pc-sheet .knacks div > input[type="radio"] {
     flex: 0;
     justify-content: center;
+    width: var(--font-size-18);
+}
+
+.pc-sheet .knacks div > input[type="radio"]:checked {
+    width: var(--font-size-20);
+
 }
 
 .pc-sheet .knacks div > input[type="radio"]:before {
@@ -319,6 +329,7 @@
 
 .pc-sheet .knacks div > input[type="radio"]:checked:before {
     font-weight: bold;
+    font-size: var(--font-size-20);;
 }
 
 .pc-sheet .knacks div > input[type="radio"]:nth-of-type(1):before {

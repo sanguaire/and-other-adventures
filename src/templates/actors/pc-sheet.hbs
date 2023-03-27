@@ -4,15 +4,17 @@
         {{> pcAbilities}}
 
         {{#if condensed}}
-            <div class="flexcol section-border-vertical" >
+            <div class="flexcol section-border-vertical">
                 {{> pcSaves}}
                 <div style="padding: 0.4em;display: flex;flex-direction: column; gap:0.4em;">
                     <label for="system.selectedWeapon">{{localize "aoa.selected-weapon"}}:</label>
-                    <select name="system.selectedWeapon" class="text-centered" {{#unless equippedWeapons}}disabled{{/unless}}>
+                    <select name="system.selectedWeapon" class="text-centered"
+                            {{#unless equippedWeapons}}disabled{{/unless}}>
                         {{#select actor.system.selectedWeapon}}
                             <option value=""></option>
                             {{#each equippedWeapons}}
-                                <option value="{{id}}">{{name}} {{#if system.specialized}}&#xf004;{{/if}}{{#if system.magical}}&#xf890;{{/if}}
+                                <option value="{{id}}">{{name}} {{#if system.specialized}}&#xf004;{{/if}}{{#if
+                                        system.magical}}&#xf890;{{/if}}
                                 </option>
                             {{/each}}
                         {{/select}}
@@ -21,15 +23,19 @@
                         <div>
                             {{#if selectedWeaponItem.system.showMelee}}
                                 <span data-action-type="melee">
-                                    <a data-action="attack" data-tooltip="{{numberFormat selectedWeaponItem.system.attack.melee sign=true decimals=0}}">
+                                    <a data-action="attack"
+                                       data-tooltip="{{numberFormat selectedWeaponItem.system.attack.melee sign=true
+                                                                    decimals=0}}">
                                     <i class="fa-solid fa-sword fa-xl"></i></a>
-                                    <a data-action="damage" >{{selectedWeaponItem.system.localizedDamage.melee}}</a>
+                                    <a data-action="damage">{{selectedWeaponItem.system.localizedDamage.melee}}</a>
                                 </span>
                             {{/if}}
                             {{#if selectedWeaponItem.system.ranged}}
                                 <span data-action-type="ranged">
 
-                                    <a data-action="attack" data-tooltip="{{numberFormat selectedWeaponItem.system.attack.ranged sign=true decimals=0}}">
+                                    <a data-action="attack"
+                                       data-tooltip="{{numberFormat selectedWeaponItem.system.attack.ranged sign=true
+                                                                    decimals=0}}">
                                     <i class="fa-solid fa-bow-arrow fa-xl"></i></a>
                                     <a data-action="damage">{{selectedWeaponItem.system.localizedDamage.ranged}}</a>
                                     {{#if selectedWeaponItem.system.usesAmmo}}
@@ -64,7 +70,7 @@
         {{> pcResources}}
 
         <div class="tabbed-content">
-            <div class="tabs" data-group="primary" data-tooltip-direction="LEFT">
+            <div class="tabs" data-group="primary" data-tooltip-direction="RIGHT">
                 <a data-tab="combat" data-tooltip="{{localize 'aoa.combat-header'}}"><i class="fa-solid fa-swords"></i></a>
                 <a data-tab="skill" data-tooltip="{{localize 'aoa.skill-header'}}"><i class="fa-solid fa-hands"></i></a>
                 <a data-tab="gear" data-tooltip="{{localize 'aoa.gear-header'}}"><i class="fa-solid fa-sack"></i></a>
@@ -72,9 +78,15 @@
                     <a data-tab="spell" data-tooltip="{{localize 'aoa.spell-header'}}"><i
                             class="fa-solid fa-hand-sparkles"></i></a>
                 {{/if}}
-                <a data-tab="specials" data-tooltip="{{localize 'aoa.specials-header'}}"><i class="fa-solid fa-ballot-check"></i></a>
-                <a data-tab="biography" data-tooltip="{{localize 'aoa.biography-header'}}"><i class="fa-solid fa-book-open-cover"></i></a>
-                <a data-tab="notes" data-tooltip="{{localize 'aoa.notes-header'}}"><i class="fa-solid fa-feather"></i></a>
+                <a data-tab="specials" data-tooltip="{{localize 'aoa.specials-header'}}"><i
+                        class="fa-solid fa-ballot-check"></i></a>
+                <a data-tab="biography" data-tooltip="{{localize 'aoa.biography-header'}}"><i
+                        class="fa-solid fa-book-open-cover"></i></a>
+                <a data-tab="notes" data-tooltip="{{localize 'aoa.notes-header'}}"><i
+                        class="fa-solid fa-feather"></i></a>
+
+                <a data-tab="effects" data-tooltip="{{localize 'aoa.effect-header'}}"><i class="fa-solid fa-person-rays"></i></a>
+
             </div>
             <div class="tab-content">
                 <div class="tab" data-tab="combat" data-group="primary">{{> pcCombat}}</div>
@@ -86,9 +98,14 @@
                 <div class="tab" data-tab="specials" data-group="primary">{{> pcSpecials}}</div>
                 <div class="tab" data-tab="biography" data-group="primary">{{> pcBiography}}</div>
                 <div class="tab" data-tab="notes" data-group="primary">{{> pcNotes}}</div>
+                {{#if isGM}}
+                    <div class="tab" data-tab="effects" data-group="primary">{{> effects}}</div>
+                {{/if}}
             </div>
         </div>
     {{/unless}}
 
 
 </form>
+
+{{log .}}

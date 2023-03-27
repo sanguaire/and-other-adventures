@@ -1,4 +1,4 @@
-export const updateActorHandler = (actor, changes) => {
-    ui.combat.render();
-console.log(changes);
+export const updateActorHandler = async (actor, changes) => {
+    await game.combat.resetAll();
+    await game.combat.rollAll();
 }

@@ -10,6 +10,7 @@ import {LanguageItem} from "./items/language-item.mjs";
 import {CantripItem} from "./items/cantrip-item.mjs";
 import {RitualItem} from "./items/ritual-item.mjs";
 import {AttackItem} from "./items/attack-item.mjs";
+import {AoaEffect} from "./aoa-effect.mjs";
 
 const mappings = {
     gear: GearItem,
@@ -22,7 +23,8 @@ const mappings = {
     language: LanguageItem,
     cantrip: CantripItem,
     ritual: RitualItem,
-    attack: AttackItem
+    attack: AttackItem,
+    effect: AoaEffect
 };
 
 export const ItemProxy = new Proxy(function () {}, {

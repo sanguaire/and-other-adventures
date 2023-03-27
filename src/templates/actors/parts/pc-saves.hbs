@@ -1,18 +1,20 @@
 <div class="saves {{#if condensed}}section-border-horizontal{{/if}}">
     <h1>{{localize "aoa.saves.header"}}</h1>
     <div class="values">
-        {{#each actor.system.saves as |save key|}}
-            <div class="grid-item">
-                <div class="save" data-action-type="saves" data-action-key="{{key}}">
-                    {{#with (concat 'aoa.saves.' key)}}
-                        <label>{{localize string}}</label>
-                    {{/with}}
-                    <div class="flexrow">
-                        <span class="save-value"><a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a> {{save}}+</span>
+        {{#if actor.system.class}}
+            {{#each actor.system.saves as |save key|}}
+                <div class="grid-item">
+                    <div class="save" data-action-type="saves" data-action-key="{{key}}">
+                        {{#with (concat 'aoa.saves.' key)}}
+                            <label>{{localize string}}</label>
+                        {{/with}}
+                        <div class="flexrow">
+                            <span class="save-value"><a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a> {{save}}+</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/each}}
+        {{/if}}
 
-        {{/each}}
     </div>
 </div>

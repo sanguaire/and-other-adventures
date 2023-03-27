@@ -47,6 +47,11 @@ export class PcActor extends Actor {
             "magicItem": 0
         }
 
+        this.system.ac = 10;
+    }
+
+
+    prepareDerivedData() {
         for (const [key, ability] of Object.entries(this.system.abilities)) {
             this.system.abilities[key].modifier = PcActor._getModifier(ability.value);
         }
@@ -64,7 +69,7 @@ export class PcActor extends Actor {
             + (this.system.class?.initiativeBonus ?? 0)
             + (this.system.class?.hasKnacks ? this.system.knacks.fleet : 0);
 
-        this.system.ac = this._generateArmorClass();
+        this.system.ac += this._generateArmorClass();
 
         this._prepareWeapons()
     }
@@ -73,7 +78,7 @@ export class PcActor extends Actor {
         return this.itemTypes.armor
                 .filter(a => a.system.equipped && a.system.stacks)
                 .map(a => a.system.armorBonus)
-                .reduce((acc, cur) => acc + cur, 10)
+                .reduce((acc, cur) => acc + cur, 0)
             + (this.itemTypes.armor
                 .find(a => a.system.equipped && !a.system.stacks)?.system.armorBonus ?? 0)
             + (this.system.abilities.dex.modifier)
@@ -144,3 +149,5 @@ export class PcActor extends Actor {
     }
 
 }
+
+

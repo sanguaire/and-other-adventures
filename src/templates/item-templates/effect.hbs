@@ -1,0 +1,11 @@
+<div class="list-row relative">
+    <i class="drag fa-solid fa-grip-vertical" draggable="true"></i>
+    <span><a data-action="editEffect" data-tooltip="{{localize "aoa.edit"}}"><i class="fa-solid fa-pen-to-square"></i></a></span>
+    <span>
+        <a data-action="disable" class="{{#if disabled}}disabled{{/if}}">
+           <i class="fa-solid fa-person-rays"></i>
+        </a>
+    </span>
+    <input type="text" data-dtype="text" value="{{label}}" data-property="label">
+</div>
+

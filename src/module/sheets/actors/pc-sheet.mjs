@@ -9,7 +9,9 @@ export class PcSheet extends AoaActorSheet {
 
     static actions = foundry.utils.mergeObject(super.actions, {
         equip: PcSheet.equip,
-        showItem: PcSheet.showItem
+        showItem: PcSheet.showItem,
+        editEffect: PcSheet.editEffect,
+        disable: PcSheet.disableEffect
     })
     static condensed = true;
 
@@ -31,7 +33,8 @@ export class PcSheet extends AoaActorSheet {
                 {list: "spell", template: `systems/${CONST.MODULE_ID}/templates/item-templates/spell.hbs`, itemType: "spell", listSelector: ".spell-list", header: game.i18n.localize("aoa.spells") },
                 {list: "ritual", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "ritual", listSelector: ".ritual-list", header: game.i18n.localize("aoa.rituals")},
                 {list: "cantrip", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "cantrip", listSelector: ".cantrip-list", header: game.i18n.localize("aoa.cantrips")},
-                {list: "trait", template: `systems/${CONST.MODULE_ID}/templates/item-templates/trait.hbs`, itemType: "trait", listSelector: ".trait-list", header: game.i18n.localize("aoa.traits")}
+                {list: "trait", template: `systems/${CONST.MODULE_ID}/templates/item-templates/trait.hbs`, itemType: "trait", listSelector: ".trait-list", header: game.i18n.localize("aoa.traits")},
+                {list: "effects", template: `systems/${CONST.MODULE_ID}/templates/item-templates/effect.hbs`, itemType: "effect", listSelector: ".effect-list", identifier: "label", documentType: "ActiveEffect", gmEdit: true}
             ]
         });
     }
@@ -42,6 +45,7 @@ export class PcSheet extends AoaActorSheet {
 
     _getHeaderButtons() {
         const buttons =  super._getHeaderButtons();
+        const that = this;
 
         buttons.splice(1, 0, {
             label: "",
@@ -83,6 +87,7 @@ export class PcSheet extends AoaActorSheet {
 
         context.selectedWeaponItem = this.actor.items.get(this.actor.system.selectedWeapon);
 
+        context.isGM = game.user.isGM;
         return context;
     }
 
@@ -164,6 +169,29 @@ export class PcSheet extends AoaActorSheet {
             ui.activeWindow.render(true, {width: 600, height: "auto"});
             ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-maximize";
             ui.activeWindow.element.addClass("condensed")
+        }
+    }
+
+    static editEffect(actor, html) {
+        const effectId = html.closest("[data-item-id]").data("item-id");
+
+        if(effectId) {
+            const effect = actor.effects.get(effectId);
+
+            new ActiveEffectConfig(effect).render(true);
+
+        }
+    }
+
+    static async disableEffect(actor, html) {
+        const effectId = html.closest("[data-item-id]").data("item-id");
+
+        if(effectId) {
+            const effect = actor.effects.get(effectId);
+
+            await effect.update({
+                "disabled": !effect.disabled
+            });
         }
     }
 

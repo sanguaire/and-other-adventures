@@ -159,7 +159,7 @@
 }
 
 .aoa-sheet .tabs a {
-    transform-origin: 100% 50%;
+    transform-origin: 0 50%;
     transition: transform 0.5s ease,
     color 0.5s ease;
 }
@@ -250,7 +250,8 @@
 
 .aoa-sheet input[type="radio"],
 .aoa-sheet input[type="checkbox"] {
-    width: 1.5em;
+    width: var(--font-size-16);
+    font-family: var(--font-awesome);
     vertical-align: middle;
     appearance: none;
     background: transparent;
@@ -259,47 +260,54 @@
     display: inline-flex;
 }
 
+.aoa-sheet input[type="checkbox"] {
+    width: var(--font-size-18);
+
+}
+
+.aoa-sheet input[type="radio"]:checked {
+    width: var(--font-size-20)
+}
+
 .aoa-sheet input[type="radio"]:hover:not(:disabled),
 .aoa-sheet input[type="checkbox"]:hover:not(:disabled) {
     background: transparent;
 }
 
-.aoa-sheet label > input[type="radio"]::after {
+.aoa-sheet input[type="radio"]::before {
     content: "\f111";
-    font-family: var(--font-awesome);
     vertical-align: middle;
+    font-size: var(--font-size-16);
     color: var(--sheet-green-accent);
-    font-size: 1.5em;
     font-weight: normal;
     cursor: pointer;
 }
 
-.aoa-sheet label > input[type="radio"]:checked::after {
+.aoa-sheet input[type="radio"]:checked::before {
     content: "\f057";
-    font-family: var(--font-awesome);
+    font-size: var(--font-size-20);
     vertical-align: middle;
     color: var(--sheet-green-accent);
-    font-size: 1.5em;
     font-weight: bold;
     cursor: pointer;
 }
 
-.aoa-sheet label + input[type="checkbox"]::before {
+.aoa-sheet input[type="checkbox"]::before {
     content: "\f0c8";
     font-family: var(--font-awesome);
     vertical-align: middle;
     color: var(--sheet-green-accent);
-    font-size: 1.5em;
+    font-size: var(--font-size-18);
     font-weight: normal;
     cursor: pointer;
 }
 
-.aoa-sheet label + input[type="checkbox"]:checked::before {
+.aoa-sheet input[type="checkbox"]:checked::before {
     content: "\f14a";
     font-family: var(--font-awesome);
     vertical-align: middle;
     color: var(--sheet-green-accent);
-    font-size: 1.5em;
+    font-size: var(--font-size-18);
     font-weight: bold;
     cursor: pointer;
 }

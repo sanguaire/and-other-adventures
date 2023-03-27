@@ -2,13 +2,18 @@
     {{#if header}}
         <h3>{{header}}</h3>
     {{/if}}
-  <div class="drop list hand-written">
-    {{#each list as |item|}}
-         <div class="item"  data-item-id="{{item._id}}">
-             {{>(lookup .. "template") item}}
-         </div>
-    {{/each}}
-  </div> {{#with (concat 'ITEM.Type' (capFirst itemType))}}
-    <input type="text" data-dtype="Text" class="new" data-item-type="{{../itemType}}" placeholder="&#xE59E {{localize string}}" />
-    {{/with}}
+    <div class="drop list hand-written">
+        {{#each list as |item|}}
+            <div class="item" data-item-id="{{item._id}}">
+                {{>(lookup .. "template") item}}
+            </div>
+        {{/each}}
+    </div>
+    {{#if editable}}
+        {{#with (concat 'ITEM.Type' (capFirst itemType))}}
+            <input type="text" data-dtype="Text" class="new" data-item-type="{{../itemType}}"
+                   placeholder="&#xE59E {{localize string}}"/>
+        {{/with}}
+    {{/if}}
+
 </div>

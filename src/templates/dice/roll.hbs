@@ -27,8 +27,8 @@
                             {{#if this.flavor}}<span class="part-flavor">{{this.flavor}}</span>{{/if}}
                             <span class="part-total">{{this.total}}</span>
                         </header>
-                        <ol class="dice-actions">
-                            {{#each this.actions}}
+                        <ol class="dice-rolls">
+                            {{#each this.rolls}}
                                 <li class="roll {{this.classes}}">{{{this.result}}}</li>
                             {{/each}}
                         </ol>

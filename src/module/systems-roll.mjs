@@ -20,6 +20,10 @@ export class SystemRoll extends Roll {
 
     static toModString = (value) => (value === 0 ? '' : value > 0 ? ` + ${value}` : ` - ${Math.abs(value)}`);
 
+    static localizeFormula = (formula) => {
+        return formula.replace(CONFIG.Dice.terms.d.DENOMINATION, game.i18n.localize("aoa." + CONFIG.Dice.terms.d.DENOMINATION))
+    };
+
     constructor({roller, key, type, mod, skill, item, flavor, target}={}) {
         let attackMod = 0;
         let modString = "";
@@ -37,7 +41,7 @@ export class SystemRoll extends Roll {
                 this.baseValue = roller.system.abilities[key].value;
                 this.target = abilityRollFlavor === "a" ? roller.system.abilities[key].value + mod :
                               abilityRollFlavor === "c" ? 20 :
-                              undefined;
+                              12;
                 this.direction = abilityRollFlavor === "a" ? RollDirection.low: RollDirection.high;
                 this.skill = skill;
                 this.showOffset = true;
@@ -146,7 +150,7 @@ export class SystemRoll extends Roll {
             name: this.name,
             type: this.type,
             flavor: this.flavor,
-            formula: this.formula,
+            formula: SystemRoll.localizeFormula(this.formula),
             total: this.type.includes("damage") ? Math.max(this.total, 1) :  this.total,
             vs,
             direction: this.direction,
@@ -159,7 +163,11 @@ export class SystemRoll extends Roll {
             offset,
             skillName: this.skill?.name,
             skillBonus: this.skill?.system.bonus,
-            parts: this.dice.map((d) => d.getTooltipData()),
+            parts: this.dice.map((d) => {
+                const toolTip = d.getTooltipData();
+                toolTip.formula = SystemRoll.localizeFormula(toolTip.formula);
+                return toolTip;
+            }),
         };
         return renderTemplate(chatOptions.template, chatData);
     }

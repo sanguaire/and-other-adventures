@@ -137,4 +137,23 @@ export class MonsterActor extends Actor {
             attack.system.damage.localizedFormula = localizedDamageFormula;
         }
     }
+
+    async _onCreateEmbeddedDocuments(embeddedName, ...args) {
+        console.log(args);
+
+        if(embeddedName === "Item") {
+            const changes = args[1].filter(c => c.type === "attack").map(c =>  {
+                return {
+                    _id: c._id,
+                    system: {
+                        toHit: this.system.hitDie.number
+                    }
+                }
+            });
+
+            await this.updateEmbeddedDocuments("Item", changes);
+        }
+
+        super._onCreateEmbeddedDocuments(embeddedName, ...args);
+    }
 }
