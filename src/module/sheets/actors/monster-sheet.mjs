@@ -13,7 +13,7 @@ export class MonsterSheet extends AoaActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol"],
+            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
             width: 300,
             height: 600,

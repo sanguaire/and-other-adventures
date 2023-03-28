@@ -133,10 +133,13 @@
     "rituals": "Rituals",
     "roll": " roll",
     "rolls": {
+      "ability": "Ability roll",
       "breathWeapon": "Breath weapon save",
       "cha": "Charisma roll",
       "con": "Constitution roll",
       "damage": "Damage roll",
+      "damageMelee": "Melee damage",
+      "damageRanged": "Ranged damage",
       "dex": "Dexterity roll",
       "hit-points": "Roll hit points",
       "int": "Intelligence roll",

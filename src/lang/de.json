@@ -133,10 +133,13 @@
     "rituals": "Rituale",
     "roll": "swurf",
     "rolls": {
+      "ability": "Attributsprobe",
       "breathWeapon": "Odemrettungswurf",
       "cha": "Charismaprobe",
       "con": "Konstitutionsprobe",
       "damage": "Schadenswurf",
+      "damageMelee": "Nahkampfschaden",
+      "damageRanged": "Fernkampfschaden",
       "dex": "Geschicklichkeitsprobe",
       "hit-points": "Würfel Trefferpunkte",
       "int": "Intelligenzprobe",

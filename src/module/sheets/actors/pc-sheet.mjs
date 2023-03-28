@@ -18,7 +18,7 @@ export class PcSheet extends AoaActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", PcSheet.condensed ? "condensed" : ""],
+            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", PcSheet.condensed ? "condensed" : "", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
             width: PcSheet.condensed ? 600 : 800,
             height: PcSheet.condensed? "auto" : PcSheet.normalHeight,

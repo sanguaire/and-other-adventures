@@ -53,7 +53,10 @@
 
 .pc-sheet .abilities .modifier {
     text-align: center;
-    flex: 1;
+    flex: 0 1 1.5em;
+    margin-left: 2px;
+    box-shadow: 0 0 5px black;
+    background: rgba(180,180,180,0.3);
 }
 
 .pc-sheet .abilities > .flexrow,
@@ -103,14 +106,14 @@
 
 .pc-sheet.condensed .information {
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     gap: 0.4em;
 }
 
 .pc-sheet .ability > .flexrow,
 .pc-sheet .save > .flexrow {
     flex-wrap: nowrap;
-    align-items: center;
+    align-items: baseline;
     gap: 0.1em;
 }
 
@@ -203,8 +206,7 @@
 .pc-sheet .resources {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    gap: 2em;
+    justify-content: space-between;
     padding: 0.5em;
     border-bottom: var(--section-border);
 }
@@ -226,10 +228,12 @@
 
 .pc-sheet:not(.condensed) .resources .resource:first-child .flexrow {
     justify-content: flex-start;
+    margin-left: 2em;
 }
 
 .pc-sheet:not(.condensed) .resources .resource:last-child .flexrow {
     justify-content: flex-end;
+    margin-right: 2em;
 }
 
 /*.pc-sheet.condensed .resources .resource:first-child .flexrow,
@@ -262,6 +266,11 @@
     mix-blend-mode: overlay;
 }
 
+.pc-sheet .resources .resource input {
+    box-shadow: 0 0 5px black;
+
+}
+
 .pc-sheet:not(.condensed) .resources .resource input {
     font-size: var(--font-size-20);
     flex: 0 0 2em;
@@ -269,8 +278,9 @@
     height: 4em;
 }
 
-.resources .resource .flexrow {
+.pc-sheet .resources .resource .flexrow {
     justify-content: center;
+    gap: 0.15em;
 }
 
 .resource.ac div {

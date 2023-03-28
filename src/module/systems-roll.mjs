@@ -33,13 +33,14 @@ export class SystemRoll extends Roll {
                 const abilityRollFlavor = game.settings.get(`${AOA_CONST.MODULE_ID}`, "abilityRollFlavor");
                 const abilityMod = abilityRollFlavor === "b" ? roller.system.abilities[key].modifier :
                              abilityRollFlavor === "c" ? roller.system.abilities[key].value : 0;
-                modString = SystemRoll.toModString(mod + abilityMod + (skill ? skill.system.bonus : 0));
+                const skillBonus = skill ? Number.parseInt(skill.system.bonus) : 0;
+                modString = SystemRoll.toModString(mod + abilityMod + skillBonus);
                 super(abilityRollFlavor === "a" ? `1d20` : `1d20${modString}`);
 
                 this.name = `${game.i18n.localize("aoa.rolls." + key)}`;
-                this.modifier = mod + abilityMod + (skill ? skill.system.bonus : 0);
+                this.modifier = mod + abilityMod + skillBonus;
                 this.baseValue = roller.system.abilities[key].value;
-                this.target = abilityRollFlavor === "a" ? roller.system.abilities[key].value + mod :
+                this.target = abilityRollFlavor === "a" ? roller.system.abilities[key].value + this.modifier :
                               abilityRollFlavor === "c" ? 20 :
                               12;
                 this.direction = abilityRollFlavor === "a" ? RollDirection.low: RollDirection.high;
@@ -85,14 +86,16 @@ export class SystemRoll extends Roll {
                 this.showOffset = target !== undefined;
                 break;
             case 'damageRanged':
-                super(item.system.damage.ranged);
+                modString = SystemRoll.toModString(mod);
+                super(`${item.system.damage.ranged}${modString}`);
                 this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
                 this.direction = RollDirection.high;
                 this.target = NaN;
                 this.modifier =  0
                 break;
             case 'damageMelee':
-                super(item.system.damage.melee);
+                modString = SystemRoll.toModString(mod);
+                super(`${item.system.damage.melee}${modString}`);
                 this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
                 this.direction = RollDirection.high;
                 this.target = NaN;
@@ -131,11 +134,15 @@ export class SystemRoll extends Roll {
             switch (this.direction) {
                 case RollDirection.low:
                     vs = `&#8804 ${this.target} `
-                    this.result = this.total <= this.target || this.dice[0].total === 1 ? 'success' : 'failure';
+                    if(["ability", "save", "melee", "ranged", "monster"].includes(this.type)) {
+                        this.result = this.total <= this.target || this.dice[0].total === 1 ? 'success' : 'failure';
+                    }
                     break;
                 case RollDirection.high:
                     vs = `&#8805 ${this.target}`
-                    this.result = this.total >= this.target || this.dice[0].total === 20 ? 'success' : 'failure';
+                    if(["ability", "save", "melee", "ranged", "monster"].includes(this.type)) {
+                        this.result = this.total >= this.target || this.dice[0].total === 20 ? 'success' : 'failure';
+                    }
                     break;
             }
         }

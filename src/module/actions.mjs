@@ -2,6 +2,20 @@ import {CONST as AOA_CONST} from "./const.mjs";
 import {SystemRoll} from "./systems-roll.mjs";
 import {inputMousewheel} from "./utils.mjs";
 
+const dialogClasses = [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol", "animate__animated", AOA_CONST.OPEN_ANIMATION_CLASS];
+
+const baseDialogData = {
+    buttons: {
+        roll: {
+            label: "",
+            icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+        }
+    },
+    close: html => html.addClass(AOA_CONST.CLOSE_ANIMATION_CLASS),
+    default: "roll",
+    render
+};
+
 export const actionHandler = (actor, html) => {
     const action = html.closest("[data-action]").data("action");
     const actionType = html.closest("[data-action-type]").data("action-type");
@@ -54,30 +68,35 @@ async function renderDialogContent(rollKey, {skills, keys} = {}) {
 
 const attackNotAllowedForCombatStance = (cs) => ["protective", "commanding"].includes(cs);
 
+const execute = async (innerCallback, html, ...args) => {
+    html.addClass(AOA_CONST.CLOSE_ANIMATION_CLASS);
+
+    const formElement = html[0].querySelector("form");
+    const formData = new FormDataExtended(formElement);
+
+    await innerCallback(formData, ...args);
+};
+
 const abilityRoll = async (actor, abilityKey, flavor) => {
     const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill")});
-
-    new Dialog({
-            title: "",
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.ability"),
             content: content,
             buttons: {
                 roll: {
-                    label: "",
-                    callback: async (html) => await callback(html, actor, abilityKey),
-                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                    callback: async (html) => await execute(callback, html, actor, abilityKey)
                 }
-            },
-            default: "roll",
-            render
-        },
+            }
+        });
+
+    new Dialog(data,
         {
-            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+            classes: dialogClasses
         }
     ).render(true);
 
-    async function callback(html, actor, abilityKey) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    async function callback(formData, actor, abilityKey) {
         let skill = undefined;
         let skillBonus = 0;
 
@@ -103,28 +122,24 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
 
 const saveRoll = async (actor, saveKey) => {
     const content = await renderDialogContent(saveKey);
-
-    new Dialog({
-            title: "",
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.save"),
             content: content,
             buttons: {
                 roll: {
-                    label: "",
-                    callback: async (html) => await callback(html, actor, saveKey),
-                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                    callback: async (html) => await execute(callback, html, actor, saveKey),
                 }
-            },
-            default: "roll",
-            render
-        },
+            }
+        });
+
+    new Dialog(data,
         {
-            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+            classes: dialogClasses
         }
     ).render(true);
 
-    async function callback(html, actor, saveKey) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    async function callback(formData, actor, saveKey) {
         const modifier = Number.parseInt(formData.object.modifier);
 
         const knackBonus = actor.system.class?.hasKnacks ? actor.system.knacks.resilience : 0;
@@ -132,24 +147,23 @@ const saveRoll = async (actor, saveKey) => {
         const roll = new SystemRoll({roller: actor, key: saveKey, type: "save", mod: modifier + knackBonus});
         await roll.toMessage();
 
-    };
+    }
 };
 
 const rangedAttack = async (actor, itemId) => {
 
     const item = actor.items.get(itemId);
 
-    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
-        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+    if (attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances." + actor.system.combatStance)}`);
         return;
     }
 
     if (item) {
-        if(!item.system.equipped) {
+        if (!item.system.equipped) {
             ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
             return;
         }
-
 
         if (item.system.usesAmmo) {
             const ammoItem = actor.items.get(item.system.ammoId);
@@ -161,29 +175,25 @@ const rangedAttack = async (actor, itemId) => {
         }
 
         const content = await renderDialogContent("ranged");
-
-        new Dialog({
-                title: "",
+        const data = foundry.utils.mergeObject(baseDialogData,
+            {
+                title: game.i18n.localize("aoa.rolls.ranged"),
                 content: content,
                 buttons: {
                     roll: {
-                        label: "",
-                        callback: async (html) => await callback(html, actor, item),
-                        icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                        callback: async (html) => await execute(callback, html, actor, item),
                     }
-                },
-                default: "roll",
-                render
-            },
+                }
+            });
+
+        new Dialog(data,
             {
-                classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+                classes: dialogClasses
             }
         ).render(true);
     }
 
-    async function callback(html, actor, item) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    async function callback(formData, actor, item) {
         const modifier = Number.parseInt(formData.object.modifier);
 
         const targetToken = game.user.targets.first();
@@ -229,39 +239,34 @@ const rangedAttack = async (actor, itemId) => {
 };
 
 const rangedBasicRoll = async (actor) => {
-
-    const content = await renderDialogContent("ranged");
-
-    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
-        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+    if (attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances." + actor.system.combatStance)}`);
         return;
     }
 
-    new Dialog({
-            title: "",
+    const content = await renderDialogContent("ranged");
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.ranged"),
             content: content,
             buttons: {
                 roll: {
-                    label: "",
-                    callback: async (html) => await callback(html, actor,),
-                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                    callback: async (html) => await execute(callback, html, actor),
                 }
-            },
-            default: "roll",
-            render
-        },
+            }
+        });
+
+    new Dialog(data,
         {
-            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+            classes: dialogClasses
         }
     ).render(true);
 
-    async function callback(html, actor, item) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    async function callback(formData, actor) {
         const modifier = Number.parseInt(formData.object.modifier);
 
         const targetToken = game.user.targets.first();
-        let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+        const target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
         const roll = new SystemRoll({roller: actor, type: "ranged", mod: modifier, target});
         await roll.toMessage();
@@ -271,35 +276,33 @@ const rangedBasicRoll = async (actor) => {
 const monsterAttack = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
-    if (item) {
-        const content = await renderDialogContent("monster");
-
-        new Dialog({
-                title: "",
-                content: content,
-                buttons: {
-                    roll: {
-                        label: "",
-                        callback: async (html) => await callback(html, actor, item),
-                        icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
-                    }
-                },
-                default: "roll",
-                render
-            },
-            {
-                classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
-            }
-        ).render(true);
+    if (!item) {
+        return;
     }
 
-    async function callback(html, actor, item) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    const content = await renderDialogContent("monster");
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.monster"),
+            content: content,
+            buttons: {
+                roll: {
+                    callback: async (html) => await execute(callback, html, actor, item),
+                }
+            }
+        });
+
+    new Dialog(data,
+        {
+            classes: dialogClasses
+        }
+    ).render(true);
+
+    async function callback(formData, actor, item) {
         const modifier = Number.parseInt(formData.object.modifier);
 
         const targetToken = game.user.targets.first();
-        let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+        const target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
         const roll = new SystemRoll({roller: actor, type: "monster", mod: modifier, item: item, target});
         await roll.toMessage();
@@ -307,49 +310,45 @@ const monsterAttack = async (actor, itemId) => {
 };
 
 const meleeAttack = async (actor, itemId) => {
-
-    const item = actor.items.get(itemId);
-
-    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
-        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+    if (attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances." + actor.system.combatStance)}`);
         return;
     }
 
-    if (item) {
-        if(!item.system.equipped) {
-            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
-            return;
-        }
+    const item = actor.items.get(itemId);
 
-
-        const content = await renderDialogContent("melee");
-
-        new Dialog({
-                title: "",
-                content: content,
-                buttons: {
-                    roll: {
-                        label: "",
-                        callback: async (html) => await callback(html, actor, item),
-                        icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
-                    }
-                },
-                default: "roll",
-                render
-            },
-            {
-                classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
-            }
-        ).render(true);
+    if (!item) {
+        return;
     }
 
-    async function callback(html, actor, item) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    if (!item.system.equipped) {
+        ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+        return;
+    }
+
+    const content = await renderDialogContent("melee");
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.melee"),
+            content: content,
+            buttons: {
+                roll: {
+                    callback: async (html) => await execute(callback, html, actor, item),
+                }
+            }
+        });
+
+    new Dialog(data,
+        {
+            classes: dialogClasses
+        }
+    ).render(true);
+
+    async function callback(formData, actor, item) {
         const modifier = Number.parseInt(formData.object.modifier);
 
         const targetToken = game.user.targets.first();
-        let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+        const target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
         const roll = new SystemRoll({roller: actor, type: "melee", mod: modifier, item: item, target});
         await roll.toMessage();
@@ -357,38 +356,35 @@ const meleeAttack = async (actor, itemId) => {
 };
 
 const meleeBasicRoll = async (actor) => {
-    const content = await renderDialogContent("melee");
 
-    if(attackNotAllowedForCombatStance(actor.system.combatStance)) {
-        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances."+actor.system.combatStance)}`);
+    if (attackNotAllowedForCombatStance(actor.system.combatStance)) {
+        ui.notifications.error(`${game.i18n.localize("aoa.no-attack-for-combat-stance")}: ${game.i18n.localize("aoa.stances." + actor.system.combatStance)}`);
         return;
     }
 
-    new Dialog({
-            title: "",
+    const content = await renderDialogContent("melee");
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.melee"),
             content: content,
             buttons: {
                 roll: {
-                    label: "",
-                    callback: async (html) => await callback(html, actor),
-                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                    callback: async (html) => await execute(callback, html, actor),
                 }
-            },
-            default: "roll",
-            render
-        },
+            }
+        });
+
+    new Dialog(data,
         {
-            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+            classes: dialogClasses
         }
     ).render(true);
 
-    async function callback(html, actor) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    async function callback(formData, actor) {
         const modifier = Number.parseInt(formData.object.modifier);
 
         const targetToken = game.user.targets.first();
-        let target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
+        const target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
         const roll = new SystemRoll({roller: actor, type: "melee", mod: modifier, target});
         await roll.toMessage();
@@ -398,29 +394,74 @@ const meleeBasicRoll = async (actor) => {
 const meleeDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
-    if (item) {
-        if(!item.system.equipped) {
-            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
-            return;
+    if (!item) {
+        return;
+    }
+
+    if (!item.system.equipped) {
+        ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+        return;
+    }
+    const content = await renderDialogContent("damageMelee", {});
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.damage"),
+            content: content,
+            buttons: {
+                roll: {
+                    callback: async (html) => await execute(callback, html, item),
+                }
+            }
+        });
+
+    new Dialog(data,
+        {
+            classes: dialogClasses
         }
+    ).render(true);
 
+    async function callback(formData, item) {
+        const modifier = Number.parseInt(formData.object.modifier);
 
-        const roll = new SystemRoll({roller: actor, type: "damageMelee", item: item});
+        const roll = new SystemRoll({roller: actor, type: "damageMelee", item: item, mod: modifier});
         await roll.toMessage();
+
     }
 };
 
 const rangedDamage = async (actor, itemId) => {
     const item = actor.items.get(itemId);
 
-    if (item) {
-        if(!item.system.equipped) {
-            ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
-            return;
+    if (!item) {
+        return;
+    }
+
+    if (!item.system.equipped) {
+        ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
+        return;
+    }
+    const content = await renderDialogContent("damageRanged", {});
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.damage"),
+            content: content,
+            buttons: {
+                roll: {
+                    callback: async (html) => await execute(callback, html, item),
+                }
+            }
+        });
+
+    new Dialog(data,
+        {
+            classes: dialogClasses
         }
+    ).render(true);
 
+    async function callback(formData, item) {
+        const modifier = Number.parseInt(formData.object.modifier);
 
-        const roll = new SystemRoll({roller: actor, type: "damageRanged", item: item});
+        const roll = new SystemRoll({roller: actor, type: "damageRanged", item: item, mod: modifier});
         await roll.toMessage();
     }
 };
@@ -444,28 +485,24 @@ const monsterSaveRoll = async (actor) => {
             magicItem: game.i18n.localize("aoa.saves.magicItem"),
         }
     });
-
-    new Dialog({
-            title: "",
+    const data = foundry.utils.mergeObject(baseDialogData,
+        {
+            title: game.i18n.localize("aoa.rolls.save"),
             content: content,
             buttons: {
                 roll: {
-                    label: "",
-                    callback: async (html) => await callback(html, actor),
-                    icon: `<i class="fa-solid fa-dice-d20 fa-xl"></i>`
+                    callback: async (html) => await execute(callback, html, actor),
                 }
-            },
-            default: "roll",
-            render
-        },
+            }
+        });
+
+    new Dialog(data,
         {
-            classes: [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol"]
+            classes: dialogClasses
         }
     ).render(true);
 
-    async function callback(html, actor) {
-        const formElement = html[0].querySelector("form");
-        const formData = new FormDataExtended(formElement);
+    async function callback(formData, actor) {
         let abilityKey = "";
 
         console.log(formData);
@@ -489,27 +526,26 @@ const monsterSaveRoll = async (actor) => {
 const spellUse = async (actor, itemId, flavor) => {
     const item = actor.items.get(itemId);
 
-    if (item) {
-        const chatData = {
-            name: game.i18n.localize("aoa.uses"),
-            flavor,
-            actorName: actor.name,
-            actorId: actor.id,
-            description: item.system.description
-        }
-
-        const content = await renderTemplate(`systems/${AOA_CONST.MODULE_ID}/templates/chat/use.hbs`, chatData);
-
-        ChatMessage.create({
-            user: game.user.id,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            content
-        }, {rollMode: game.settings.get("core", "rollMode")});
-
-        actor.update({
-            "system.usedSpells": actor.system.usedSpells + 1
-        });
+    if (!item) {
+        return;
     }
+
+    const chatData = {
+        name: game.i18n.localize("aoa.uses"),
+        flavor,
+        actorName: actor.name,
+        actorId: actor.id,
+        description: item.system.description
+    }
+    const content = await renderTemplate(`systems/${AOA_CONST.MODULE_ID}/templates/chat/use.hbs`, chatData);
+    ChatMessage.create({
+        user: game.user.id,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        content
+    }, {rollMode: game.settings.get("core", "rollMode")});
+    actor.update({
+        "system.usedSpells": actor.system.usedSpells + 1
+    });
 
 }
 

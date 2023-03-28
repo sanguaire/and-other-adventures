@@ -6,7 +6,7 @@ export class ExtendedItemSheet extends ItemSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: [CONST.MODULE_SCOPE, "sheet", "item", "flexcol"],
+            classes: [CONST.MODULE_SCOPE, "sheet", "item", "flexcol", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
             template: `systems/${CONST.MODULE_ID}/templates/items/item-sheet.hbs`,
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "item"}],
             dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}],

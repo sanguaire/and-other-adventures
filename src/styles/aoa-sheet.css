@@ -281,6 +281,7 @@
     color: var(--sheet-green-accent);
     font-weight: normal;
     cursor: pointer;
+    text-shadow: 1px 1px 2px darkgray;
 }
 
 .aoa-sheet input[type="radio"]:checked::before {
@@ -289,7 +290,7 @@
     vertical-align: middle;
     color: var(--sheet-green-accent);
     font-weight: bold;
-    cursor: pointer;
+    cursor: default;
 }
 
 .aoa-sheet input[type="checkbox"]::before {
@@ -300,6 +301,7 @@
     font-size: var(--font-size-18);
     font-weight: normal;
     cursor: pointer;
+    text-shadow: 1px 1px 2px darkgray;
 }
 
 .aoa-sheet input[type="checkbox"]:checked::before {
