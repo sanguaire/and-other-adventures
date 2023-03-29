@@ -3,9 +3,10 @@
     <input name="system.quantity.value" value="{{item.system.quantity.value}}" type="text" data-dtype="Number" min="{{item.system.quantity.min}}">
 </div>
 <div class="flexrow" >
-    <label>{{localize "aoa.base-damage"}}:</label>
+    <label for="base-damage">{{localize "aoa.base-damage"}}:</label>
     <div class="flexrow"style="gap:0;">
-        <input type="text" style="text-align: right" data-dtype="Number" value="{{item.system.baseDamage.noOfDie}}" name="system.baseDamage.noOfDie" min="1">
+        <input id="base-damage" type="text" style="text-align: right" data-dtype="Number" value="{{item.system.baseDamage.noOfDie}}"
+               name="system.baseDamage.noOfDie" min="1">
         <select class="text-centered" name="system.baseDamage.dieType">
             {{#select item.system.baseDamage.dieType}}
                 <option value="d4">{{localize 'aoa.d4'}}</option>
