@@ -1,6 +1,4 @@
 import {CONST} from "../../const.mjs";
-import {EditableList} from "../../editable-list.mjs";
-import {actionHandler} from "../../actions.mjs";
 import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
 
@@ -53,6 +51,15 @@ export class PcSheet extends AoaActorSheet {
             icon: PcSheet.condensed ? "fa-solid fa-arrows-maximize" : "fa-solid fa-arrows-minimize",
             onclick: ev => PcSheet.toggleCondense(ev)
         });
+
+        if(game.user.isGM) {
+            buttons.splice(1, 0, {
+                label: "",
+                class: "show-art",
+                icon: "fa-solid fa-magnifying-glass",
+                onclick: () => PcSheet.showArt(that.actor)
+            });
+        }
 
         return buttons;
     }
@@ -157,8 +164,6 @@ export class PcSheet extends AoaActorSheet {
     }
 
     static toggleCondense() {
-        let icon;
-
         if(PcSheet.condensed) {
             PcSheet.condensed = !PcSheet.condensed;
             ui.activeWindow.render(true, {width: 800, height: PcSheet.normalHeight});

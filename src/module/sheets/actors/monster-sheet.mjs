@@ -1,6 +1,5 @@
 import {CONST} from "../../const.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
-import {actionHandler} from "../../actions.mjs";
 
 export class MonsterSheet extends AoaActorSheet {
 
@@ -8,12 +7,9 @@ export class MonsterSheet extends AoaActorSheet {
         hitDie: MonsterSheet.hitDie,
     });
 
-
-
-
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
+            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "monster", "flexcol", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
             width: 300,
             height: 600,

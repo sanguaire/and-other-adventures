@@ -2,6 +2,7 @@ import {EditableList} from "../../editable-list.mjs";
 import {actionHandler} from "../../actions.mjs";
 import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
 import {inputMousewheel} from "../../utils.mjs";
+
 import gsap from "/scripts/greensock/esm/all.js";
 
 export class AoaActorSheet extends ActorSheet {
@@ -11,7 +12,8 @@ export class AoaActorSheet extends ActorSheet {
         editItem: this.editItem,
         attack: actionHandler,
         damage: actionHandler,
-        use: actionHandler
+        use: actionHandler,
+        showArt: this.showArt
     };
 
     async activateListeners(html) {
@@ -71,9 +73,7 @@ export class AoaActorSheet extends ActorSheet {
 
     beautifyHeaders(html) {
 
-        let target = html
-
-        target.html(beautify);
+        html.html(beautify);
 
         function beautify() {
             const el = $(this);
@@ -82,11 +82,10 @@ export class AoaActorSheet extends ActorSheet {
                 el.children().html(beautify);
             }
             else {
-                const newText = el
+                return el
                     .text()
                     .replace(/[a-zä-ü]*/g, '<span class="move-up">$&</span>')
                     .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
-                return newText;
             }
         }
     }
@@ -151,5 +150,13 @@ export class AoaActorSheet extends ActorSheet {
 
 
         }
+    }
+
+    static showArt(actor) {
+        new ImagePopout(actor.img, {
+            title: actor.name,
+            sharable: true,
+            uuid: actor.uuid
+        }).render(true);
     }
 }

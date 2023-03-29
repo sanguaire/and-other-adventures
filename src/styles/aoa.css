@@ -23,7 +23,7 @@
     padding: 0.4em 0.4em 1em;
 }
 
-.aoa.sheet.actor:not(.condensed) {
+.aoa.sheet.actor:not(.condensed):not(.monster) {
     min-height: 750px;
 }
 

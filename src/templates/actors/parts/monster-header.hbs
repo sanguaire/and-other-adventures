@@ -1,7 +1,10 @@
 <div class="sheet-header section-border-horizontal">
+    <a data-action="showArt"
+       style="position: fixed; font-weight: bold;">
+        <i class="fa-solid fa-magnifying-glass fa-lg"></i></a>
     <img src="{{actor.img}}" data-edit="img" alt="actor.img">
     <div class="information">
         <label for="name">{{localize "aoa.name"}}: </label>
-        <input name="name" type="text" data-dtype="text" value="{{actor.name}}">
+        <input id="name" name="name" type="text" data-dtype="text" value="{{actor.name}}">
     </div>
 </div>

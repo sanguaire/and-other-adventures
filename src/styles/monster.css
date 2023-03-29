@@ -29,10 +29,12 @@
     align-items: center;
     gap: 1em;
     border-right: unset;
-    border-bottom: 1px solid var(--sheet-dark-accent);
+    border-bottom: 3px solid var(--sheet-dark-accent);
     height: auto;
     margin-right: unset;
-    padding: 15px 0.4em;
+    padding: 15px 0.4em 5px 0.4em;
+    border-left: unset;
+    border-image-source: url("../assets/line-horizontal-normal.png");
 }
 
 .aoa-sheet.monster-sheet .tabs a {
