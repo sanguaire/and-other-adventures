@@ -1,0 +1,14 @@
+#fsc-ng .fsc-h, #fsc-ng .fsc-j, #fsc-ng .fsc-lb {
+    /*noinspection CssUnresolvedCustomProperty*/
+    background-image: var(--app-bg-image);
+}
+
+#fsc-ng .fsc-h {
+    border: none;
+}
+
+body.game .simple-calendar.window-app.journal-sheet .window-content button.fsc-xb.fsc-yb {
+    color: black !important;
+}
+
+

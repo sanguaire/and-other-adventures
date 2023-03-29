@@ -319,6 +319,8 @@
     -webkit-filter: unset;
 }
 
-.ability input[type="text"]:not(:focus) {
-    box-shadow: 0 0 5px black;
+.aoa-sheet .subsection {
+    margin-left: 0.5em;
+    padding-left: 0.5em;
+    border-left: 1px solid var(--sheet-dark-accent);
 }

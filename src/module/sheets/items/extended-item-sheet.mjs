@@ -1,6 +1,5 @@
 import {CONST} from "../../const.mjs";
 import {inputMousewheel, trimNewLineWhitespace} from "../../utils.mjs";
-import {EditableList} from "../../editable-list.mjs";
 
 export class ExtendedItemSheet extends ItemSheet {
 
@@ -35,8 +34,6 @@ export class ExtendedItemSheet extends ItemSheet {
             default:
                 return 500;
         }
-
-        const t = new Tabs
     }
 
     getHeight() {
@@ -44,7 +41,7 @@ export class ExtendedItemSheet extends ItemSheet {
             case "class":
                 return 670;
             case "weapon":
-                return 450;
+                return 500;
             default:
                 return 350;
         }

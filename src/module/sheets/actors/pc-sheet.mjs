@@ -124,12 +124,15 @@ export class PcSheet extends AoaActorSheet {
                     .filter(i => i.system.equipped && consideredTypes.includes(item.type))
                     .filter(i => i.type === "weapon" || i.system.needFreeHand);
 
-            if (equippedItems.length >= 2) {
-                const lastItem = equippedItems.slice(-1);
+            const handsUsed = equippedItems.reduce((prev, cur) => prev + (cur.type === "weapon" && cur.system.needsTwoHands ? 2 : 1), 0);
+            const neededHands = item.type === "weapon" && item.system.needsTwoHands ? 2 : 1;
 
-                await lastItem[0]?.update({
-                    "system.equipped": false
-                });
+            if (handsUsed + neededHands > 2) {
+                const lastItems = equippedItems.slice(-neededHands);
+
+                for (const i of lastItems) {
+                    await i.update({"system.equipped": false});
+                }
             }
         }
 

@@ -180,7 +180,8 @@
       "magical": false,
       "specialized": false,
       "usesAmmo": false,
-      "ammoId": ""
+      "ammoId": "",
+      "needsTwoHands": false
     },
     "spell": {
       "templates": [

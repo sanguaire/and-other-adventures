@@ -16,7 +16,11 @@
 <div class="list-row justify-end" style="gap: 0.5em;">
     <span>
         <a data-action="equip" class="equipped {{#if system.equipped}}active{{/if}}">
-            <i class="fa-solid fa-hand"></i>
+            {{#if system.needsTwoHands}}
+                <i class="fa-solid fa-hands"></i>
+            {{else}}
+                <i class="fa-solid fa-hand"></i>
+            {{/if}}
         </a>
     </span>
     <span>
