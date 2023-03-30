@@ -6,7 +6,10 @@
             <div>{{flavor}}</div>
         {{/if}}
     </div>
-    <div class="description">
-        {{{description}}}
-    </div>
+    {{#if description}}
+        <div class="description">
+            {{{description}}}
+        </div>
+    {{/if}}
+
 </div>

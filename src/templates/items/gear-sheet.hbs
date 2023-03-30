@@ -1,8 +1,12 @@
 <div class="flexrow">
     <label for="system.quantity.value">{{localize "aoa.quantity"}}</label>
-    <input name="system.quantity.value" value="{{item.system.quantity.value}}" type="text" data-dtype="Number" min="{{item.system.quantity.min}}">
+    <input id="system.quantity.value" name="system.quantity.value" value="{{item.system.quantity.value}}" type="text" data-dtype="Number" min="{{item.system.quantity.min}}">
+</div>
+<div class="flexrow">
+    <label for="system.consumable">{{localize "aoa.consumable"}}:</label>
+    <input id="system.consumable" name="system.consumable" type="checkbox" {{checked item.system.consumable}}>
 </div>
 <div class="flexrow">
     <label for="system.isAmmo">{{localize "aoa.is-ammo"}}:</label>
-    <input name="system.isAmmo" type="checkbox" {{checked item.system.isAmmo}}>
+    <input id="system.isAmmo" name="system.isAmmo" type="checkbox" {{checked item.system.isAmmo}}>
 </div>

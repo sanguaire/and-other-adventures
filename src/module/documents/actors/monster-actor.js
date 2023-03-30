@@ -139,7 +139,6 @@ export class MonsterActor extends Actor {
     }
 
     async _onCreateEmbeddedDocuments(embeddedName, ...args) {
-        console.log(args);
 
         if(embeddedName === "Item") {
             const changes = args[1].filter(c => c.type === "attack").map(c =>  {

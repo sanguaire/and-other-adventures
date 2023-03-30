@@ -133,7 +133,6 @@ export class ExtendedItemSheet extends ItemSheet {
     };
 
     async _updateObject(event, formData) {
-        console.log(formData);
         return super._updateObject(event, formData);
     }
 

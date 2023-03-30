@@ -100,8 +100,6 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
         let skill = undefined;
         let skillBonus = 0;
 
-        console.log(formData);
-
         if (formData.object.skill && formData.object.skill !== "") {
             skill = actor.items.get(formData.object.skill);
             skillBonus = Number.parseInt(skill.system.bonus);
@@ -422,8 +420,9 @@ const meleeDamage = async (actor, itemId) => {
 
     async function callback(formData, item) {
         const modifier = Number.parseInt(formData.object.modifier);
+        const targetToken = game.user.targets.first();
 
-        const roll = new SystemRoll({roller: actor, type: "damageMelee", item: item, mod: modifier});
+        const roll = new SystemRoll({roller: actor, type: "damageMelee", item: item, mod: modifier, targetToken});
         await roll.toMessage();
 
     }
@@ -460,8 +459,9 @@ const rangedDamage = async (actor, itemId) => {
 
     async function callback(formData, item) {
         const modifier = Number.parseInt(formData.object.modifier);
+        const targetToken = game.user.targets.first();
 
-        const roll = new SystemRoll({roller: actor, type: "damageRanged", item: item, mod: modifier});
+        const roll = new SystemRoll({roller: actor, type: "damageRanged", item: item, mod: modifier, targetToken});
         await roll.toMessage();
     }
 };
@@ -505,8 +505,6 @@ const monsterSaveRoll = async (actor) => {
     async function callback(formData, actor) {
         let abilityKey = "";
 
-        console.log(formData);
-
         if (formData.object.key && formData.object.key !== "") {
             abilityKey = formData.object.key;
         }
@@ -531,10 +529,10 @@ const spellUse = async (actor, itemId, flavor) => {
     }
 
     const chatData = {
-        name: game.i18n.localize("aoa.uses"),
+        name: game.i18n.localize("aoa.casts"),
         flavor,
         actorName: actor.name,
-        actorId: actor.id,
+        actorId: actor.uuid,
         description: item.system.description
     }
     const content = await renderTemplate(`systems/${AOA_CONST.MODULE_ID}/templates/chat/use.hbs`, chatData);
@@ -546,6 +544,39 @@ const spellUse = async (actor, itemId, flavor) => {
     actor.update({
         "system.usedSpells": actor.system.usedSpells + 1
     });
+
+}
+
+const gearUse = async (actor, itemId, flavor) => {
+    const item = actor.items.get(itemId);
+
+    if (!item) {
+        return;
+    }
+
+    const quantity = item.system.quantity.value;
+
+    if(quantity < 1) {
+        return;
+    }
+
+    await item.update({
+        "system.quantity.value": quantity - 1
+    });
+
+    const chatData = {
+        name: game.i18n.localize("aoa.uses"),
+        flavor,
+        actorName: actor.name,
+        actorId: actor.uuid,
+        description: item.system.description
+    }
+    const content = await renderTemplate(`systems/${AOA_CONST.MODULE_ID}/templates/chat/use.hbs`, chatData);
+    ChatMessage.create({
+        user: game.user.id,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        content
+    }, {rollMode: game.settings.get("core", "rollMode")});
 
 }
 
@@ -568,7 +599,8 @@ const actions = {
         monster: monsterDamage,
     },
     use: {
-        spell: spellUse
+        spell: spellUse,
+        gear: gearUse
     }
 }
 

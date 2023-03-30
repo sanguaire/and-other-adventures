@@ -1,7 +1,15 @@
 <div data-actor-id="{{actorId}}" class="aoa-chat dice-roll {{this.classes}}">
     <div class="heading">
         <div class="actor-name">{{actorName}}</div>
-        <h3 class="header">{{#contains "ranged" this.type}}<i class="fa-solid fa-bow-arrow"></i> {{/contains}}{{#contains "melee" this.type}}<i class="fa-solid fa-sword"></i> {{/contains}}<strong>{{name}}</strong></h3>
+        <h3 class="header">
+            {{#contains "ranged" this.type}}<i class="fa-solid fa-bow-arrow"></i> {{/contains}}
+            {{#contains "melee" this.type}}<i class="fa-solid fa-sword"></i> {{/contains}}
+            <strong>{{name}}</strong></h3>
+            {{#if targetName}}
+                <span class="target" data-target-id="{{targetId}}">
+                    {{localize "aoa.target"}}: <span class="target-name">{{targetName}}</span>
+                </span>
+            {{/if}}
         {{#if skillName}}
             <div>({{numberFormat skillBonus sign=true decimals=0}} {{skillName}})</div>
         {{/if}}

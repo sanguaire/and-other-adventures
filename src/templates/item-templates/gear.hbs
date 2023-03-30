@@ -1,10 +1,22 @@
 <div class="list-row relative" style="gap: 0.2em; justify-content: flex-start">
     <i class="drag fa-solid fa-grip-vertical" draggable="true"></i>
-<!--    <span><a data-action="equip" class="equipped {{#if system.equipped}}active{{/if}}"><i class="fa-solid fa-hand"></i></a></span>-->
+    <!--    <span><a data-action="equip" class="equipped {{#if
+            system.equipped}}active{{/if}}"><i class="fa-solid fa-hand"></i></a></span>-->
     <span><a data-action="editItem" data-tooltip="{{localize "aoa.edit"}}"><i class="fa-solid fa-pen-to-square"></i></a></span>
+    {{#if system.consumable}}
+        <a data-action="use"
+           data-action-flavor="{{localize (lookup . "string")}} {{name}}"
+           data-action-type="{{type}}"
+           data-tooltip="{{localize 'aoa.use'}}"
+            {{#if (lt system.quantity.value 1)}}style="display: none;"{{/if}}>
+            <i class="fa-regular fa-hand"></i>
+        </a>
+    {{/if}}
     <div class="quantity {{#if (lt system.quantity.value 2)}}only-hover{{/if}}">
         <label for="system.quantity">{{localize "aoa.quantity"}}:</label>
-        <input name="system.quantity" type="text" size="1" data-dtype="Number" value="{{system.quantity.value}}" data-property="system.quantity.value">
+        <input name="system.quantity" type="text" size="1" data-dtype="Number" value="{{system.quantity.value}}"
+               data-property="system.quantity.value">
     </div>
-    <input type="text" data-dtype="text" value="{{name}}" data-property="name" {{#if (lt system.quantity.value 1)}}class="zero-quantity"{{/if}} >
+    <input type="text" data-dtype="text" value="{{name}}" data-property="name"
+           {{#if (lt system.quantity.value 1)}}class="zero-quantity"{{/if}} >
 </div>

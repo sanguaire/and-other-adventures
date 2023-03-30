@@ -24,7 +24,7 @@ export class SystemRoll extends Roll {
         return formula.replace(CONFIG.Dice.terms.d.DENOMINATION, game.i18n.localize("aoa." + CONFIG.Dice.terms.d.DENOMINATION))
     };
 
-    constructor({roller, key, type, mod, skill, item, flavor, target}={}) {
+    constructor({roller, key, type, mod, skill, item, flavor, target, targetToken}={}) {
         let attackMod = 0;
         let modString = "";
 
@@ -91,7 +91,8 @@ export class SystemRoll extends Roll {
                 this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
                 this.direction = RollDirection.high;
                 this.target = NaN;
-                this.modifier =  0
+                this.modifier =  0;
+                this.targetToken = targetToken;
                 break;
             case 'damageMelee':
                 modString = SystemRoll.toModString(mod);
@@ -99,7 +100,8 @@ export class SystemRoll extends Roll {
                 this.name = `${game.i18n.localize("aoa.rolls.damage")} ${item.name}`;
                 this.direction = RollDirection.high;
                 this.target = NaN;
-                this.modifier = 0
+                this.modifier = 0;
+                this.targetToken = targetToken;
                 break;
             case 'damageMonster':
                 super(item.system.damage.formula);
@@ -112,7 +114,7 @@ export class SystemRoll extends Roll {
                 console.error(`Roll type '${type}' not allowed.`);
         }
         this.actorName = roller.name;
-        this.actorId = roller._id;
+        this.actorId = roller.uuid;
         this.type = type;
         this.flavor = flavor;
     }
@@ -175,6 +177,8 @@ export class SystemRoll extends Roll {
                 toolTip.formula = SystemRoll.localizeFormula(toolTip.formula);
                 return toolTip;
             }),
+            targetName: this.targetToken?.actor?.name,
+            targetId: this.targetToken?.document?.uuid
         };
         return renderTemplate(chatOptions.template, chatData);
     }

@@ -1,25 +1,16 @@
 import {CONST} from "./const.mjs";
 
 export class AoaCombat extends Combat {
-/*    _onCreateEmbeddedDocuments(type, documents, result, options, userId) {
-        console.log({type, documents, result, options, userId});
-
-        if(type==="Combatant") {
-            documents.forEach(d => {
-                d.update({"initiative": (d.actor.type === 'pc' ? d.actor.system.initiative : d.actor.system.hitDie.number)} )
-            })
-        }
-
-        super._onCreateEmbeddedDocuments(type, documents, result, options, userId);
-    }*/
-
     _onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
         super._onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        console.log(documents);
         this._sortCombatants();
     }
 
     _sortCombatants(a, b) {
+        if(!(a && b)) {
+            return 1;
+        }
+
         const ia = Number.isNumeric(a.initiative) ? a.initiative : -Infinity;
         const ib = Number.isNumeric(b.initiative) ? b.initiative : -Infinity;
 

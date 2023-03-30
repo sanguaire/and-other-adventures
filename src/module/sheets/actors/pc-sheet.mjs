@@ -157,13 +157,11 @@ export class PcSheet extends AoaActorSheet {
 
     static showItem(actor, html) {
         const itemId = html.closest("[data-item-id]").data("item-id");
-        if(itemId) {
-            const item = actor.items.get(itemId);
-
-            new ExtendedItemSheet(item).render(true, {editable: game.user.isGM});
-
-
+        if (!itemId) {
+            return;
         }
+        const item = actor.items.get(itemId);
+        new ExtendedItemSheet(item).render(true, {editable: game.user.isGM});
     }
 
     static toggleCondense() {
@@ -202,5 +200,7 @@ export class PcSheet extends AoaActorSheet {
             });
         }
     }
+
+
 
 }

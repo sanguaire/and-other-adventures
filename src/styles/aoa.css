@@ -9,7 +9,7 @@
 @import "pc.css";
 @import "monster.css";
 
-.aoa.sheet.window-app .window-content {
+.aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);
     background: url(../assets/parchment.jpg) repeat;
     width: 100%;
@@ -20,7 +20,7 @@
     filter: sepia(0.1);
 }
 
-.aoa.sheet.dialog form {
+.aoa.sheet.dialog .aoa-sheet {
     padding: 0.4em 0.4em 1em;
 }
 

@@ -41,12 +41,18 @@
 }
 
 .aoa-chat .actor-name {
-    color: var(--sheet-dark-accent);
+
 }
 
-.aoa-chat h1, .aoa-chat h2, .aoa-chat h3, .aoa-chat h4, .aoa-chat h5, .aoa-chat h6{
+#chat-log h1, #chat-log h2, #chat-log h3, #chat-log h4, #chat-log h5, #chat-log h6{
     font-variant: small-caps;
     border-bottom: none;
+    font-weight: bold;
+    text-decoration: 2px underline darkred;
+}
+
+#chat-log .message-sender {
+    text-decoration: none;
 }
 
 .aoa-chat .header {
@@ -55,10 +61,11 @@
 
 .aoa-chat .description {
     background: var(--sheet-dark-accent);
-    padding: 0 0.4em;
+    padding: 1px 0.4em;
 }
 
-.aoa-chat .description strong {
+.aoa-chat .description strong,
+#chat-log .chat-message.message .message-content p strong {
     background: var(--text-strong);
 }
 

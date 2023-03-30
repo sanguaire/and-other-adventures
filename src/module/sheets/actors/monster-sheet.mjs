@@ -37,10 +37,7 @@ export class MonsterSheet extends AoaActorSheet {
     }
 
     static async hitDie(actor) {
-
         const roll = await new Roll(`${actor.system.hitDie.number}${actor.system.hitDie.dieType}+${actor.system.hitDie.bonus}`).roll({async: true})
-        console.log(`Rolling hitDie ${roll.total}`);
-        console.log(roll);
 
         await actor.update({
             "system.hp.value": roll.total,
