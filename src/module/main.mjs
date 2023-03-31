@@ -6,11 +6,11 @@ import {CONST} from "./const.mjs";
 import {ExtendedItemSheet} from "./sheets/items/extended-item-sheet.mjs";
 import {registerHelpers} from "./handlebars.mjs";
 import {chatMessageHandler} from "./chat-message-handler.mjs";
-import {SystemRoll} from "./systems-roll.mjs";
 import {registerSettings} from "./settings.mjs";
 import {configure} from "./config.mjs";
 import {updateActorHandler} from "./update-actor-handler.mjs";
 import {updateItemHandler} from "./update-item-handler.mjs";
+import {renderActiveEffectConfigHandler, closeActiveEffectConfigHandler} from "./active-effect-config-handler.mjs";
 
 const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/parts/header.hbs`,
@@ -81,6 +81,8 @@ Hooks.once("init", async () => {
     Hooks.on("renderChatMessage", chatMessageHandler );
     Hooks.on("updateActor", updateActorHandler);
     Hooks.on("updateItem", updateItemHandler);
+    Hooks.on("renderActiveEffectConfig", renderActiveEffectConfigHandler);
+    Hooks.on("closeActiveEffectConfig", closeActiveEffectConfigHandler)
 
     configure();
 

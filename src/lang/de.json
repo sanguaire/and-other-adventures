@@ -77,12 +77,20 @@
     "d8": "W8",
     "damage": "Schaden",
     "damage-bonus": "Schadensbonus",
+    "days": "Tage",
     "description": "Beschreibung",
     "dialog": {
       "roll": "Würfle"
     },
     "duration": "Wirkungsdauer",
     "edit": "Bearbeiten",
+    "effect": {
+      "days": "T",
+      "duration": "Dauer",
+      "hours": "S",
+      "minutes": "M",
+      "seconds": "s"
+    },
     "effects": "Effekte",
     "effects-header": "Effekte",
     "gear-header": "Ausrüstung",

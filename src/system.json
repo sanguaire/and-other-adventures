@@ -14,7 +14,7 @@
       "discord": "Sanguaire#7321"
     }
   ],
-  "scripts": [],
+  "scripts": ["scripts/TimeSpan-1.2.min.js"],
   "esmodules": [
     "module/main.mjs",
     "greensock/esm/all.js"

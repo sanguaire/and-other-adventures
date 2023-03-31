@@ -89,41 +89,59 @@ export class PcActor extends Actor {
     _prepareWeapons() {
         for (const weapon of this.itemTypes.weapon) {
             if (weapon.actor) {
-                const specializedDamageBonus = this.system.class?.hasSpecialization && weapon.system.specialized ? 2 : 0;
-                // noinspection JSDeprecatedSymbols
-                const knackDamageBonus = this.system.class?.hasKnacks ? this.system.knacks.strike : 0
-                const meleeDamageBonus = weapon.system.damageBonus.melee
-                    + this.system.abilities.str.modifier
-                    + specializedDamageBonus
-                    + knackDamageBonus;
-                const rangedDamageBonus = weapon.system.damageBonus.ranged
-                    + specializedDamageBonus
-                    + knackDamageBonus;
-
-                weapon.system.damage = {
-                    melee: `${weapon.system.baseDamage.noOfDie}${weapon.system.baseDamage.dieType}${meleeDamageBonus === 0 ? "" : meleeDamageBonus > 0 ? `+${meleeDamageBonus}` : meleeDamageBonus}`,
-                    ranged: `${weapon.system.baseDamage.noOfDie}${weapon.system.baseDamage.dieType}${rangedDamageBonus === 0 ? "" : rangedDamageBonus > 0 ? `+${rangedDamageBonus}` : rangedDamageBonus}`
-                }
-
-                weapon.system.localizedDamage = {
-                    melee: `${weapon.system.baseDamage.noOfDie}${game.i18n.localize("aoa." + weapon.system.baseDamage.dieType)}${meleeDamageBonus === 0 ? "" : meleeDamageBonus > 0 ? `+${meleeDamageBonus}` : meleeDamageBonus}`,
-                    ranged: `${weapon.system.baseDamage.noOfDie}${game.i18n.localize("aoa." + weapon.system.baseDamage.dieType)}${rangedDamageBonus === 0 ? "" : rangedDamageBonus > 0 ? `+${rangedDamageBonus}` : rangedDamageBonus}`
-                }
-
-                const specializedAttackBonus = this.system.class?.hasSpecialization && weapon.system.specialized ? 1 : 0;
-
-                weapon.system.attack = {
-                    melee: weapon.system.attackBonus.melee + this.system.attack.melee + specializedAttackBonus,
-                    ranged: weapon.system.attackBonus.ranged + this.system.attack.ranged + specializedAttackBonus
-                }
-
-                weapon.system.ammoQuantity = weapon.system.usesAmmo ? this.items.get(weapon.system.ammoId)?.system.quantity.value ?? 0 : 0
-
-                weapon.system.showMelee = !weapon.system.ranged || weapon.system.hasMeleeOption;
-
+                PcActor.prepareWeaponDamage(weapon);
+                PcActor.prepareWeaponAttackBonus(weapon);
             }
-
         }
+    }
+
+    static prepareWeaponDamage(weapon) {
+        const numberOfDie = weapon.system.baseDamage.noOfDie;
+        const dieType = weapon.system.baseDamage.dieType;
+        const abilityMeleeDamageModifier = weapon.actor.system.abilities.str.modifier;
+        const abilityRangedDamageModifier = 0;
+        const specializedDamageBonus = weapon.actor.system.class?.hasSpecialization && weapon.system.specialized ? 2 : 0;
+        // noinspection JSDeprecatedSymbols
+        const knackDamageBonus = weapon.actor.system.class?.hasKnacks ? weapon.actor.system.knacks.strike : 0
+
+        const meleeDamageBonus = weapon.system.damageBonus.melee
+            + abilityMeleeDamageModifier
+            + specializedDamageBonus
+            + knackDamageBonus;
+
+        const rangedDamageBonus = weapon.system.damageBonus.ranged
+            + abilityRangedDamageModifier
+            + specializedDamageBonus
+            + knackDamageBonus;
+
+        const getBonusString = bonusValue => bonusValue === 0 ? "" : bonusValue > 0 ? `+${bonusValue}` : bonusValue;
+
+        const meleeDamageBonusString = getBonusString(meleeDamageBonus);
+        const rangedDamageBonusString = getBonusString(rangedDamageBonus)
+
+        weapon.system.damage = {
+            melee: `${numberOfDie}${dieType}${meleeDamageBonusString}`,
+            ranged: `${numberOfDie}${dieType}${rangedDamageBonusString}`
+        }
+
+        weapon.system.localizedDamage = {
+            melee: `${numberOfDie}${game.i18n.localize("aoa." + dieType)}${meleeDamageBonusString}`,
+            ranged: `${numberOfDie}${game.i18n.localize("aoa." + dieType)}${rangedDamageBonusString}`
+        }
+    }
+
+    static prepareWeaponAttackBonus(weapon) {
+        const specializedAttackBonus = weapon.actor.system.class?.hasSpecialization && weapon.system.specialized ? 1 : 0;
+        const actorMeleeAttackBonus = weapon.actor.system.attack.melee;
+        const actorRangedAttackBonus = weapon.actor.system.attack.ranged;
+
+        weapon.system.attack = {
+            melee: weapon.system.attackBonus.melee + actorMeleeAttackBonus + specializedAttackBonus,
+            ranged: weapon.system.attackBonus.ranged + actorRangedAttackBonus + specializedAttackBonus
+        }
+
+        weapon.system.ammoQuantity = weapon.system.usesAmmo ? weapon.actor.items.get(weapon.system.ammoId)?.system.quantity.value ?? 0 : 0
+        weapon.system.showMelee = !weapon.system.ranged || weapon.system.hasMeleeOption;
     }
 
     static _getModifier = (value) => {

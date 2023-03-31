@@ -77,12 +77,20 @@
     "d8": "d8",
     "damage": "Damage",
     "damage-bonus": "Damage bonus",
+    "days": "Days",
     "description": "Description",
     "dialog": {
       "roll": "Roll"
     },
     "duration": "Duration",
     "edit": "Edit",
+    "effect": {
+      "days": "D",
+      "duration": "Duration",
+      "hours": "H",
+      "minutes": "M",
+      "seconds": "s"
+    },
     "effects": "Effects",
     "effects-header": "Effects",
     "gear-header": "Gear",

@@ -7,5 +7,8 @@
         </a>
     </span>
     <input type="text" data-dtype="text" value="{{label}}" data-property="label">
+    {{#if duration.remaining}}
+        <span class="duration-remaining" style="flex: 1 0 auto;">{{localize "aoa.effect.duration"}}: {{duration.remaining}}</span>
+    {{/if}}
 </div>
 

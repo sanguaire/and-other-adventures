@@ -95,6 +95,18 @@ export class PcSheet extends AoaActorSheet {
         context.selectedWeaponItem = this.actor.items.get(this.actor.system.selectedWeapon);
 
         context.isGM = game.user.isGM;
+
+        for(const effect of context.effects) {
+            if(effect.duration.seconds) {
+                const durationTs = TimeSpan.FromSeconds((effect.duration.seconds + effect.duration.startTime) - game.time.worldTime );
+
+                effect.duration.remaining = durationTs.days() > 0
+                    ? `${durationTs.days()} ${game.i18n.localize("aoa.days")}`
+                    : `${durationTs.hours().toString().padStart(2, "0")}:${durationTs.minutes().toString().padStart(2, "0")}:${durationTs.seconds().toString().padStart(2, "0")}`;
+
+            }
+        }
+
         return context;
     }
 
