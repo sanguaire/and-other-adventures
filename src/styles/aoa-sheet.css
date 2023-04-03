@@ -154,8 +154,13 @@
     overflow-y: hidden;
 }
 
-.aoa-sheet a:hover {
+.aoa-sheet a:hover:not(.disabled) {
     text-shadow: 0 0 6px darkred;
+}
+
+.aoa-sheet a.disabled {
+    color: darkgray;
+    pointer-events: none;
 }
 
 .aoa-sheet .tabs a {

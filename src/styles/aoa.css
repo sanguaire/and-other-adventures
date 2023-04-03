@@ -8,6 +8,7 @@
 @import "aoa-sheet.css";
 @import "pc.css";
 @import "monster.css";
+@import "requester.css";
 
 .aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);

@@ -138,6 +138,7 @@
     },
     "range-label": "Range",
     "ranged": "Ranged",
+    "request-roll": "Request roll",
     "resources": {
       "fp": "Fortune points",
       "hp": "Hit points"

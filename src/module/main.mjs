@@ -11,6 +11,8 @@ import {configure} from "./config.mjs";
 import {updateActorHandler} from "./update-actor-handler.mjs";
 import {updateItemHandler} from "./update-item-handler.mjs";
 import {renderActiveEffectConfigHandler, closeActiveEffectConfigHandler} from "./active-effect-config-handler.mjs";
+import {getSceneControlButtonsHandler} from "./get-scene-control-buttons-handler.mjs";
+import {requestRollHandler} from "./request-roll-handler.mjs";
 
 const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/parts/header.hbs`,
@@ -33,7 +35,8 @@ const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/cantrip-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/ritual-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/attack-sheet.hbs`,
-    `systems/${CONST.MODULE_ID}/templates/items/trait-sheet.hbs`
+    `systems/${CONST.MODULE_ID}/templates/items/trait-sheet.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/apps/roll-requester.hbs`,
 ];
 
 const pcTemplates = {
@@ -57,6 +60,14 @@ const pcTemplates = {
 const componentTemplates = {
     editableList: `systems/${CONST.MODULE_ID}/templates/editable-list.hbs`
 }
+
+Hooks.once("socketlib.ready", () => {
+    CONFIG.aoa = {
+        socket: socketlib.registerSystem(CONST.MODULE_ID)
+    };
+
+    CONFIG.aoa.socket.register("requestRoll", requestRollHandler);
+});
 
 
 Hooks.once("init", async () => {
@@ -82,7 +93,9 @@ Hooks.once("init", async () => {
     Hooks.on("updateActor", updateActorHandler);
     Hooks.on("updateItem", updateItemHandler);
     Hooks.on("renderActiveEffectConfig", renderActiveEffectConfigHandler);
-    Hooks.on("closeActiveEffectConfig", closeActiveEffectConfigHandler)
+    Hooks.on("closeActiveEffectConfig", closeActiveEffectConfigHandler);
+    Hooks.on("getSceneControlButtons", getSceneControlButtonsHandler);
+
 
     configure();
 

@@ -19,7 +19,7 @@
     <div class="flexrow align-center" >
         <label for="modifier">{{localize "aoa.modifier"}}:</label>
         <div class="flexrow align-center" style="gap: 0.4em;">
-            <input name="modifier" type="text" data-dtype="Number" value={{numberFormat 0 sign=true decimals=0}} sign="true" />
+            <input name="modifier" type="text" data-dtype="Number" value={{numberFormat modifier sign=true decimals=0}} sign="true" />
             <a class="flex0" style="color: darkred;"
                onclick="document.getElementsByName('modifier')[0].value = HandlebarsHelpers.numberFormat(Number.parseInt(document.getElementsByName('modifier')[0].value) - 1, Object.create({hash: {sign: true, decimals: 0}}))"><i class="fa-solid fa-circle-arrow-down"></i></a>
             <a class="flex0" style="color: darkgreen;"

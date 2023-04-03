@@ -4,6 +4,7 @@ import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
 import {inputMousewheel} from "../../utils.mjs";
 
 import gsap from "/scripts/greensock/esm/all.js";
+import {beautifyHeaders} from "../../utils/beautify-headers.mjs";
 
 export class AoaActorSheet extends ActorSheet {
 
@@ -66,28 +67,7 @@ export class AoaActorSheet extends ActorSheet {
            });
         });
 
-
-        this.beautifyHeaders(html.find(":header"));
-
-    }
-
-    beautifyHeaders(html) {
-
-        html.html(beautify);
-
-        function beautify() {
-            const el = $(this);
-
-            if(el.children().length > 0){
-                el.children().html(beautify);
-            }
-            else {
-                return el
-                    .text()
-                    .replace(/[a-zä-ü]*/g, '<span class="move-up">$&</span>')
-                    .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
-            }
-        }
+        beautifyHeaders(html.find(":header"));
     }
 
     _onDragStart(event) {

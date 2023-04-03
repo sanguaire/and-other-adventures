@@ -11,4 +11,6 @@ export const configure = () => {
 
     CONFIG.Token.objectClass = AoaToken;
     CONFIG.Token.documentClass = AoaTokenDocument;
+
+
 }

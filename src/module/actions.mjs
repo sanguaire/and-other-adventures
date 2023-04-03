@@ -1,6 +1,7 @@
 import {CONST as AOA_CONST} from "./const.mjs";
 import {SystemRoll} from "./systems-roll.mjs";
 import {inputMousewheel} from "./utils.mjs";
+import {beautifyHeaders} from "./utils/beautify-headers.mjs";
 
 const dialogClasses = [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol", "animate__animated", AOA_CONST.OPEN_ANIMATION_CLASS];
 
@@ -23,16 +24,15 @@ export const actionHandler = (actor, html) => {
     const actionFlavor = html.closest("[data-action-flavor]").data("action-flavor");
     const itemId = html.closest("[data-item-id]").data("item-id");
 
-    actions[action][actionType](actor, actionKey ?? itemId, actionFlavor);
+    executeAction(actor, action, actionType, actionKey ?? itemId, actionFlavor);
+}
+
+export const executeAction = (actor,  action, actionType, ...args) => {
+    actions[action][actionType](actor, ...args);
 }
 
 function render(html) {
-    html.find(":header").html(function () {
-        return $(this)
-            .text()
-            .replace(/[a-zä-ü]*/g, '<span class="move-up">$&</span>')
-            .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
-    });
+    beautifyHeaders(html.find(":header"));
 
     html.find("[name='modifier']").change(modifierChange);
     html.find("[name='modifier']").on("wheel", inputMousewheel);
@@ -53,12 +53,13 @@ function modifierChange(ev) {
 
 }
 
-async function renderDialogContent(rollKey, {skills, keys} = {}) {
+async function renderDialogContent(rollKey, {skills, keys, modifier = 0} = {}) {
     const dlgTemplate = `systems/${AOA_CONST.MODULE_ID}/templates/dialogs/roll.hbs`
     const dlgData = {
         dialogHeader: game.i18n.localize("aoa.rolls." + rollKey),
         skills,
         keys,
+        modifier,
         cssClass: "aoa-sheet"
     }
 
@@ -77,8 +78,8 @@ const execute = async (innerCallback, html, ...args) => {
     await innerCallback(formData, ...args);
 };
 
-const abilityRoll = async (actor, abilityKey, flavor) => {
-    const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill")});
+const abilityRoll = async (actor, abilityKey, flavor, modifier) => {
+    const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill"), modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.ability"),
@@ -118,8 +119,8 @@ const abilityRoll = async (actor, abilityKey, flavor) => {
     }
 };
 
-const saveRoll = async (actor, saveKey) => {
-    const content = await renderDialogContent(saveKey);
+const saveRoll = async (actor, saveKey, flavor, modifier) => {
+    const content = await renderDialogContent(saveKey, {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.save"),

@@ -1,0 +1,35 @@
+{{log .}}
+<div class="{{cssClass}}">
+    <h1>Roll Requester</h1>
+    <div class="section-border-horizontal">
+        <h2>{{localize "PLAYERS.Title"}}</h2>
+        <ul>
+            {{#each users as |user|}}
+                <li class="user" data-action="select" data-user-id="{{user.id}}">{{user.character.prototypeToken.name}}<img src="{{user.character.img}}">{{user.name}}</li>
+            {{/each}}
+        </ul>
+        <div class="flexrow align-center" style="margin-bottom: 0.4em;">
+            <label for="modifier">{{localize "aoa.modifier"}}:</label>
+            <input id="modifier" name="modifier" value={{numberFormat 0 sign=true decimals=0}} sign="true" type="text" data-dtype="Number">
+        </div>
+    </div>
+    <div class="rolls">
+        <div class="abilities">
+            <h2>{{localize "aoa.rolls.ability"}}</h2>
+            <ul  data-action-type="abilities">
+                {{#each abilities as |ability|}}
+                    <li><a class="disabled" data-action="roll" data-action-key="{{ability.key}}"><i class="fa-solid fa-dice-d20"></i></a> {{ability.name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="saves">
+            <h2>{{localize "aoa.rolls.save"}}</h2>
+            <ul data-action-type="saves">
+                {{#each saves as |save|}}
+                    <li><a class="disabled" data-action="roll" data-action-key="{{save.key}}"><i class="fa-solid fa-dice-d20"></i></a> {{save.name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+</div>

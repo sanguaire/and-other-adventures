@@ -138,6 +138,7 @@
     },
     "range-label": "Reichweite",
     "ranged": "Fernkampf",
+    "request-roll": "Wurf anfragen",
     "resources": {
       "fp": "Schicksalspunkte",
       "hp": "Trefferpunkte"

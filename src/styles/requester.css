@@ -1,0 +1,58 @@
+.request-sheet {
+    height: auto;
+}
+
+.request-sheet ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    gap: 0.4em;
+    width: 100%;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.request-sheet .abilities ul,
+.request-sheet .saves ul{
+    flex-direction: column;
+}
+
+li.user {
+    display: flex;
+    box-sizing: content-box;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+li.user:hover {
+    border: 2px solid black;
+}
+
+li.user.selected {
+    background: var(--text-strong);
+}
+
+li.user img {
+    width: 64px;
+    height: auto;
+    object-fit: contain;
+    border: none;
+    pointer-events: none;
+}
+
+.request-sheet .rolls {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4em;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.request-sheet .rolls > div {
+    flex: 1;
+}
+
