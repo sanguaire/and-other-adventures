@@ -1,4 +1,6 @@
-export class MonsterActor extends Actor {
+import {AoaActor} from "./aoa-actor.mjs";
+
+export class MonsterActor extends AoaActor {
 
     static monsterSave = {
         1:  {

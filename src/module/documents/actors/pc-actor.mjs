@@ -1,4 +1,6 @@
-export class PcActor extends Actor {
+import {AoaActor} from "./aoa-actor.mjs";
+
+export class PcActor extends AoaActor {
 
     static stanceModifiers = {
         normal: {
