@@ -1,10 +1,17 @@
 <div class="list-row relative">
     <i class="drag fa-solid fa-grip-vertical" draggable="true"></i>
-    <span><a data-action="editEffect" data-tooltip="{{localize "aoa.edit"}}"><i class="fa-solid fa-pen-to-square"></i></a></span>
+    <span><a data-action="editEffect" data-tooltip="{{localize "aoa.edit"}}" {{#unless editable}}class="disabled"{{/unless}}><i class="fa-solid fa-pen-to-square"></i></a></span>
     <span>
-        <a data-action="disable" class="{{#if disabled}}disabled{{/if}}">
-           <i class="fa-solid fa-person-rays"></i>
-        </a>
+        {{#if editable}}
+            <a data-action="disable">
+                <i class="fa-solid fa-person-rays {{#if disabled}}gray-out{{/if}}"></i>
+            </a>
+        {{else}}
+            <span>
+                <i class="fa-solid fa-person-rays {{#if disabled}}gray-out{{/if}}"></i>
+            </span>
+        {{/if}}
+
     </span>
     <input type="text" data-dtype="text" value="{{label}}" data-property="label">
     {{#if duration.remaining}}

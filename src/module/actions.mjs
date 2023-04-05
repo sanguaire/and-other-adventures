@@ -1,6 +1,6 @@
 import {CONST as AOA_CONST} from "./const.mjs";
 import {SystemRoll} from "./systems-roll.mjs";
-import {inputMousewheel} from "./utils.mjs";
+import {inputMousewheel} from "./utils/utils.mjs";
 import {beautifyHeaders} from "./utils/beautify-headers.mjs";
 
 const dialogClasses = [AOA_CONST.MODULE_SCOPE, "sheet", "dialog", "flexcol", "animate__animated", AOA_CONST.OPEN_ANIMATION_CLASS];
@@ -36,6 +36,31 @@ function render(html) {
 
     html.find("[name='modifier']").change(modifierChange);
     html.find("[name='modifier']").on("wheel", inputMousewheel);
+
+    html.find("[data-action='difficulty'").click((ev) => {
+       const target = $(ev.currentTarget);
+       const actionType = target.data("action-type");
+       const modifierElement = html.find("[name='modifier']");
+
+       const modifiers = {
+           easy: 2,
+           normal: 0,
+           hard: -2,
+           veryHard: -5,
+           impossible: -10
+       }
+
+       if(modifiers.hasOwnProperty(actionType)) {
+           modifierElement.val(HandlebarsHelpers.numberFormat(modifiers[actionType], Object.create({
+               hash: {
+                   decimals: 0,
+                   sign: true
+               }
+           })));
+       } else {
+           console.error(`Wrong action type '${actionType}'`);
+       }
+    });
 }
 
 function modifierChange(ev) {
@@ -53,14 +78,15 @@ function modifierChange(ev) {
 
 }
 
-async function renderDialogContent(rollKey, {skills, keys, modifier = 0} = {}) {
+async function renderDialogContent(rollKey, {action = "roll", skills, keys, modifier = 0} = {}) {
     const dlgTemplate = `systems/${AOA_CONST.MODULE_ID}/templates/dialogs/roll.hbs`
     const dlgData = {
         dialogHeader: game.i18n.localize("aoa.rolls." + rollKey),
         skills,
         keys,
         modifier,
-        cssClass: "aoa-sheet"
+        cssClass: "aoa-sheet",
+        action
     }
 
     const content = await renderTemplate(dlgTemplate, dlgData);
@@ -78,8 +104,19 @@ const execute = async (innerCallback, html, ...args) => {
     await innerCallback(formData, ...args);
 };
 
-const abilityRoll = async (actor, abilityKey, flavor, modifier) => {
-    const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill"), modifier});
+const abilityRoll = async (actor, abilityKey, flavor, modifier = 0) => {
+    const physicalAbilityKeys = ["str", "con", "dex"];
+    const mentalAbilityKeys = ["int", "wis", "cha"];
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+                            + permanentModifiers.abilities.all
+                            + permanentModifiers.abilities[abilityKey]
+                            + (physicalAbilityKeys.includes(abilityKey) ? permanentModifiers.abilities.physical : 0)
+                            + (mentalAbilityKeys.includes(abilityKey) ? permanentModifiers.abilities.mental : 0);
+
+    modifier += permanentModifier;
+
+    const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill"), modifier });
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.ability"),
@@ -120,6 +157,14 @@ const abilityRoll = async (actor, abilityKey, flavor, modifier) => {
 };
 
 const saveRoll = async (actor, saveKey, flavor, modifier) => {
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.saves.all
+        + permanentModifiers.saves[saveKey];
+
+    modifier += permanentModifier;
+
+
     const content = await renderDialogContent(saveKey, {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
@@ -150,6 +195,13 @@ const saveRoll = async (actor, saveKey, flavor, modifier) => {
 };
 
 const rangedAttack = async (actor, itemId) => {
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.attacks.all
+        + permanentModifiers.attacks.ranged;
+
+    const modifier = permanentModifier;
+
 
     const item = actor.items.get(itemId);
 
@@ -173,7 +225,7 @@ const rangedAttack = async (actor, itemId) => {
             }
         }
 
-        const content = await renderDialogContent("ranged");
+        const content = await renderDialogContent("ranged", {modifier});
         const data = foundry.utils.mergeObject(baseDialogData,
             {
                 title: game.i18n.localize("aoa.rolls.ranged"),
@@ -243,7 +295,14 @@ const rangedBasicRoll = async (actor) => {
         return;
     }
 
-    const content = await renderDialogContent("ranged");
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.attacks.all
+        + permanentModifiers.attacks.ranged;
+
+    const modifier = permanentModifier;
+
+    const content = await renderDialogContent("ranged", {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.ranged"),
@@ -278,6 +337,8 @@ const monsterAttack = async (actor, itemId) => {
     if (!item) {
         return;
     }
+
+    const modifier = permanentModifier;
 
     const content = await renderDialogContent("monster");
     const data = foundry.utils.mergeObject(baseDialogData,
@@ -325,7 +386,14 @@ const meleeAttack = async (actor, itemId) => {
         return;
     }
 
-    const content = await renderDialogContent("melee");
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.attacks.all
+        + permanentModifiers.attacks.melee;
+
+    const modifier = permanentModifier;
+
+    const content = await renderDialogContent("melee", {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.melee"),
@@ -361,7 +429,14 @@ const meleeBasicRoll = async (actor) => {
         return;
     }
 
-    const content = await renderDialogContent("melee");
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.attacks.all
+        + permanentModifiers.attacks.melee;
+
+    const modifier = permanentModifier;
+
+    const content = await renderDialogContent("melee", {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.melee"),
@@ -401,7 +476,15 @@ const meleeDamage = async (actor, itemId) => {
         ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
         return;
     }
-    const content = await renderDialogContent("damageMelee", {});
+
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.damage.all
+        + permanentModifiers.damage.melee;
+
+    const modifier = permanentModifier;
+
+    const content = await renderDialogContent("damageMelee", {action: "damage", modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.damage"),
@@ -440,7 +523,16 @@ const rangedDamage = async (actor, itemId) => {
         ui.notifications.error(game.i18n.localize("aoa.weapon-not-equipped"));
         return;
     }
-    const content = await renderDialogContent("damageRanged", {});
+
+    const permanentModifiers = actor.system.gmConfig.permanentModifiers;
+    const permanentModifier = permanentModifiers.allRolls
+        + permanentModifiers.damage.all
+        + permanentModifiers.damage.ranged;
+
+    const modifier = permanentModifier;
+
+
+    const content = await renderDialogContent("damageRanged", {action: "damage", modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.damage"),
@@ -581,6 +673,61 @@ const gearUse = async (actor, itemId, flavor) => {
 
 }
 
+const igniteTorch = async (actor) => {
+    await createLightEffect(actor, "torch")
+}
+
+const igniteCandle = async (actor) => {
+    await createLightEffect(actor, "candle")
+}
+
+const igniteLamp = async (actor) => {
+    await createLightEffect(actor, "lamp")
+}
+
+const igniteLantern = async (actor) => {
+    await createLightEffect(actor, "lantern")
+}
+
+const igniteCantrip = async (actor) => {
+    await createLightEffect(actor, "cantrip")
+}
+
+const createLightEffect = async (actor, lightName) => {
+    const durations = {
+        torch: 3600,
+        candle: 3600,
+        lamp: 21600,
+        lantern: 21600,
+        cantrip: 0
+    }
+
+    const icons = {
+        torch: "icons/sundries/lights/torch-brown-lit.webp",
+        candle: "icons/sundries/lights/candle-unlit-yellow.webp",
+        lamp: "icons/sundries/lights/lantern-iron-yellow.webp",
+        lantern: "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+        cantrip: "icons/magic/light/explosion-star-blue-small.webp"
+    }
+
+    await actor.createEmbeddedDocuments("ActiveEffect", [{
+        "label": game.i18n.localize(`aoa.light.${lightName}`),
+        "changes": [
+            {
+                "key": "Light",
+                "mode": 0,
+                "value": lightName,
+                "priority": null
+            }
+        ],
+        "disabled": false,
+        "duration": {
+            "seconds": durations[lightName]
+        },
+        "icon": icons[lightName]
+    }]);
+}
+
 const actions = {
     roll: {
         abilities: abilityRoll,
@@ -602,6 +749,13 @@ const actions = {
     use: {
         spell: spellUse,
         gear: gearUse
+    },
+    light: {
+        torch: igniteTorch,
+        candle: igniteCandle,
+        lamp: igniteLamp,
+        lantern: igniteLantern,
+        cantrip: igniteCantrip,
     }
 }
 

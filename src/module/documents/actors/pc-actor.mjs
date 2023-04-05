@@ -58,6 +58,8 @@ export class PcActor extends AoaActor {
             this.system.abilities[key].modifier = PcActor._getModifier(ability.value);
         }
 
+        this.system.maxLanguages = Math.max(1 + this.system.abilities.int.modifier, 1);
+
         const baseAttackBonus = (this.system.progression?.attackBonus ?? 0) + PcActor.stanceModifiers[this.system.combatStance].attack;
 
         this.system.attack = {

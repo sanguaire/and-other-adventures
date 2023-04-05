@@ -1,6 +1,7 @@
 import {CONST} from "../../const.mjs";
 import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
+import {GmActorConfig} from "./gm-actor-config.mjs";
 
 export class PcSheet extends AoaActorSheet {
     static normalHeight = 900
@@ -10,9 +11,9 @@ export class PcSheet extends AoaActorSheet {
         showItem: PcSheet.showItem,
         editEffect: PcSheet.editEffect,
         disable: PcSheet.disableEffect
-    })
-    static condensed = true;
+    });
 
+    static condensed = true;
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -58,6 +59,12 @@ export class PcSheet extends AoaActorSheet {
                 class: "show-art",
                 icon: "fa-solid fa-magnifying-glass",
                 onclick: () => PcSheet.showArt(that.actor)
+            });
+            buttons.splice(1, 0, {
+                label: "",
+                class: "show-gm-config",
+                icon: "fa-solid fa-clipboard",
+                onclick: async () => await new GmActorConfig(this.actor).render(true)
             });
         }
 
@@ -107,14 +114,17 @@ export class PcSheet extends AoaActorSheet {
             }
         }
 
+
         return context;
     }
 
     render(force = false, options = {}) {
+
         return super.render(force, options);
     }
 
     static async equip(actor, html) {
+        const considerHands = game.settings.get(CONST.MODULE_ID, "considerHandsOnEquip");
         const itemId = html.closest("[data-item-id]").data("item-id");
         const consideredTypes = ["weapon", "armor"];
 
@@ -130,35 +140,37 @@ export class PcSheet extends AoaActorSheet {
 
         const equip = !item.system.equipped
 
-        if (equip && (item.type === "weapon" || (item.type === "armor" && item.system.needFreeHand))) {
-            const equippedItems = actor
+        if (considerHands) {
+            if (equip && (item.type === "weapon" || (item.type === "armor" && item.system.needFreeHand))) {
+                const equippedItems = actor
                     .items
                     .filter(i => i.system.equipped && consideredTypes.includes(item.type))
                     .filter(i => i.type === "weapon" || i.system.needFreeHand);
 
-            const handsUsed = equippedItems.reduce((prev, cur) => prev + (cur.type === "weapon" && cur.system.needsTwoHands ? 2 : 1), 0);
-            const neededHands = item.type === "weapon" && item.system.needsTwoHands ? 2 : 1;
+                const handsUsed = equippedItems.reduce((prev, cur) => prev + (cur.type === "weapon" && cur.system.needsTwoHands ? 2 : 1), 0);
+                const neededHands = item.type === "weapon" && item.system.needsTwoHands ? 2 : 1;
 
-            if (handsUsed + neededHands > 2) {
-                const lastItems = equippedItems.slice(-neededHands);
+                if (handsUsed + neededHands > 2) {
+                    const lastItems = equippedItems.slice(-neededHands);
 
-                for (const i of lastItems) {
-                    await i.update({"system.equipped": false});
+                    for (const i of lastItems) {
+                        await i.update({"system.equipped": false});
+                    }
                 }
             }
-        }
 
-        if (equip && item.type === "armor" && !item.system.stacks) {
-            const equippedArmor = actor
-                .items
-                .filter(i => i.system.equipped && i.type === "armor" && !i.system.stacks);
+            if (equip && item.type === "armor" && !item.system.stacks) {
+                const equippedArmor = actor
+                    .items
+                    .filter(i => i.system.equipped && i.type === "armor" && !i.system.stacks);
 
-            if(equippedArmor.length >= 1) {
-                const lastArmor = equippedArmor.slice(-1);
+                if (equippedArmor.length >= 1) {
+                    const lastArmor = equippedArmor.slice(-1);
 
-                await lastArmor[0]?.update({
-                    "system.equipped": false
-                });
+                    await lastArmor[0]?.update({
+                        "system.equipped": false
+                    });
+                }
             }
         }
 
@@ -212,7 +224,4 @@ export class PcSheet extends AoaActorSheet {
             });
         }
     }
-
-
-
 }

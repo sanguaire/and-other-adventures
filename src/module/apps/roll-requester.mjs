@@ -1,7 +1,8 @@
 import {CONST} from "../const.mjs";
 import {beautifyHeaders} from "../utils/beautify-headers.mjs";
 import {PcActor} from "../documents/actors/pc-actor.mjs";
-import {inputMousewheel} from "../utils.mjs";
+import {inputMousewheel} from "../utils/utils.mjs";
+import {addDiceIconAnimation} from "../utils/add-dice-icon-animation.mjs";
 
 export class RollRequester extends Application {
     static get defaultOptions() {
@@ -96,7 +97,33 @@ export class RollRequester extends Application {
         html.find("[name='modifier']").change(RollRequester.modifierChange);
         html.find("[name='modifier']").on("wheel", inputMousewheel);
 
+        html.find("[data-action='difficulty'").click((ev) => {
+            const target = $(ev.currentTarget);
+            const actionType = target.data("action-type");
+            const modifierElement = html.find("[name='modifier']");
+
+            const modifiers = {
+                easy: 2,
+                normal: 0,
+                hard: -2,
+                veryHard: -5,
+                impossible: -10
+            }
+
+            if(modifiers.hasOwnProperty(actionType)) {
+                modifierElement.val(HandlebarsHelpers.numberFormat(modifiers[actionType], Object.create({
+                    hash: {
+                        decimals: 0,
+                        sign: true
+                    }
+                })));
+            } else {
+                console.error(`Wrong action type '${actionType}'`);
+            }
+        });
+
         beautifyHeaders(html.find(":header"));
+        addDiceIconAnimation(html);
     }
 
     render(force = false, options = {}) {

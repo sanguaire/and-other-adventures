@@ -16,11 +16,14 @@
   },
   "aoa": {
     "abilities": {
+      "all": "All",
       "cha": "Charisma",
       "con": "Constitution",
       "dex": "Dexterity",
       "header": "Abilities",
       "int": "Intelligence",
+      "mental": "Mental",
+      "physical": "Physical",
       "str": "Strength",
       "wis": "Wisdom"
     },
@@ -56,7 +59,6 @@
     "armors": "Armors",
     "attack-bonus": "Attack bonus",
     "attack-with": "Attack with",
-    "attacks": "Attacks",
     "base-attack-bonus": "Base attack bonus",
     "base-damage": "Base damage",
     "biography-header": "Biography",
@@ -66,6 +68,7 @@
     "class": "Class",
     "coins": "Coins",
     "combat-header": "Combat values",
+    "consider-hands": "Consider hands on equip",
     "consumable": "Consumable",
     "copper": "Copper",
     "d": "d",
@@ -94,6 +97,21 @@
     "effects": "Effects",
     "effects-header": "Effects",
     "gear-header": "Gear",
+    "gm-config": {
+      "all": "All rolls",
+      "attack": {
+        "all": "All",
+        "header": "Attack roll",
+        "melee": "Melee",
+        "ranged": "Ranged"
+      },
+      "damage": {
+        "all": "All",
+        "header": "Damage roll",
+        "melee": "Melee",
+        "ranged": "Ranged"
+      }
+    },
     "gold": "Gold",
     "has-cantrips": "Has cantrips",
     "has-knacks": "Has knacks",
@@ -107,6 +125,7 @@
     "initiative": "Initiative",
     "initiative-bonus": "Initiative bonus",
     "is-ammo": "Is ammunation",
+    "item-sheet": "Item sheet",
     "item-type": "Item type",
     "knacks": {
       "defensive": "Defensive fighter",
@@ -118,16 +137,26 @@
     "languages": "Languages",
     "level": "Level",
     "level-progression": "Level progression",
+    "light": {
+      "candle": "Candle",
+      "cantrip": "Cantrip Light",
+      "lamp": "Lamp",
+      "lantern": "Lantern",
+      "torch": "Torch"
+    },
     "magical": "Magical",
     "max": "Maximum",
     "melee": "Melee",
     "modifier": "Modifier",
+    "monster-sheet": "Monster sheet",
     "name": "Name",
     "need-free-hand": "Needs a free hand",
     "needs-two-hands": "Needs two hands",
     "no-ammo": "No ammunition for",
     "no-attack-for-combat-stance": "No attack possible in combat stance",
     "notes-header": "Notes",
+    "pc-sheet": "Character sheet",
+    "permanent-modifiers": "Permanent roll modifiers",
     "quantity": "Quantity",
     "range": {
       "cosmos": "The cosmos",
@@ -154,11 +183,15 @@
       "damageMelee": "Melee damage",
       "damageRanged": "Ranged damage",
       "dex": "Dexterity roll",
+      "easy": "Easy",
+      "hard": "Hard",
       "hit-points": "Roll hit points",
+      "impossible": "Impossible",
       "int": "Intelligence roll",
       "magicItem": "Magic item save",
       "melee": "Melee attack",
       "monster": "Monster attack",
+      "normal": "Normal",
       "poison": "Poison save",
       "polymorph": "Polymorph save",
       "ranged": "Ranged attack",
@@ -166,10 +199,12 @@
       "skill": "Skill roll",
       "spell": "Spell save",
       "str": "Strength roll",
+      "very-hard": "Very hard",
       "wis": "Wisdom roll"
     },
     "save": "Save",
     "saves": {
+      "all": "All",
       "breathWeapon": "Breath weapon",
       "header": "Saving throws",
       "magicItem": "Magic item",

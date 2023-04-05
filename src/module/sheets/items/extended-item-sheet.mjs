@@ -1,5 +1,5 @@
 import {CONST} from "../../const.mjs";
-import {inputMousewheel, trimNewLineWhitespace} from "../../utils.mjs";
+import {inputMousewheel, trimNewLineWhitespace} from "../../utils/utils.mjs";
 
 export class ExtendedItemSheet extends ItemSheet {
 

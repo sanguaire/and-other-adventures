@@ -17,6 +17,14 @@
     gap: 0.4em;
 }
 
+.pc-sheet .abilities .modifier.plus {
+    background-color: lightgreen;
+}
+
+.pc-sheet .abilities .modifier.minus {
+    background-color: salmon;
+}
+
 .pc-sheet .saves .save label:first-letter {
     font-size: var(--font-size-20);
 }

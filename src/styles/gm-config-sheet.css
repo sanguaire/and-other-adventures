@@ -1,0 +1,28 @@
+.gm-config-sheet .light-sources {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+}
+
+.gm-config-sheet .light-sources a > img {
+    border: none;
+}
+
+.gm-config-sheet .light-sources a {
+    width: 34px;
+    height: 34px;
+}
+
+.gm-config-sheet .light-sources a > img {
+    width: 34px;
+    height: 34px;
+    transform-origin: 50% 50%;
+    transition: transform 500ms ease;
+}
+
+.gm-config-sheet .light-sources a:hover:not(.disabled) > img {
+    filter: drop-shadow(0 0 6px darkred);
+    transform: scale(1.2);
+}

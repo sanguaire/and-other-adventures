@@ -1,4 +1,4 @@
-import {trimNewLineWhitespace} from "./utils.mjs";
+import {trimNewLineWhitespace} from "./utils/utils.mjs";
 import {CONST} from "./const.mjs";
 
 const listTemplate = `systems/${CONST.MODULE_ID}/templates/editable-list.hbs`;

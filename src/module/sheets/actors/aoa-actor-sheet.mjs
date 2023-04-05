@@ -1,12 +1,12 @@
 import {EditableList} from "../../editable-list.mjs";
 import {actionHandler} from "../../actions.mjs";
 import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
-import {inputMousewheel} from "../../utils.mjs";
-
-import gsap from "/scripts/greensock/esm/all.js";
+import {inputMousewheel} from "../../utils/utils.mjs";
 import {beautifyHeaders} from "../../utils/beautify-headers.mjs";
+import {addDiceIconAnimation} from "../../utils/add-dice-icon-animation.mjs";
 
 export class AoaActorSheet extends ActorSheet {
+
 
     static actions = {
         roll: actionHandler,
@@ -22,54 +22,66 @@ export class AoaActorSheet extends ActorSheet {
 
         const actor = this.actor;
 
-        this.editableLists = this.options.editableLists.map(el => {
-            el.context = this.getData();
-            el.actor = this.actor;
-            return new EditableList(el);
-        });
+        this.prepareEditableLists();
+        await this.activateEditableListListeners(html);
 
-        for (const el of this.editableLists) {
-            await el.activateListeners(html);
-        }
-
-        html.find("[data-action]").map((idx,e) => {
-            const el = $(e);
-            const actionSelector = el.data("action");
-            const action = AoaActorSheet.actions[actionSelector];
-
-
-            if(action) {
-                el.click(action.bind(this, this.actor, el));
-            } else {
-                console.error(`No definition for '${actionSelector}' found`);
-            }
-        });
+        this.mapActions(html);
 
         html.find(".drag").on("dragstart", this._onDragStart.bind(this));
         html.find("[data-dtype='Number'][type='text']").on('wheel', (ev) => inputMousewheel(ev, actor));
 
         /* html.find("i.fa-dice-d20").hover(this.onRollHoverIn.bind(this), this.onRollHoverOut.bind(this));*/
-
-        html.find("i.fa-dice-d20").each((i, e) => {
-           const ease = "none";
-           const duration = 0.5;
-           const animation = gsap.to(e, {paused: true, scale: 1.2, rotation: "random(-45, 45, 5)",  ease, duration});
-
-           e.addEventListener("mouseenter", () => {
-               animation.duration(duration);
-               animation.ease = ease;
-               animation.play();
-           });
-           e.addEventListener("mouseleave", () => {
-               animation.duration(0.5);
-               animation.ease = "none";
-               animation.reverse();
-           });
-        });
+        addDiceIconAnimation(html);
 
         beautifyHeaders(html.find(":header"));
     }
 
+    mapActions(html) {
+        html.find("[data-action]").map((idx, e) => {
+            const el = $(e);
+            const actionSelector = el.data("action");
+            const action = AoaActorSheet.actions[actionSelector];
+
+            if (action) {
+                el.click(action.bind(this, this.actor, el));
+            } else {
+                console.error(`No definition for '${actionSelector}' found`);
+            }
+        });
+    }
+
+    async activateEditableListListeners(html) {
+        for (const el of this.editableLists) {
+            await el.activateListeners(html);
+        }
+    }
+
+    prepareEditableLists() {
+        this.editableLists = this.options.editableLists?.map(el => {
+            el.context = this.getData();
+            el.actor = this.actor;
+            return new EditableList(el);
+        }) ?? [];
+    }
+
+    static editItem(actor, html) {
+        const itemId = html.closest("[data-item-id]").data("item-id");
+        if(itemId) {
+            const item = actor.items.get(itemId);
+
+            new ExtendedItemSheet(item).render(true, {editable: true});
+        }
+    }
+
+    static showArt(actor) {
+        new ImagePopout(actor.img, {
+            title: actor.name,
+            sharable: true,
+            uuid: actor.uuid
+        }).render(true);
+    }
+
+    // Drag and Drop
     _onDragStart(event) {
         const li = $(event.currentTarget);
         if ( event.target.classList.contains("content-link") ) return;
@@ -86,7 +98,7 @@ export class AoaActorSheet extends ActorSheet {
                 ? this.actor.items.get(id)
                 : documentType === "ActiveEffect"
                     ? this.actor.effects.get(id)
-                : console.error(`No drag for '${documentType}`);
+                    : console.error(`No drag for '${documentType}`);
 
             dragData = item.toDragData();
         }
@@ -110,33 +122,5 @@ export class AoaActorSheet extends ActorSheet {
         }
 
         return super._onDropItemCreate(itemData);
-    }
-
-    onRollHoverIn(ev) {
-        const rotation = -45 + Math.random() * 90;
-        gsap.to(ev.target, {rotation: rotation, scale: 1.2, ease: "elastic.out", duration: 1});
-    }
-
-    onRollHoverOut(ev) {
-        gsap.to(ev.target, {rotation: 0, scale: 1, ease: "none", duration: 0.1});
-    }
-
-    static editItem(actor, html) {
-        const itemId = html.closest("[data-item-id]").data("item-id");
-        if(itemId) {
-            const item = actor.items.get(itemId);
-
-            new ExtendedItemSheet(item).render(true, {editable: true});
-
-
-        }
-    }
-
-    static showArt(actor) {
-        new ImagePopout(actor.img, {
-            title: actor.name,
-            sharable: true,
-            uuid: actor.uuid
-        }).render(true);
     }
 }

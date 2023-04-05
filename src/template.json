@@ -17,6 +17,40 @@
           "min": 0,
           "value": 3,
           "max": 3
+        },
+        "gmConfig": {
+          "permanentModifiers": {
+            "allRolls": 0,
+            "abilities": {
+              "all": 0,
+              "physical": 0,
+              "mental": 0,
+              "str": 0,
+              "dex": 0,
+              "con": 0,
+              "int": 0,
+              "wis": 0,
+              "cha": 0
+            },
+            "saves": {
+              "all": 0,
+              "poison": 0,
+              "breathWeapon": 0,
+              "polymorph": 0,
+              "spell": 0,
+              "magicItem": 0
+            },
+            "attacks": {
+              "all": 0,
+              "melee": 0,
+              "ranged": 0
+            },
+            "damage": {
+              "all": 0,
+              "melee": 0,
+              "ranged": 0
+            }
+          }
         }
       },
       "saves": {
@@ -40,7 +74,8 @@
     "pc": {
       "templates": [
         "background",
-        "resources"
+        "resources",
+        "gmConfig"
       ],
       "playbook": {},
       "xp": 0,
@@ -99,10 +134,14 @@
       "acBonusBasedOn": "dex"
     },
     "monster": {
-      "templates": ["background"],
+      "templates": [
+        "background",
+        "gmConfig"
+      ],
       "hp": {
-          "value": 10,
-          "max": 10 },
+        "value": 10,
+        "max": 10
+      },
       "hitDie": {
         "number": 1,
         "type": "d8",
@@ -145,7 +184,8 @@
     },
     "armor": {
       "templates": [
-        "basic", "equippable"
+        "basic",
+        "equippable"
       ],
       "armorBonus": 0,
       "penalty": 0,
@@ -155,14 +195,18 @@
     },
     "gear": {
       "templates": [
-        "basic", "equippable", "quantity"
+        "basic",
+        "equippable",
+        "quantity"
       ],
       "isAmmo": false,
       "consumable": false
     },
     "weapon": {
       "templates": [
-        "basic", "equippable", "quantity"
+        "basic",
+        "equippable",
+        "quantity"
       ],
       "baseDamage": {
         "dieType": "d6",
@@ -194,7 +238,8 @@
     },
     "ritual": {
       "templates": [
-        "basic", "rollOn"
+        "basic",
+        "rollOn"
       ],
       "level": 1,
       "range": "near",
@@ -203,7 +248,8 @@
     },
     "cantrip": {
       "templates": [
-        "basic", "rollOn"
+        "basic",
+        "rollOn"
       ]
     },
     "skill": {
@@ -218,10 +264,14 @@
       ]
     },
     "trait": {
-      "templates": ["basic"]
+      "templates": [
+        "basic"
+      ]
     },
     "attack": {
-      "templates": ["basic"],
+      "templates": [
+        "basic"
+      ],
       "toHit": 0,
       "damage": {
         "noOfDie": 1,
@@ -298,7 +348,7 @@
             "magicItem": 0
           }
         },
-        "6":{
+        "6": {
           "xp": 0,
           "attackBonus": 0,
           "saves": {
@@ -320,7 +370,7 @@
             "magicItem": 0
           }
         },
-        "8":{
+        "8": {
           "xp": 0,
           "attackBonus": 0,
           "saves": {

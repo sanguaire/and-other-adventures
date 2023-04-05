@@ -5,7 +5,7 @@
     <div class="drop list hand-written">
         {{#each list as |item|}}
             <div class="item" data-item-id="{{item._id}}">
-                {{>(lookup .. "template") item}}
+                {{>(lookup .. "template") item editable=../editable}}
             </div>
         {{/each}}
     </div>

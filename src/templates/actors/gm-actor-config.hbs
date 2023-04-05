@@ -1,0 +1,87 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="flexrow" style="gap: 1em;">
+        <div class="flexcol section-border-vertical" style="padding-right: 0.4em;">
+            <h2>{{localize "aoa.permanent-modifiers"}}</h2>
+            {{#with actor.system.gmConfig.permanentModifiers}}
+                <div class="flexcol" style="gap: 0.4em;">
+                    <div class="flexrow align-center">
+                        <label for="all">{{localize "aoa.gm-config.all"}}:</label>
+                        <input id="all" name="system.gmConfig.permanentModifiers.allRolls" type="text"
+                               data-dtype="Number" value="{{numberFormat allRolls sign=true decimals=0}}">
+                    </div>
+
+                    <div class="flexrow" style="align-items: flex-start; gap: 1em;">
+                        <div class="abilities flexcol" style="gap: 0.2em;">
+                            <h3>{{localize "aoa.abilities.header"}}</h3>
+                            {{#each abilities as |ability key|}}
+                                <div class="flexrow align-center">
+                                    <label for="ability.{{key}}">{{#with (concat "aoa.abilities." key)}}{{localize
+                                            string}}{{/with}}:</label>
+                                    <input style="flex: 0 0 4em;" id="ability.{{key}}"
+                                           name="system.gmConfig.permanentModifiers.abilities.{{key}}"
+                                           value="{{numberFormat ability sign=true decimals=0}}" type="text"
+                                           data-dtype="Number">
+                                </div>
+
+                            {{/each}}
+                        </div>
+                        <div class="saves flexcol" style="gap: 0.2em;">
+                            <h3>{{localize "aoa.saves.header"}}</h3>
+                            {{#each saves as |save key|}}
+                                <div class="flexrow align-center">
+                                    <label for="save.{{key}}">{{#with (concat "aoa.saves." key)}}{{localize
+                                            string}}{{/with}}:</label>
+                                    <input style="flex: 0 0 4em;" id="save.{{key}}"
+                                           name="system.gmConfig.permanentModifiers.saves.{{key}}"
+                                           value="{{numberFormat save sign=true decimals=0}}" type="text"
+                                           data-dtype="Number">
+                                </div>
+
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="flexrow" style="align-items: flex-start; gap: 1em;">
+                        <div class="attack flexcol" style="gap: 0.2em;">
+                            <h3>{{localize "aoa.gm-config.attack.header"}}</h3>
+                            {{#each attacks as |attack key|}}
+                                <div class="flexrow align-center">
+                                    <label for="attack.{{key}}">{{#with (concat "aoa.gm-config.attack." key)}}{{localize
+                                            string}}{{/with}}:</label>
+                                    <input style="flex: 0 0 4em;" id="attack.{{key}}"
+                                           name="system.gmConfig.permanentModifiers.attacks.{{key}}"
+                                           value="{{numberFormat attack sign=true decimals=0}}" type="text"
+                                           data-dtype="Number">
+                                </div>
+
+                            {{/each}}
+                        </div>
+                        <div class="damage flexcol" style="gap: 0.2em;">
+                            <h3>{{localize "aoa.gm-config.damage.header"}}</h3>
+                            {{#each damage as |damage key|}}
+                                <div class="flexrow align-center">
+                                    <label for="damage.{{key}}">{{#with (concat "aoa.gm-config.damage." key)}}{{localize
+                                            string}}{{/with}}:</label>
+                                    <input style="flex: 0 0 4em;" id="damage.{{key}}"
+                                           name="system.gmConfig.permanentModifiers.damage.{{key}}"
+                                           value="{{numberFormat damage sign=true decimals=0}}" type="text"
+                                           data-dtype="Number">
+                                </div>
+
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+
+
+            {{/with}}
+        </div>
+        <div class="light-sources">
+            <a data-action="light" data-action-type="candle"><img src="../../systems/and-other-adventures/assets/icons/light/candle.svg"/> </a>
+            <a data-action="light" data-action-type="torch"><img src="../../systems/and-other-adventures/assets/icons/light/torch.svg"/> </a>
+            <a data-action="light" data-action-type="lamp"><img src="../../systems/and-other-adventures/assets/icons/light/lamp.svg"/> </a>
+            <a data-action="light" data-action-type="lantern"><img src="../../systems/and-other-adventures/assets/icons/light/lantern.svg"/> </a>
+            <a data-action="light" data-action-type="cantrip"><img src="../../systems/and-other-adventures/assets/icons/light/cantrip.svg"/> </a>
+        </div>
+    </div>
+
+</form>

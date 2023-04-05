@@ -9,6 +9,7 @@
 @import "pc.css";
 @import "monster.css";
 @import "requester.css";
+@import "gm-config-sheet.css";
 
 .aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);
@@ -31,6 +32,10 @@
 
 .aoa.sheet.actor.condensed {
     min-height: 470px;
+}
+
+strong {
+    position: relative;
 }
 
 .level-up {
@@ -89,17 +94,11 @@ a.disabled {
     height: 100%;
 }
 
-.trait-detail strong {
-    background: var(--text-strong);
-}
-
 .pc-sheet .specials .knacks {
     display: flex;
     flex-direction: column;
     gap: 0.4em;
 }
-
-
 
 .sheet-header {
     display: flex;
@@ -221,9 +220,23 @@ a.disabled {
     padding-right: 0.2em;
 }
 
-.description-editor strong {
-    background: var(--text-strong);
+.description-editor strong,
+.trait-detail strong {
+    background-color: var(--text-strong);
+    /*z-index: 1;*/
 }
+
+/*.description-editor strong:before, .trait-detail strong:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 100%;
+    height: 80%;
+    transform: skew(-19deg) translateX(-50%);
+    background: var(--text-strong);
+    z-index: -1;
+}*/
 
 .description-editor h1, .description-editor h2,
 .description-editor h3, .description-editor h4,

@@ -8,6 +8,7 @@ export class AoaToken extends Token {
         this.drawAc();
     }
 
+
     drawAc() {
         this.ac.renderable = false;
         this.ac.removeChildren().forEach(c => c.destroy());

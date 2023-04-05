@@ -16,6 +16,11 @@
     overflow-y: auto;
 }
 
+.aoa-sheet i.gray-out {
+    color: darkgray;
+    opacity: 30%;
+}
+
 .aoa-sheet label {
     font-variant: small-caps;
 }
