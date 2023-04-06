@@ -29,6 +29,7 @@ export class AoaActor extends Actor {
         }, []);
 
         changes.sort((a, b) => a.priority - b.priority);
+        lights.sort((a, b) => a.priority - b.priority);
 
         // Apply all changes
         for ( let change of changes ) {

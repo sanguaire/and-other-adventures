@@ -48,3 +48,4 @@ export async function inputMousewheel(ev, entity) {
 export const delay = (timeInMs) => {
     return new Promise(resolve => setTimeout(resolve, timeInMs));
 };
+

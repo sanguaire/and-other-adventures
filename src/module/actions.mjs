@@ -27,7 +27,7 @@ export const actionHandler = (actor, html) => {
     executeAction(actor, action, actionType, actionKey ?? itemId, actionFlavor);
 }
 
-export const executeAction = (actor,  action, actionType, ...args) => {
+export const executeAction = (actor, action, actionType, ...args) => {
     actions[action][actionType](actor, ...args);
 }
 
@@ -38,28 +38,28 @@ function render(html) {
     html.find("[name='modifier']").on("wheel", inputMousewheel);
 
     html.find("[data-action='difficulty'").click((ev) => {
-       const target = $(ev.currentTarget);
-       const actionType = target.data("action-type");
-       const modifierElement = html.find("[name='modifier']");
+        const target = $(ev.currentTarget);
+        const actionType = target.data("action-type");
+        const modifierElement = html.find("[name='modifier']");
 
-       const modifiers = {
-           easy: 2,
-           normal: 0,
-           hard: -2,
-           veryHard: -5,
-           impossible: -10
-       }
+        const modifiers = {
+            easy: 2,
+            normal: 0,
+            hard: -2,
+            veryHard: -5,
+            impossible: -10
+        }
 
-       if(modifiers.hasOwnProperty(actionType)) {
-           modifierElement.val(HandlebarsHelpers.numberFormat(modifiers[actionType], Object.create({
-               hash: {
-                   decimals: 0,
-                   sign: true
-               }
-           })));
-       } else {
-           console.error(`Wrong action type '${actionType}'`);
-       }
+        if (modifiers.hasOwnProperty(actionType)) {
+            modifierElement.val(HandlebarsHelpers.numberFormat(modifiers[actionType], Object.create({
+                hash: {
+                    decimals: 0,
+                    sign: true
+                }
+            })));
+        } else {
+            console.error(`Wrong action type '${actionType}'`);
+        }
     });
 }
 
@@ -109,14 +109,17 @@ const abilityRoll = async (actor, abilityKey, flavor, modifier = 0) => {
     const mentalAbilityKeys = ["int", "wis", "cha"];
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
     const permanentModifier = permanentModifiers.allRolls
-                            + permanentModifiers.abilities.all
-                            + permanentModifiers.abilities[abilityKey]
-                            + (physicalAbilityKeys.includes(abilityKey) ? permanentModifiers.abilities.physical : 0)
-                            + (mentalAbilityKeys.includes(abilityKey) ? permanentModifiers.abilities.mental : 0);
+        + permanentModifiers.abilities.all
+        + permanentModifiers.abilities[abilityKey]
+        + (physicalAbilityKeys.includes(abilityKey) ? permanentModifiers.abilities.physical : 0)
+        + (mentalAbilityKeys.includes(abilityKey) ? permanentModifiers.abilities.mental : 0);
 
     modifier += permanentModifier;
 
-    const content = await renderDialogContent(abilityKey, {skills: actor.items.filter(i => i.type === "skill"), modifier });
+    const content = await renderDialogContent(abilityKey, {
+        skills: actor.items.filter(i => i.type === "skill"),
+        modifier
+    });
     const data = foundry.utils.mergeObject(baseDialogData,
         {
             title: game.i18n.localize("aoa.rolls.ability"),
@@ -164,7 +167,6 @@ const saveRoll = async (actor, saveKey, flavor, modifier) => {
 
     modifier += permanentModifier;
 
-
     const content = await renderDialogContent(saveKey, {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
@@ -201,7 +203,6 @@ const rangedAttack = async (actor, itemId) => {
         + permanentModifiers.attacks.ranged;
 
     const modifier = permanentModifier;
-
 
     const item = actor.items.get(itemId);
 
@@ -531,7 +532,6 @@ const rangedDamage = async (actor, itemId) => {
 
     const modifier = permanentModifier;
 
-
     const content = await renderDialogContent("damageRanged", {action: "damage", modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
         {
@@ -649,7 +649,7 @@ const gearUse = async (actor, itemId, flavor) => {
 
     const quantity = item.system.quantity.value;
 
-    if(quantity < 1) {
+    if (quantity < 1) {
         return;
     }
 
@@ -694,37 +694,56 @@ const igniteCantrip = async (actor) => {
 }
 
 const createLightEffect = async (actor, lightName) => {
-    const durations = {
-        torch: 3600,
-        candle: 3600,
-        lamp: 21600,
-        lantern: 21600,
-        cantrip: 0
-    }
+    lightName = lightName.toLowerCase();
 
-    const icons = {
-        torch: "icons/sundries/lights/torch-brown-lit.webp",
-        candle: "icons/sundries/lights/candle-unlit-yellow.webp",
-        lamp: "icons/sundries/lights/lantern-iron-yellow.webp",
-        lantern: "icons/sundries/lights/lantern-iron-lit-yellow.webp",
-        cantrip: "icons/magic/light/explosion-star-blue-small.webp"
+    const definitions = {
+        torch: {
+            seconds: 3600,
+            icon: "icons/sundries/lights/torch-brown-lit.webp",
+            priority: 2
+        },
+        candle: {
+            seconds: 3600,
+            icon: "icons/sundries/lights/candle-unlit-yellow.webp",
+            priority: 1
+        },
+        lamp: {
+            seconds: 21600,
+            icon: "icons/sundries/lights/lantern-iron-yellow.webp",
+            priority: 3
+        },
+        lantern: {
+            seconds: 21600,
+            icon: "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+            priority: 4
+        },
+        cantrip: {
+            seconds: 0,
+            icon: "icons/magic/light/explosion-star-blue-small.webp",
+            priority: 5
+        }
     }
 
     await actor.createEmbeddedDocuments("ActiveEffect", [{
         "label": game.i18n.localize(`aoa.light.${lightName}`),
+        "flags": {
+            "and-other-adventures": {
+                "needsConcentration": lightName === "cantrip"
+            }
+        },
         "changes": [
             {
                 "key": "Light",
                 "mode": 0,
                 "value": lightName,
-                "priority": null
+                "priority": definitions[lightName].priority
             }
         ],
         "disabled": false,
         "duration": {
-            "seconds": durations[lightName]
+            "seconds": definitions[lightName].seconds
         },
-        "icon": icons[lightName]
+        "icon": definitions[lightName].icon
     }]);
 }
 

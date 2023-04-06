@@ -92,6 +92,8 @@
       "duration": "Dauer",
       "hours": "S",
       "minutes": "M",
+      "needs-concentration": "Benötigt Konzentration",
+      "remaining": "Verbleibend",
       "seconds": "s"
     },
     "effects": "Effekte",

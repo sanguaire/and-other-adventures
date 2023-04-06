@@ -52,6 +52,10 @@ export class EditableList {
         newData.type = itemType;
         newData[this.identifier] = value;
 
+        if(this.documentType === "ActiveEffect") {
+            newData.icon = "icons/svg/aura.svg";
+        }
+
         this.actor.createEmbeddedDocuments(this.documentType, [newData]);
     };
 

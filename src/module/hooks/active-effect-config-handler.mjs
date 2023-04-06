@@ -1,25 +1,4 @@
 export const renderActiveEffectConfigHandler = (config, html, data) => {
-    const timeInput = html.find("[name='duration.seconds']");
-    const startTimeInput = html.find("[name='duration.startTime");
-
-    const seconds = data.effect.duration.seconds;
-    const startTime = data.effect.duration.startTime;
-
-    const timeSpan = seconds ? TimeSpan.FromSeconds(seconds) : new TimeSpan();
-
-    timeInput.parent(".form-fields").css("gap", "0.4em");
-    timeInput.parent(".form-fields").addClass("time-fields");
-    timeInput.parent(".form-fields").addClass("text-centered");
-
-    timeInput.replaceWith(`${game.i18n.localize("aoa.effect.days")}:<input type='number' name='days' value=${timeSpan.days()}>
-                           ${game.i18n.localize("aoa.effect.hours")}:<input type='number' name='hours' value=${timeSpan.hours()}>
-                           ${game.i18n.localize("aoa.effect.minutes")}:<input type='number' name='minutes' value=${timeSpan.minutes()}>
-                           ${game.i18n.localize("aoa.effect.seconds")}:<input type='number' name='seconds' value=${timeSpan.seconds()}>`);
-
-    const startFormatted = SimpleCalendar.api.formatTimestamp(startTime);
-
-    startTimeInput.replaceWith(`<span class="start-date" data-start-time="${startTime}"><span class="time-string">${startFormatted.date} ${startFormatted.time}</span> <a><i class="fa-solid fa-clock"></i></a></span>`);
-
     html.find(".start-date a").click(function() {
         const element = html.find(".start-date");
 
@@ -31,17 +10,6 @@ export const renderActiveEffectConfigHandler = (config, html, data) => {
 
     const durationTab = html.find(".tab[data-tab='duration']");
     html.find(".time-fields > input").change(inputChanged);
-
-    durationTab.find("> .form-group").filter(index => index > 1).remove();
-
-    durationTab.append(`<div class='form-group'>
-                        <label class="rounds-label">${game.i18n.localize("COMBAT.Rounds")}:</label>
-                            <div class="form-fields">
-                                <a class="add" style="flex: 0;"><i class="fa-solid fa-plus"></i></a>
-                                <a class="subtract" style="flex: 0;"><i class="fa-solid fa-minus"></i></a>
-                            </div>
-                        </div>`);
-
 
     function inputChanged() {
         actualizeRounds();

@@ -65,46 +65,31 @@
     <section class="tab" data-tab="duration">
         <div class="form-group">
             <label>{{ localize "EFFECT.DurationSecs" }}</label>
-            <div class="form-fields">
-                <input type="number" name="duration.seconds" value="{{ data.duration.seconds }}"/>
+            <div class="form-fields time-fields text-centered" style="gap: 0.4em;">
+                <label>{{localize "aoa.effect.days"}}:</label><input type='number' name='days' value={{days}}>
+                <label>{{localize "aoa.effect.hours"}}:</label><input type='number' name='hours' value={{hours}}>
+                <label>{{localize "aoa.effect.minutes"}}:</label><input type='number' name='minutes' value={{minutes}}>
+                <label>{{localize "aoa.effect.seconds"}}:</label><input type='number' name='seconds' value={{seconds}}>
             </div>
         </div>
         <div class="form-group">
             <label>{{ localize "EFFECT.StartTime" }}</label>
             <div class="form-fields">
-                <input type="number" name="duration.startTime" value="{{ data.duration.startTime }}"/>
+                <span class="start-date" data-start-time="{{data.duration.startTime}}"><span class="time-string">{{formattedStart.date}} {{formattedStart.time}}</span> <a><i class="fa-solid fa-clock"></i></a></span>
             </div>
         </div>
         <div class="form-group">
             <label>{{ localize "aoa.effect.needs-concentration"}}</label>
             <div class="form-fields">
-                <input name="needsConcentration" type="checkbox" {{checked data.needsConcentration}}>
+                <input name="flags.and-other-adventures.needsConcentration" type="checkbox" {{checked data.flags.and-other-adventures.needsConcentration}}>
             </div>
         </div>
         <hr/>
-        <div class="form-group">
-            <label>{{ localize "EFFECT.DurationTurns" }}</label>
+        <div class='form-group'>
+            <label class="rounds-label">${game.i18n.localize("COMBAT.Rounds")}:</label>
             <div class="form-fields">
-                <label>{{ localize "COMBAT.Rounds" }}</label>
-                <input type="number" name="duration.rounds" value="{{ data.duration.rounds }}"/>
-                <label>{{ localize "COMBAT.Turns" }}</label>
-                <input type="number" name="duration.turns" value="{{ data.duration.turns }}"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>{{ localize "EFFECT.Combat" }}</label>
-            <div class="form-fields">
-                <input type="text" name="duration.combat" value="{{ data.duration.combat }}" disabled/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>{{ localize "EFFECT.StartTurns" }}</label>
-            <div class="form-fields">
-                <label>{{ localize "COMBAT.Round" }}</label>
-                <input type="number" name="duration.startRound" value="{{ data.duration.startRound }}"/>
-                <label>{{ localize "COMBAT.Turn" }}</label>
-                <input type="number" name="duration.startTurn" value="{{ data.duration.startTurn }}"/>
+                <a class="add" style="flex: 0;"><i class="fa-solid fa-plus"></i></a>
+                <a class="subtract" style="flex: 0;"><i class="fa-solid fa-minus"></i></a>
             </div>
         </div>
     </section>
