@@ -7,7 +7,7 @@ import {MonsterActor} from "../documents/actors/monster-actor.js";
 import {CONST} from "../const.mjs";
 import {ActorProxy} from "../documents/actor-proxy.mjs";
 import {ItemProxy} from "../documents/item-proxy.mjs";
-import {AoaEffect} from "../documents/aoa-effect.mjs";
+import {AoaEffect} from "../documents/effects/aoa-effect.mjs";
 
 export const configure = () => {
     CONFIG.Actor.documentClass = ActorProxy;
