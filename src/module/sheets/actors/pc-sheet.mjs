@@ -208,8 +208,7 @@ export class PcSheet extends AoaActorSheet {
         if(effectId) {
             const effect = actor.effects.get(effectId);
 
-            new ActiveEffectConfig(effect).render(true);
-
+            effect.sheet.render(true);
         }
     }
 
