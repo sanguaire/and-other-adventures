@@ -1,5 +1,3 @@
-import {AoaTokenDocument} from "../aoa-token-document.mjs";
-
 export class AoaActor extends Actor {
 
     async applyActiveEffects() {
@@ -63,6 +61,14 @@ export class AoaActor extends Actor {
         // Expand the set of final overrides
         this.overrides = foundry.utils.expandObject(overrides);
 
+    }
+
+    async _preCreate(data, options, userId) {
+        super._preCreate(data, options, userId);
+
+        console.log(data);
+        console.log(options);
+        console.log(userId);
     }
 
 }

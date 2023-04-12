@@ -15,4 +15,5 @@ export class AoaTokenDocument extends TokenDocument
     async updateActorEmbeddedDocuments(embeddedName, updates, options) {
         return super.updateActorEmbeddedDocuments(embeddedName, updates, options);
     }
+
 }

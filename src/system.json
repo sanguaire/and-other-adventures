@@ -54,10 +54,46 @@
       "path": "lang/de.json"
     }
   ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "lib-wrapper",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.0.0.0",
+          "verified": "1.12.12.0"
+        }
+      },
+      {
+        "id": "socketlib",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.0.12",
+          "verified": "1.0.12"
+        }
+      },
+      {
+        "id": "foundryvtt-simple-calendar",
+        "type": "module",
+        "compatibility": {
+          "minimum": "2.1.80",
+          "verified": "2.1.80"
+        }
+      },
+      {
+        "id": "times-up",
+        "type": "module",
+        "compatibility": {
+          "minimum": "0.8.33",
+          "verified": "0.8.33"
+        }
+      }
+    ]
+  },
   "socket": true,
   "initiative": "1d20+@ini",
-  "gridDistance": 10,
-  "gridUnits": "ft",
+  "gridDistance": 1.5,
+  "gridUnits": "m",
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.power",
   "url": "",

@@ -1,5 +1,9 @@
 export class AoaToken extends Token {
 
+    async _onCreate(options, userId) {
+        super._onCreate(options, userId);
+    }
+
     async _draw() {
         await super._draw();
 

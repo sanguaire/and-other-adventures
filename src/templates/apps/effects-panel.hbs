@@ -1,0 +1,8 @@
+<div id="effects-panel" class="{{cssClass}}" style="justify-content: flex-start;">
+    {{#each effects as |effect|}}
+        <div data-tooltip="{{effect.label}}" data-tooltip-direction="UP"
+             class="effect-item {{#if effect.disabled}}disabled{{/if}}" data-item-id="{{effect._id}}" style="background-image: url({{effect.icon}})">
+            <span>{{effect.remainingString}}</span>
+        </div>
+    {{/each}}
+</div>

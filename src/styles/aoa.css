@@ -10,6 +10,7 @@
 @import "monster.css";
 @import "requester.css";
 @import "gm-config-sheet.css";
+@import "effects-panel.css";
 
 .aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);

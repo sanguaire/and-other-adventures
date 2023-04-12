@@ -2,6 +2,7 @@ import {CONST} from "../../const.mjs";
 import {ExtendedItemSheet} from "../items/extended-item-sheet.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
 import {GmActorConfig} from "./gm-actor-config.mjs";
+import {AoaEffect} from "../../documents/effects/aoa-effect.mjs";
 
 export class PcSheet extends AoaActorSheet {
     static normalHeight = 900
@@ -37,6 +38,8 @@ export class PcSheet extends AoaActorSheet {
             ]
         });
     }
+
+    actualizer;
 
     async activateListeners(html) {
         return super.activateListeners(html);
@@ -103,24 +106,45 @@ export class PcSheet extends AoaActorSheet {
 
         context.isGM = game.user.isGM;
 
-        for(const effect of context.effects) {
-            if(effect.duration.seconds) {
-                const durationTs = TimeSpan.FromSeconds((effect.duration.seconds + effect.duration.startTime) - game.time.worldTime );
+        context.effects = context.effects.map(e => {
+            const effect = this.actor.effects.get(e._id);
 
-                effect.duration.remaining = durationTs.days() > 0
-                    ? `${durationTs.days()} ${game.i18n.localize("aoa.days")}`
-                    : `${durationTs.hours().toString().padStart(2, "0")}:${durationTs.minutes().toString().padStart(2, "0")}:${durationTs.seconds().toString().padStart(2, "0")}`;
+            e.duration.remaining = AoaEffect.getRemaining(effect);
+            e.duration.remainingString = AoaEffect.getRemainingString(effect);
 
-            }
-        }
-
+            return e;
+        });
 
         return context;
     }
 
     render(force = false, options = {}) {
+        if(this.actualizer) {
+            Hooks.off('updateWorldTimer', this.actualizer );
+        }
+
+        this.actualizer = Hooks.on('updateWorldTime', this.actualize.bind(this, this));
+
+        this.actualizer = setInterval(this.actualize, 1000, this);
 
         return super.render(force, options);
+    }
+
+    actualize(context) {
+        const element = context.element;
+
+        context.actor.effects.contents.forEach(e => {
+                if(e.duration.seconds) {
+                    const textElement = element.find(`[data-item-id="${e._id}"]`).find(".remaining-text");
+                    textElement.text(AoaEffect.getRemainingString(e));
+                }
+            });
+    }
+
+    async close(options) {
+        Hooks.off('updateWorldTimer', this.actualizer );
+
+        return super.close(options);
     }
 
     static async equip(actor, html) {
@@ -223,4 +247,6 @@ export class PcSheet extends AoaActorSheet {
             });
         }
     }
+
+
 }

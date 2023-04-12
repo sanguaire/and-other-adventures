@@ -13,12 +13,12 @@
         {{/if}}
 
     </span>
-    <input type="text" data-dtype="text" value="{{label}}" data-property="label">
+    <input type="text" data-dtype="text" value="{{label}}" data-property="label" {{#unless editable}}disabled{{/unless}}>
     {{#if flags.and-other-adventures.needsConcentration}}
         <span data-tooltip="{{localize 'aoa.effect.needs-concentration'}}"><i class="fa-solid fa-head-side-brain"></i></span>
     {{/if}}
     {{#if duration.remaining}}
-        <span class="duration-remaining" style="flex: 1 0 auto;">{{localize "aoa.effect.remaining"}}: {{duration.remaining}}</span>
+        <span class="duration-remaining" style="flex: 1 0 auto;">{{localize "aoa.effect.remaining"}}: <span class="remaining-text">{{duration.remainingString}}</span></span>
     {{/if}}
     <div style="flex: 0 0 1.5em"></div>
 </div>
