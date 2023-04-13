@@ -23,6 +23,11 @@
 
 .aoa-sheet label {
     font-variant: small-caps;
+    text-shadow: 0 0 1px black;
+}
+
+.aoa-sheet .editable-list label {
+    text-shadow: unset;
 }
 
 .aoa-sheet select option, .aoa-sheet select optgroup {
@@ -194,6 +199,10 @@
     color: darkblue;
     padding: 0 1.2em;
     gap: 0.2em;
+}
+
+.aoa-sheet .coins label {
+    text-shadow: unset;
 }
 
 .aoa-sheet .coins [type="text"][data-dtype="Number"] {

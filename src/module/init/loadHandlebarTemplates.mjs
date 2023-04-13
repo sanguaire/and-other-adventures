@@ -7,6 +7,26 @@ export const loadHandlebarTemplates = async () => {
     await loadTemplates(componentTemplates);
 };
 
+export const pcTemplates = {
+    pcHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-header.hbs`,
+    pcResources:  `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-resources.hbs`,
+    pcAbilities: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-abilities.hbs`,
+    pcSaves: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-saves.hbs`,
+    pcCombat: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-combat.hbs`,
+    pcSkill: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-skill.hbs`,
+    pcGear: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-gear.hbs`,
+    pcSpell: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-spell.hbs`,
+    pcSpecials: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-specials.hbs`,
+    pcBiography: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-biography.hbs`,
+    pcNotes: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-notes.hbs`,
+    effects: `systems/${CONST.MODULE_ID}/templates/effects.hbs`,
+    difficulty: `systems/${CONST.MODULE_ID}/templates/difficulty.hbs`,
+    monsterHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-header.hbs`,
+    monsterStatistics: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-statistics.hbs`,
+    monsterDescription: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-description.hbs`,
+}
+
+
 const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/parts/header.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/parts/trait.hbs`,
@@ -30,26 +50,9 @@ const handlebarTemplates = [
     `systems/${CONST.MODULE_ID}/templates/items/attack-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/items/trait-sheet.hbs`,
     `systems/${CONST.MODULE_ID}/templates/apps/roll-requester.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/apps/part-sheet.hbs`,
+    `systems/${CONST.MODULE_ID}/templates/effects.hbs`,
 ];
-
-const pcTemplates = {
-    pcHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-header.hbs`,
-    pcResources:  `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-resources.hbs`,
-    pcAbilities: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-abilities.hbs`,
-    pcSaves: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-saves.hbs`,
-    pcCombat: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-combat.hbs`,
-    pcSkill: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-skill.hbs`,
-    pcGear: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-gear.hbs`,
-    pcSpell: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-spell.hbs`,
-    pcSpecials: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-specials.hbs`,
-    pcBiography: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-biography.hbs`,
-    pcNotes: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-notes.hbs`,
-    effects: `systems/${CONST.MODULE_ID}/templates/effects.hbs`,
-    difficulty: `systems/${CONST.MODULE_ID}/templates/difficulty.hbs`,
-    monsterHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-header.hbs`,
-    monsterStatistics: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-statistics.hbs`,
-    monsterDescription: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-description.hbs`,
-}
 
 const componentTemplates = {
     editableList: `systems/${CONST.MODULE_ID}/templates/editable-list.hbs`

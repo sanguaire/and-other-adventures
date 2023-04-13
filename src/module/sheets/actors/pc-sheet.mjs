@@ -11,7 +11,7 @@ export class PcSheet extends AoaActorSheet {
         equip: PcSheet.equip,
         showItem: PcSheet.showItem,
         editEffect: PcSheet.editEffect,
-        disable: PcSheet.disableEffect
+        disable: PcSheet.toggleEffect
     });
 
     static condensed = true;
@@ -236,7 +236,7 @@ export class PcSheet extends AoaActorSheet {
         }
     }
 
-    static async disableEffect(actor, html) {
+    static async toggleEffect(actor, html) {
         const effectId = html.closest("[data-item-id]").data("item-id");
 
         if(effectId) {

@@ -8,7 +8,7 @@ export class EditableList {
                     list,
                     itemType,
                     context,
-                    actor,
+                    object,
                     template,
                     listSelector,
                     header,
@@ -19,7 +19,7 @@ export class EditableList {
                 }) {
         this.list = foundry.utils.getProperty(context, list);
         this.itemType = itemType;
-        this.actor = actor;
+        this.object = object;
         this.documentType = documentType;
         this.identifier = identifier;
         this.gmEdit = gmEdit;
@@ -72,7 +72,7 @@ export class EditableList {
         newData[this.identifier] = EditableList.extractIdentifier(value, this.hasQuantity);
         EditableList.addQuantityToData(value, newData, this.hasQuantity);
 
-        this.actor.createEmbeddedDocuments(this.documentType, [newData]);
+        this.object.createEmbeddedDocuments(this.documentType, [newData]);
     };
 
     static quantityRegex = /^\d+\b(?![.,])/;
@@ -118,7 +118,7 @@ export class EditableList {
         if (typeof value === 'string') value = trimNewLineWhitespace(value);
 
         if ((!value || value === "") && property === this.identifier) {
-            this.actor.deleteEmbeddedDocuments(this.documentType, [itemId])
+            this.object.deleteEmbeddedDocuments(this.documentType, [itemId])
         } else {
             const updateData = {
                 _id: itemId
@@ -126,7 +126,7 @@ export class EditableList {
 
             updateData[property] = value;
 
-            this.actor.updateEmbeddedDocuments(this.documentType, [updateData])
+            this.object.updateEmbeddedDocuments(this.documentType, [updateData])
         }
     };
 }

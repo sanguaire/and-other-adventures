@@ -1,5 +1,7 @@
 import {CONST} from "../../const.mjs";
 import {inputMousewheel, trimNewLineWhitespace} from "../../utils/utils.mjs";
+import {PartView} from "../../apps/part-view.mjs";
+import {pcTemplates} from "../../init/loadHandlebarTemplates.mjs";
 
 export class ExtendedItemSheet extends ItemSheet {
 
@@ -68,6 +70,8 @@ export class ExtendedItemSheet extends ItemSheet {
                 .replace(/[A-ZÄ-Ü]/g, '<span class="caps">$&</span>');
         });
 
+        html.find("[data-action='showEffects']").click(ExtendedItemSheet.showEffects.bind(this, this.item));
+
         html.find(".new-ability").change(this.newAbility.bind(this));
         html.find(".change-ability").change(this.changeAbility.bind(this));
 
@@ -134,6 +138,13 @@ export class ExtendedItemSheet extends ItemSheet {
 
     async _updateObject(event, formData) {
         return super._updateObject(event, formData);
+    }
+
+    static async showEffects(item) {
+        PartView.create(
+            item,
+            pcTemplates.effects,
+            [{list: "effects", template: `systems/${CONST.MODULE_ID}/templates/item-templates/effect.hbs`, itemType: "effect", listSelector: ".effect-list", identifier: "label", documentType: "ActiveEffect", gmEdit: true}]);
     }
 
 }

@@ -1,10 +1,13 @@
 import {CONST} from "../../const.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
+import {PartView} from "../../apps/part-view.mjs";
+import {pcTemplates} from "../../init/loadHandlebarTemplates.mjs";
 
 export class MonsterSheet extends AoaActorSheet {
 
     static actions = foundry.utils.mergeObject(super.actions, {
         hitDie: MonsterSheet.hitDie,
+        showEffects: MonsterSheet.showEffects
     });
 
     static get defaultOptions() {
@@ -44,6 +47,10 @@ export class MonsterSheet extends AoaActorSheet {
             "system.hp.max": roll.total
         });
 
+    }
+
+    static async showEffects(actor) {
+        PartView.create(actor, pcTemplates.effects, [{list: "effects", template: `systems/${CONST.MODULE_ID}/templates/item-templates/effect.hbs`, itemType: "effect", listSelector: ".effect-list", identifier: "label", documentType: "ActiveEffect", gmEdit: true}]);
     }
 
 

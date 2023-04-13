@@ -19,7 +19,7 @@
             <h2>{{localize "aoa.rolls.ability"}}</h2>
             <ul  data-action-type="abilities">
                 {{#each abilities as |ability|}}
-                    <li><a class="disabled" data-action="roll" data-action-key="{{ability.key}}"><i class="fa-solid fa-dice-d20"></i></a> {{ability.name}}</li>
+                    <li><a class="disabled" data-action="roll" data-action-key="{{ability.key}}"><i class="fa-solid fa-dice-d20"></i></a><label> {{ability.name}}</label></li>
                 {{/each}}
             </ul>
         </div>
@@ -27,7 +27,7 @@
             <h2>{{localize "aoa.rolls.save"}}</h2>
             <ul data-action-type="saves">
                 {{#each saves as |save|}}
-                    <li><a class="disabled" data-action="roll" data-action-key="{{save.key}}"><i class="fa-solid fa-dice-d20"></i></a> {{save.name}}</li>
+                    <li><a class="disabled" data-action="roll" data-action-key="{{save.key}}"><i class="fa-solid fa-dice-d20"></i></a><label> {{save.name}}</label></li>
                 {{/each}}
             </ul>
         </div>
