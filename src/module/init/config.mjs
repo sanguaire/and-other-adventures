@@ -1,13 +1,12 @@
 import {SystemRoll} from "../systems-roll.mjs";
 import {AoaCombat, AoaCombatant, AoaCombatTracker} from "../combat.mjs";
-import {AoaToken} from "../aoa-token.mjs";
+import {AoaToken} from "../objects/aoa-token.mjs";
 import {AoaTokenDocument} from "../documents/aoa-token-document.mjs";
-import {PcActor} from "../documents/actors/pc-actor.mjs";
-import {MonsterActor} from "../documents/actors/monster-actor.js";
 import {CONST} from "../const.mjs";
 import {ActorProxy} from "../documents/actor-proxy.mjs";
 import {ItemProxy} from "../documents/item-proxy.mjs";
 import {AoaEffect} from "../documents/effects/aoa-effect.mjs";
+import {AoaNote} from "../objects/aoa-note.mjs";
 
 export const configure = () => {
     CONFIG.Actor.documentClass = ActorProxy;
@@ -20,6 +19,8 @@ export const configure = () => {
 
     CONFIG.Token.objectClass = AoaToken;
     CONFIG.Token.documentClass = AoaTokenDocument;
+
+    CONFIG.Note.objectClass = AoaNote;
 
     CONFIG.ActiveEffect.documentClass = AoaEffect;
 

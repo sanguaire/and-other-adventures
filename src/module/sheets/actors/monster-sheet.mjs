@@ -1,7 +1,7 @@
 import {CONST} from "../../const.mjs";
 import {AoaActorSheet} from "./aoa-actor-sheet.mjs";
 import {PartView} from "../../apps/part-view.mjs";
-import {pcTemplates} from "../../init/loadHandlebarTemplates.mjs";
+import {pcTemplates} from "../../init/load-handlebar-templates.mjs";
 
 export class MonsterSheet extends AoaActorSheet {
 

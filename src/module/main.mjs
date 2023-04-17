@@ -10,8 +10,10 @@ import {getSceneControlButtonsHandler} from "./hooks/get-scene-control-buttons-h
 import {requestRollHandler} from "./request-roll-handler.mjs";
 import {renderSceneControlsHandler} from "./hooks/render-scene-controls-handler.mjs";
 import {registerSheets} from "./init/registerSheets.mjs";
-import {loadHandlebarTemplates} from "./init/loadHandlebarTemplates.mjs";
+import {loadHandlebarTemplates} from "./init/load-handlebar-templates.mjs";
 import {EffectsPanel} from "./apps/effects-panel.mjs";
+import {beautifyHeaders} from "./utils/beautify-headers.mjs";
+import {effectsPanelWrapping} from "./init/effects-panel-wrapping.mjs";
 
 Hooks.once("socketlib.ready", () => {
     CONFIG.aoa = {
@@ -22,11 +24,23 @@ Hooks.once("socketlib.ready", () => {
 });
 
 Hooks.once("init", async () => {
+    game.aoa = {
+        effectsPanel: new EffectsPanel()
+    }
+
     registerSettings();
     registerHelpers();
     configure();
     registerSheets();
+    effectsPanelWrapping();
     await loadHandlebarTemplates();
+
+    Hooks.once("ready", async () => {
+        await game.aoa.effectsPanel.render(true);
+        const panel = $("#effects-panel");
+        $("#ui-top").append(panel);
+        $("body").remove("#effects-panel");
+    });
 
     Hooks.on("renderChatMessage", chatMessageHandler );
     Hooks.on("updateActor", updateActorHandler);
@@ -35,75 +49,24 @@ Hooks.once("init", async () => {
     Hooks.on("closeActiveEffectConfig", closeActiveEffectConfigHandler);
     Hooks.on("getSceneControlButtons", getSceneControlButtonsHandler);
     Hooks.on("renderSceneControls", renderSceneControlsHandler);
-
-    Hooks.on("canvasReady", async () => {
-        await game.aoa.effectsPanel.render(true);
-
-        const panel = $("#effects-panel");
-
-        $("#ui-top").append(panel);
-
-        $("body").remove("#effects-panel");
-
-    });
     Hooks.on('updateWorldTime', (_total, _diff) => {
         game.aoa.effectsPanel.refresh();
     });
+    Hooks.on("renderPause", () => {
+        const pauseImg = $("#pause img");
+        const pauseFig = $("#pause figcaption");
 
-    libWrapper.register(
-        CONST.MODULE_ID,
-        'Token.prototype._onControl',
-        function (wrapper, ...args) {
-            if (game.ready) game.aoa.effectsPanel.refresh();
-            wrapper(...args);
-        },
-        'WRAPPER'
-    );
-    libWrapper.register(
-        CONST.MODULE_ID,
-        'Token.prototype._onRelease',
-        function (wrapper, ...args) {
-            game.aoa.effectsPanel.refresh();
-            wrapper(...args);
-        },
-        'WRAPPER'
-    );
-    libWrapper.register(
-        CONST.MODULE_ID,
-        'TokenDocument.prototype._onUpdate',
-        function (wrapper, ...args) {
-            wrapper(...args);
-            game.aoa.effectsPanel.refresh();
-        },
-        'WRAPPER'
-    );
-    libWrapper.register(
-        CONST.MODULE_ID,
-        'Actor.prototype.prepareData',
-        function (wrapper, ...args) {
-            wrapper(...args);
-            if (canvas.ready && game.user.character === this) {
-                game.aoa.effectsPanel.refresh();
-            }
-        },
-        'WRAPPER'
-    );
-    libWrapper.register(
-        CONST.MODULE_ID,
-        'User.prototype.prepareData',
-        function (wrapper, ...args) {
-            wrapper(...args);
-            if (canvas.ready && canvas.tokens.controlled.length > 0) {
-                game.aoa.effectsPanel.refresh();
-            }
-        },
-        'WRAPPER'
-    );
+        pauseImg.attr("src", `systems/${CONST.MODULE_ID}/assets/pause.webp`);
 
-    game.aoa = {
-        effectsPanel: new EffectsPanel()
-    }
+        beautifyHeaders(pauseFig);
+    });
+
+
+
+
 });
+
+
 
 
 

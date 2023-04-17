@@ -18,6 +18,7 @@
     background: url(../assets/parchment.jpg) repeat;
     font-family: 'Aquifer', serif;
     font-weight: bolder;
+    text-shadow: 0 0 black;
 }
 
 .high .dice-tooltip .dice-rolls .roll.max {
@@ -44,12 +45,19 @@
 
 }
 
-#chat-log h1, #chat-log h2, #chat-log h3, #chat-log h4, #chat-log h5, #chat-log h6{
+#chat-log div h1:not(.dice-total),
+#chat-log div h2:not(.dice-total),
+#chat-log div h3:not(.dice-total),
+#chat-log div h4:not(.dice-total),
+#chat-log div h5:not(.dice-total),
+#chat-log div h6:not(.dice-total){
     font-variant: small-caps;
     border-bottom: none;
     font-weight: bold;
     text-decoration: 2px underline darkred;
     text-underline-offset: 0.2em;
+    display: flex;
+    align-items: baseline;
 }
 
 #chat-log .message-sender {
@@ -87,4 +95,8 @@
     padding: 0;
     border: none;
     background: inherit;
+}
+
+#chat-log .heading {
+    margin-bottom: 0.5em;
 }

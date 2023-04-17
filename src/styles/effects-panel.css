@@ -1,9 +1,10 @@
-#effects-panel {
+#ui-bottom #effects-panel {
     height: auto;
     width: auto;
     color: white;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 0.5em;
     left: 0;
     right: 0;

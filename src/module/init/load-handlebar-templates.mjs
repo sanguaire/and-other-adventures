@@ -19,7 +19,6 @@ export const pcTemplates = {
     pcSpecials: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-specials.hbs`,
     pcBiography: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-biography.hbs`,
     pcNotes: `systems/${CONST.MODULE_ID}/templates/actors/parts/pc-notes.hbs`,
-    effects: `systems/${CONST.MODULE_ID}/templates/effects.hbs`,
     difficulty: `systems/${CONST.MODULE_ID}/templates/difficulty.hbs`,
     monsterHeader: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-header.hbs`,
     monsterStatistics: `systems/${CONST.MODULE_ID}/templates/actors/parts/monster-statistics.hbs`,

@@ -2,6 +2,8 @@ export class AoaToken extends Token {
 
     async _onCreate(options, userId) {
         super._onCreate(options, userId);
+
+        await this.document?.actor?.applyActiveEffects();
     }
 
     async _draw() {

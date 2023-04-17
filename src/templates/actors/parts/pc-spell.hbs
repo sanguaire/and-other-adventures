@@ -1,26 +1,24 @@
 <h1>{{localize "aoa.spell-header"}}</h1>
 
 {{#if actor.system.class.hasSpells}}
-<div class="used-spells">
-    <label>{{localize "aoa.used-spells"}}:</label>
-    <input size="2" type="text" data-dtype="Number" class="slots" name="system.usedSpells" value="{{actor.system.usedSpells}}">
-    <label>{{localize "aoa.max"}}:</label>
-    {{actor.system.level}}
+    <div class="used-spells">
+        <label>{{localize "aoa.used-spells"}}:</label>
+        <input size="2" type="text" data-dtype="Number" class="slots" name="system.usedSpells"
+               value="{{actor.system.usedSpells}}">
+        <label>{{localize "aoa.max"}}: {{actor.system.level}}</label>
+    </div>
+{{/if}}
+
+
+<div class="lists">
+    {{#if actor.system.class.hasCantrips}}
+        <div class="cantrip-list"></div>{{/if}}
+    {{#if actor.system.class.hasSpells}}
+        <div class="spell-list"></div>{{/if}}
+    {{#if actor.system.class.hasRituals}}
+        <div class="ritual-list"></div>{{/if}}
 </div>
-{{/if}}
 
-{{#if actor.system.class.hasCantrips}}
-    <div class="lists">
-        <div class="cantrip-list"></div>
-
-    </div>
-{{/if}}
-{{#if actor.system.hasSpellsOrRituals}}
-    <div class="lists">
-        {{#if actor.system.class.hasSpells}}<div class="spell-list"></div>{{/if}}
-        {{#if actor.system.class.hasRituals}}<div class="ritual-list"></div>{{/if}}
-    </div>
-{{/if}}
 
 
 

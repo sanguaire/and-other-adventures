@@ -63,8 +63,8 @@
 }
 
 .editable-list .list .item > .list-row.relative > .drag {
-    position: absolute;
-    right: 0.4em;
+    position: relative;
+    margin-right: 0.2em;
 }
 
 .editable-list .list .item .list-row > .controls {

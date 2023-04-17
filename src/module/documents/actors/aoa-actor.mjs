@@ -2,8 +2,6 @@ export class AoaActor extends Actor {
 
     async applyActiveEffects() {
         const overrides = {};
-        const lightSources = foundry.utils.duplicate(CONFIG.aoa.lightSources);
-        lightSources.noLight = this.prototypeToken.light.toObject();
 
         // Organize non-disabled effects by their application priority
         const changes = this.effects.reduce((changes, e) => {
@@ -16,6 +14,25 @@ export class AoaActor extends Actor {
             }));
         }, []);
 
+        changes.sort((a, b) => a.priority - b.priority);
+
+        // Apply all changes
+        for ( let change of changes ) {
+            if ( !change.key ) continue;
+            const changes = change.effect.apply(this, change);
+            Object.assign(overrides, changes);
+        }
+
+        // Expand the set of final overrides
+        this.overrides = foundry.utils.expandObject(overrides);
+
+        await this.applyLight();
+    }
+
+    async applyLight() {
+        const lightSources = foundry.utils.duplicate(CONFIG.aoa.lightSources);
+        lightSources.noLight = this.prototypeToken.light.toObject();
+
         const lights = this.effects.reduce((changes, e) => {
             if ( e.disabled || e.isSuppressed ) return changes;
             return changes.concat(e.changes.filter(c => c.key.toLowerCase() === "light").map(c => {
@@ -26,15 +43,7 @@ export class AoaActor extends Actor {
             }));
         }, []);
 
-        changes.sort((a, b) => a.priority - b.priority);
         lights.sort((a, b) => a.priority - b.priority);
-
-        // Apply all changes
-        for ( let change of changes ) {
-            if ( !change.key ) continue;
-            const changes = change.effect.apply(this, change);
-            Object.assign(overrides, changes);
-        }
 
         if(lights.length === 0) {
             const tokenDocs = this.getActiveTokens(false, true);
@@ -57,10 +66,6 @@ export class AoaActor extends Actor {
                 });
             }
         }
-
-        // Expand the set of final overrides
-        this.overrides = foundry.utils.expandObject(overrides);
-
     }
 
     async _preCreate(data, options, userId) {

@@ -27,17 +27,16 @@
                                        data-tooltip="{{numberFormat selectedWeaponItem.system.attack.melee sign=true
                                                                     decimals=0}}">
                                     <i class="fa-solid fa-sword fa-xl"></i></a>
-                                    <a data-action="damage">{{selectedWeaponItem.system.localizedDamage.melee}}</a>
+                                    <a class="text-shadow" data-action="damage">{{selectedWeaponItem.system.localizedDamage.melee}}</a>
                                 </span>
                             {{/if}}
                             {{#if selectedWeaponItem.system.ranged}}
-                                <span data-action-type="ranged">
-
+                                <span data-action-type="ranged" >
                                     <a data-action="attack"
                                        data-tooltip="{{numberFormat selectedWeaponItem.system.attack.ranged sign=true
                                                                     decimals=0}}">
                                     <i class="fa-solid fa-bow-arrow fa-xl"></i></a>
-                                    <a data-action="damage">{{selectedWeaponItem.system.localizedDamage.ranged}}</a>
+                                    <a class="text-shadow" data-action="damage">{{selectedWeaponItem.system.localizedDamage.ranged}}</a>
                                     {{#if selectedWeaponItem.system.usesAmmo}}
                                         ({{selectedWeaponItem.system.ammoQuantity}})
                                     {{/if}}
@@ -85,7 +84,7 @@
                 <a data-tab="notes" data-tooltip="{{localize 'aoa.notes-header'}}"><i
                         class="fa-solid fa-feather"></i></a>
 
-                <a data-tab="effects" data-tooltip="{{localize 'aoa.effect-header'}}"><i class="fa-solid fa-person-rays"></i></a>
+                <a data-tab="effects" data-tooltip="{{localize 'aoa.effects-header'}}"><i class="fa-solid fa-person-rays"></i></a>
 
             </div>
             <div class="tab-content">
@@ -98,7 +97,7 @@
                 <div class="tab" data-tab="specials" data-group="primary">{{> pcSpecials}}</div>
                 <div class="tab" data-tab="biography" data-group="primary">{{> pcBiography}}</div>
                 <div class="tab" data-tab="notes" data-group="primary">{{> pcNotes}}</div>
-                <div class="tab" data-tab="effects" data-group="primary">{{> effects}}</div>
+                <div class="tab" data-tab="effects" data-group="primary">{{> "systems/and-other-adventures/templates/effects.hbs"}}</div>
 
             </div>
         </div>
@@ -106,3 +105,4 @@
 
 
 </form>
+

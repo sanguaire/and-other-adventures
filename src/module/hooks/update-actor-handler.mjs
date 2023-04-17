@@ -1,14 +1,18 @@
-export const updateActorHandler = async (actor, changes) => {
+export const updateActorHandler = async (actor, changes, data, userId) => {
+    if(!actor.canUserModify(game.user, "update")) {
+        return;
+    }
+
     if(game.combat && game.user.isGM) {
         await game.combat.resetAll();
         await game.combat.rollAll();
     }
 
-    if(!actor.canUserModify(game.user, "update")) {
+    if(userId !== game.user.id) {
         return;
     }
 
-    const hpValue = changes.system?.hp?.value;
+   const hpValue = changes.system?.hp?.value;
 
     handleHpChange();
     function handleHpChange() {

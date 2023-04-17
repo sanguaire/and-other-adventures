@@ -11,7 +11,7 @@ export class PcSheet extends AoaActorSheet {
         equip: PcSheet.equip,
         showItem: PcSheet.showItem,
         editEffect: PcSheet.editEffect,
-        disable: PcSheet.toggleEffect
+        disable: PcSheet.toggleEffect,
     });
 
     static condensed = true;
@@ -247,6 +247,8 @@ export class PcSheet extends AoaActorSheet {
             });
         }
     }
+
+
 
 
 }

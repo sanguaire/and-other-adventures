@@ -330,6 +330,11 @@
     filter: drop-shadow(2px 4px 6px grey);
 }
 
+#ac div > span, #ini div > span {
+    text-shadow: 0 0 1px black;
+
+}
+
 .pc-sheet:not(.condensed) #ac {
     transform: rotate(-4deg);
 }
@@ -347,8 +352,7 @@
 }
 
 
-.gear-list div.quantity,
-.weapon-list div.quantity{
+.gear-list div.quantity {
     position: absolute;
     display: inline-flex;
     align-items: center;
@@ -356,14 +360,14 @@
     right: 1em;
 }
 
-.weapon-list div.quantity {
-    position: relative;
-    right: unset;
-    margin-right: 0.8em;
-}
-
 .weapon-list div.quantity input {
     width: 1.6em;
+}
+
+.editable-list .item .features {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: baseline;
 }
 
 .gear-list div.quantity.only-hover,
@@ -419,3 +423,19 @@
 .pc-sheet .ability input[type="text"]:not(:focus) {
     box-shadow: 0 0 5px black;
 }
+
+.pc-sheet a.attack {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.pc-sheet a.context #context-menu {
+    left: unset;
+    right: 0;
+}
+
+.pc-sheet .ability a:not(:hover) i {
+    text-shadow: none;
+}
+

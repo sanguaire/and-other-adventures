@@ -10,7 +10,7 @@
                      data-tooltip="{{#with (concat "aoa.rolls." item.system.ability)}}{{string}}{{/with}}">
                 <i class="fa-solid fa-dice-d20"></i></a>
             </span>
-            <input type="text" data-dtype="text" value="{{item.name}}" data-property="name">
+            <input type="text" data-dtype="text" value="{{item.name}}" data-property="name" data-tooltip="{{item.name}}">
         </div>
     {{/with}}
 {{/with}}

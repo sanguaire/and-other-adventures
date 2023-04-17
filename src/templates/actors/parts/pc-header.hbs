@@ -7,9 +7,13 @@
         <input name="name" type="text" data-dtype="text" value="{{actor.name}}">
         {{#unless condensed}}
             <div class="flexrow">
-                <div>
+                <div class="flexcol">
                     <label for="system.class">{{localize "aoa.class"}}: </label>
-                    <div class="text-indent text-form-field">{{actor.system.class.name}} <a data-action="showItem" data-item-id="{{actor.system.class._id}}"><i class="fa-solid fa-circle-info"></i></a></div>
+                    <div class="text-indent flexrow align-center">
+                        <span style="text-shadow: 0 0 1px black; flex: 0">{{actor.system.class.name}} </span>
+                        <a data-action="showItem" data-item-id="{{actor.system.class._id}}"><i class="fa-solid fa-circle-info"></i></a>
+                    </div>
+
                 </div>
                 <div>
                     <label for="system.alignment">{{localize "aoa.alignment"}}: </label>
@@ -23,7 +27,7 @@
                 </div>
                 <div>
                     <label >{{localize "aoa.xp-next"}}: </label>
-                    <div class="text-indent text-form-field">{{actor.system.nextLevel}}</div>
+                    <div class="text-indent text-form-field" style="text-shadow: 0 0 1px black;">{{actor.system.nextLevel}}</div>
                 </div>
                 <div>
                     <label for="system.level">{{localize "aoa.level"}}: </label>

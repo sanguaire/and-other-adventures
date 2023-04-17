@@ -1,0 +1,66 @@
+.tab[data-tab] .lists {
+    position: relative;
+    height: 100%;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    flex: 0 1 100%;
+}
+
+.tab[data-tab] .lists > div {
+    flex: 1;
+    position: absolute;
+    display: flex;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+}
+
+.tab[data-tab] .lists > div:first-child:last-child {
+    left: 0;
+    width: 100%;
+}
+
+.tab[data-tab] .lists > div:first-child:nth-last-child(2)  {
+    left: 0;
+    width: 50%;
+}
+
+.tab[data-tab] .lists > div:first-child:nth-last-child(3)  {
+    left: 0;
+    width: 33.333%;
+}
+
+.tab[data-tab] .lists > div:last-child:nth-child(2) {
+    left: 50%;
+    right: 0;
+}
+
+.tab[data-tab] .lists > div:last-child:nth-child(3) {
+    left: 66.666%;
+    right: 0;
+}
+
+.tab[data-tab] .lists > div:not(:first-child):not(:last-child){
+    left: 33.333%;
+    right:33.333%;
+}
+
+
+
+.tab[data-tab] .lists .editable-list {
+    height: auto;
+    max-height: 100%;
+}
+
+.skill-list .editable-list .list .item > .list-row {
+    justify-content: flex-start;
+}
+
+.skill-list .editable-list .list .item > .list-row input {
+    flex: 0.3;
+}
+
+.skill-list .editable-list .list .item > .list-row input:last-of-type {
+    flex: 3;
+}

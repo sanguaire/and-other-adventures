@@ -89,8 +89,7 @@ async function renderDialogContent(rollKey, {action = "roll", skills, keys, modi
         action
     }
 
-    const content = await renderTemplate(dlgTemplate, dlgData);
-    return content;
+    return await renderTemplate(dlgTemplate, dlgData);
 }
 
 const attackNotAllowedForCombatStance = (cs) => ["protective", "commanding"].includes(cs);
@@ -139,12 +138,11 @@ const abilityRoll = async (actor, abilityKey, flavor, modifier = 0) => {
 
     async function callback(formData, actor, abilityKey) {
         let skill = undefined;
-        let skillBonus = 0;
 
         if (formData.object.skill && formData.object.skill !== "") {
             skill = actor.items.get(formData.object.skill);
-            skillBonus = Number.parseInt(skill.system.bonus);
         }
+
         const modifier = Number.parseInt(formData.object.modifier);
         const roll = new SystemRoll(
             {
@@ -198,11 +196,9 @@ const saveRoll = async (actor, saveKey, flavor, modifier) => {
 
 const rangedAttack = async (actor, itemId) => {
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
-    const permanentModifier = permanentModifiers.allRolls
+    const modifier = permanentModifiers.allRolls
         + permanentModifiers.attacks.all
         + permanentModifiers.attacks.ranged;
-
-    const modifier = permanentModifier;
 
     const item = actor.items.get(itemId);
 
@@ -297,11 +293,9 @@ const rangedBasicRoll = async (actor) => {
     }
 
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
-    const permanentModifier = permanentModifiers.allRolls
+    const modifier = permanentModifiers.allRolls
         + permanentModifiers.attacks.all
         + permanentModifiers.attacks.ranged;
-
-    const modifier = permanentModifier;
 
     const content = await renderDialogContent("ranged", {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
@@ -338,8 +332,6 @@ const monsterAttack = async (actor, itemId) => {
     if (!item) {
         return;
     }
-
-    const modifier = permanentModifier;
 
     const content = await renderDialogContent("monster");
     const data = foundry.utils.mergeObject(baseDialogData,
@@ -388,11 +380,9 @@ const meleeAttack = async (actor, itemId) => {
     }
 
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
-    const permanentModifier = permanentModifiers.allRolls
+    const modifier = permanentModifiers.allRolls
         + permanentModifiers.attacks.all
         + permanentModifiers.attacks.melee;
-
-    const modifier = permanentModifier;
 
     const content = await renderDialogContent("melee", {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
@@ -431,11 +421,9 @@ const meleeBasicRoll = async (actor) => {
     }
 
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
-    const permanentModifier = permanentModifiers.allRolls
+    const modifier = permanentModifiers.allRolls
         + permanentModifiers.attacks.all
         + permanentModifiers.attacks.melee;
-
-    const modifier = permanentModifier;
 
     const content = await renderDialogContent("melee", {modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
@@ -479,11 +467,9 @@ const meleeDamage = async (actor, itemId) => {
     }
 
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
-    const permanentModifier = permanentModifiers.allRolls
+    const modifier = permanentModifiers.allRolls
         + permanentModifiers.damage.all
         + permanentModifiers.damage.melee;
-
-    const modifier = permanentModifier;
 
     const content = await renderDialogContent("damageMelee", {action: "damage", modifier});
     const data = foundry.utils.mergeObject(baseDialogData,
@@ -526,11 +512,9 @@ const rangedDamage = async (actor, itemId) => {
     }
 
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
-    const permanentModifier = permanentModifiers.allRolls
+    const modifier = permanentModifiers.allRolls
         + permanentModifiers.damage.all
         + permanentModifiers.damage.ranged;
-
-    const modifier = permanentModifier;
 
     const content = await renderDialogContent("damageRanged", {action: "damage", modifier});
     const data = foundry.utils.mergeObject(baseDialogData,

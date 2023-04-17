@@ -59,7 +59,7 @@ export class AoaActorSheet extends ActorSheet {
     prepareEditableLists() {
         this.editableLists = this.options.editableLists?.map(el => {
             el.context = this.getData();
-            el.actor = this.actor;
+            el.object = this.actor;
             return new EditableList(el);
         }) ?? [];
     }
