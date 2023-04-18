@@ -1,0 +1,23 @@
+
+#pause {
+    font-family: 'East Anglia', sans-serif;
+    background: none;
+    bottom: 20%;
+}
+
+#pause img {
+    width: 200px;
+    height: auto;
+    left: calc(50% - 100px);
+    opacity: 0.8;
+    top: -100px;
+    filter: drop-shadow(0 0 20px black);
+    --fa-animation-duration: 10s;
+    /*--fa-animation-timing: ease-in-out;*/
+}
+
+#pause figcaption {
+    text-shadow: 0 0 2px black,
+    0 0 10px darkgray;
+    bottom: 50%;
+}

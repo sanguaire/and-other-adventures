@@ -23,10 +23,9 @@
 
 .aoa-sheet label {
     font-variant: small-caps;
-    text-shadow: 0 0 1px black;
+    text-shadow: 0 0 1px black,
+    0 0 2px darkgray;
 }
-
-
 
 .aoa-sheet .editable-list label {
     text-shadow: unset;
