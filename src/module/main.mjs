@@ -12,8 +12,9 @@ import {renderSceneControlsHandler} from "./hooks/render-scene-controls-handler.
 import {registerSheets} from "./init/registerSheets.mjs";
 import {loadHandlebarTemplates} from "./init/load-handlebar-templates.mjs";
 import {EffectsPanel} from "./apps/effects-panel.mjs";
-import {beautifyHeaders} from "./utils/beautify-headers.mjs";
 import {effectsPanelWrapping} from "./init/effects-panel-wrapping.mjs";
+import {renderPauseHandler} from "./hooks/render-pause-handler.mjs";
+import {readyHandler} from "./hooks/ready-handler.mjs";
 
 Hooks.once("socketlib.ready", () => {
     CONFIG.aoa = {
@@ -35,13 +36,7 @@ Hooks.once("init", async () => {
     effectsPanelWrapping();
     await loadHandlebarTemplates();
 
-    Hooks.once("ready", async () => {
-        await game.aoa.effectsPanel.render(true);
-        const panel = $("#effects-panel");
-        $("#ui-top").append(panel);
-        $("body").remove("#effects-panel");
-    });
-
+    Hooks.once("ready", readyHandler);
     Hooks.on("renderChatMessage", chatMessageHandler );
     Hooks.on("updateActor", updateActorHandler);
     Hooks.on("updateItem", updateItemHandler);
@@ -49,21 +44,8 @@ Hooks.once("init", async () => {
     Hooks.on("closeActiveEffectConfig", closeActiveEffectConfigHandler);
     Hooks.on("getSceneControlButtons", getSceneControlButtonsHandler);
     Hooks.on("renderSceneControls", renderSceneControlsHandler);
-    Hooks.on('updateWorldTime', (_total, _diff) => {
-        game.aoa.effectsPanel.refresh();
-    });
-    Hooks.on("renderPause", () => {
-        const pauseImg = $("#pause img");
-        const pauseFig = $("#pause figcaption");
-
-        pauseImg.attr("src", `systems/${CONST.MODULE_ID}/assets/pause.webp`);
-
-        beautifyHeaders(pauseFig);
-    });
-
-
-
-
+    Hooks.on('updateWorldTime', (_total, _diff) => game.aoa.effectsPanel.refresh());
+    Hooks.on("renderPause", renderPauseHandler);
 });
 
 

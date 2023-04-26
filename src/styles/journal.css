@@ -1,0 +1,12 @@
+.journal-page-content img {
+    border: none;
+}
+
+.sheet.journal-entry .journal-entry-page.pdf .edit-container {
+    bottom: 5px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    justify-content: flex-end;
+}

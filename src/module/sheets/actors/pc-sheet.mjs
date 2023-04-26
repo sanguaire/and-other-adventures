@@ -79,6 +79,8 @@ export class PcSheet extends AoaActorSheet {
 
         context.cssClass = `aoa-sheet pc-sheet ${PcSheet.condensed ? "condensed" : ""} ${context.cssClass}`
 
+        context.languageRelevant = game.settings.get(CONST.MODULE_ID, "languageRelevant");
+
         for(const [key, value] of Object.entries(context.actor.system.abilities)) {
             value.modifierDesc = game.i18n.localize(`${CONST.MODULE_SCOPE}.abilities-mod.${key}`);
         }

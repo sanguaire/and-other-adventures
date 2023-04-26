@@ -37,4 +37,24 @@ export const registerSettings = () => {
         default: "a",
         requiresReload: true
     });
+
+    game.settings.register(CONST.MODULE_ID, "legendGeneratorKey", {
+        name: game.i18n.localize("aoa.legend-api-key"),
+        hint: "",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "",
+        requiresReload: true
+    });
+
+    game.settings.register(CONST.MODULE_ID, "languageRelevant", {
+        name: game.i18n.localize("aoa.language-relevant"),
+        hint: "",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+        requiresReload: true
+    });
 };

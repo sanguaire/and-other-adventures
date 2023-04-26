@@ -25,6 +25,8 @@ export class PcActor extends AoaActor {
         }
     };
 
+
+
     prepareBaseData() {
         const activeClass = this.itemTypes.class[0];
 
@@ -50,6 +52,8 @@ export class PcActor extends AoaActor {
         }
 
         this.system.ac = 10;
+
+        this.system.languages = { value: this.items.filter(i => i.type === 'language').map(i => i.name.toLowerCase())};
     }
 
 
