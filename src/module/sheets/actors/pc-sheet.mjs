@@ -203,6 +203,10 @@ export class PcSheet extends AoaActorSheet {
         await item.update({
             "system.equipped": !item.system.equipped
         });
+
+        for (const effect of actor.effects.filter(e => e.origin === item.uuid)) {
+            await effect.update({disabled: !equip});
+        }
     }
 
     static showItem(actor, html) {

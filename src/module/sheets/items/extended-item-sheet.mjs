@@ -143,7 +143,7 @@ export class ExtendedItemSheet extends ItemSheet {
     static async showEffects(item) {
         PartView.create(
             item,
-            pcTemplates.effects,
+            `systems/${CONST.MODULE_ID}/templates/effects.hbs`,
             [{list: "effects", template: `systems/${CONST.MODULE_ID}/templates/item-templates/effect.hbs`, itemType: "effect", listSelector: ".effect-list", identifier: "label", documentType: "ActiveEffect", gmEdit: true}]);
     }
 

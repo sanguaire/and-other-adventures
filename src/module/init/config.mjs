@@ -7,6 +7,7 @@ import {ActorProxy} from "../documents/actor-proxy.mjs";
 import {ItemProxy} from "../documents/item-proxy.mjs";
 import {AoaEffect} from "../documents/effects/aoa-effect.mjs";
 import {AoaNote} from "../objects/aoa-note.mjs";
+import {executeAction} from "../actions.mjs";
 
 export const configure = () => {
     CONFIG.Actor.documentClass = ActorProxy;
@@ -29,6 +30,7 @@ export const configure = () => {
     const lightSourceUnit = game.settings.get(CONST.MODULE_ID, "lightSourceMeasurementUnit");
 
     mergeObject(CONFIG.aoa, {
+        executeActorAction: executeAction,
        lightSourceMeasurementUnit: lightSourceUnit === "a" ? "meters" : "feet",
        lightSources: {
            candle: {
