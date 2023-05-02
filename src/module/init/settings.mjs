@@ -57,4 +57,14 @@ export const registerSettings = () => {
         default: true,
         requiresReload: true
     });
+
+    game.settings.register(CONST.MODULE_ID, "condensedSheet", {
+        name: "condensedSheet",
+        hint: "",
+        scope: "client",
+        config: false,
+        type: Boolean,
+        default: true,
+        requiresReload: false
+    });
 };

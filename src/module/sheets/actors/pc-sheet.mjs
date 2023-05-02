@@ -14,14 +14,16 @@ export class PcSheet extends AoaActorSheet {
         disable: PcSheet.toggleEffect,
     });
 
-    static condensed = true;
+    static get condensed() {
+        return game.settings.get(CONST.MODULE_ID, "condensedSheet");
+    }
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
-            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", PcSheet.condensed ? "condensed" : "", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
+         return mergeObject(super.defaultOptions, {
+            classes: [CONST.MODULE_SCOPE, "sheet", "actor", "flexcol", this.condensed ? "condensed" : "", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
-            width: PcSheet.condensed ? 600 : 800,
-            height: PcSheet.condensed? "auto" : PcSheet.normalHeight,
+            width: this.condensed ? 600 : 800,
+            height: this.condensed ? "auto" : this.normalHeight,
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "combat"}],
             resizable: false,
             editableLists: [
@@ -52,7 +54,7 @@ export class PcSheet extends AoaActorSheet {
         buttons.splice(1, 0, {
             label: "",
             class: "toggle-condense",
-            icon: PcSheet.condensed ? "fa-solid fa-arrows-maximize" : "fa-solid fa-arrows-minimize",
+            icon: game.settings.get(CONST.MODULE_ID, "condensedSheet") ? "fa-solid fa-arrows-maximize" : "fa-solid fa-arrows-minimize",
             onclick: ev => PcSheet.toggleCondense(ev)
         });
 
@@ -218,14 +220,14 @@ export class PcSheet extends AoaActorSheet {
         new ExtendedItemSheet(item).render(true, {editable: game.user.isGM});
     }
 
-    static toggleCondense() {
-        if(PcSheet.condensed) {
-            PcSheet.condensed = !PcSheet.condensed;
+    static async toggleCondense() {
+        if(this.condensed) {
+            await game.settings.set(CONST.MODULE_ID, "condensedSheet", false);
             ui.activeWindow.render(true, {width: 800, height: PcSheet.normalHeight});
             ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-minimize";
             ui.activeWindow.element.removeClass("condensed")
         } else {
-            PcSheet.condensed = !PcSheet.condensed;
+            await game.settings.set(CONST.MODULE_ID, "condensedSheet", true);
             ui.activeWindow.render(true, {width: 600, height: "auto"});
             ui.activeWindow.element.find(".toggle-condense i")[0].classList.value = "fa-solid fa-arrows-maximize";
             ui.activeWindow.element.addClass("condensed")
