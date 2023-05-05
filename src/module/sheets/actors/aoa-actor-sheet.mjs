@@ -25,6 +25,12 @@ export class AoaActorSheet extends ActorSheet {
         this.prepareEditableLists();
         await this.activateEditableListListeners(html);
 
+        beautifyHeaders(html.find(":header"));
+
+        if(this.actor.permission < 3) {
+            return
+        }
+
         this.mapActions(html);
 
         html.find(".drag").on("dragstart", this._onDragStart.bind(this));
@@ -32,8 +38,6 @@ export class AoaActorSheet extends ActorSheet {
 
         /* html.find("i.fa-dice-d20").hover(this.onRollHoverIn.bind(this), this.onRollHoverOut.bind(this));*/
         addDiceIconAnimation(html);
-
-        beautifyHeaders(html.find(":header"));
     }
 
     mapActions(html) {

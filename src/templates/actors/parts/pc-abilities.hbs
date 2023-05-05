@@ -4,14 +4,23 @@
         {{#each actor.system.abilities as |ability key|}}
             <div class="grid-item">
                 <div class="ability" data-action-type="abilities" data-action-key="{{key}}">
+
                     {{#with (concat 'aoa.abilities.' key)}}
-                        <label><a data-action="roll" ><i class="fa-solid fa-dice-d20"></i></a><span>{{localize string}}</span> </label>
+                        <label>{{#unless @root.limited}}
+                            <a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a>{{/unless}}<span>{{localize
+                                string}}</span> </label>
                     {{/with}}
+
                     <div class="flexrow">
-                        <input type="text" data-dtype="Number" name="system.abilities.{{key}}.value" value="{{ability.value}}">
-                        <input type="text" data-dtype="Number" name="system.abilities.{{key}}.max" value="{{ability.max}}">
+                        <input type="text" data-dtype="Number" name="system.abilities.{{key}}.value"
+                               value="{{ability.value}}">
+                        <input type="text" data-dtype="Number" name="system.abilities.{{key}}.max"
+                               value="{{ability.max}}">
                         {{#if (ne ability.modifier 0)}}
-                            <div class="modifier {{#if (gt ability.modifier 0)}}plus{{else}}minus{{/if}}" data-tooltip="{{ability.modifierDesc}}" style="text-shadow: 0 0 1px black;">{{numberFormat ability.modifier decimals=0 sign=true}}</div>
+                            <div class="modifier {{#if (gt ability.modifier 0)}}plus{{else}}minus{{/if}}"
+                                 data-tooltip="{{ability.modifierDesc}}"
+                                 style="text-shadow: 0 0 1px black;">{{numberFormat ability.modifier decimals=0
+                                                                                    sign=true}}</div>
                         {{/if}}
                     </div>
                 </div>

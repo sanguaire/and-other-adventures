@@ -79,8 +79,7 @@ export class PcSheet extends AoaActorSheet {
     getData(options = {}) {
         const context = super.getData(options);
 
-        context.cssClass = `aoa-sheet pc-sheet ${PcSheet.condensed ? "condensed" : ""} ${context.cssClass}`
-
+        context.cssClass = `aoa-sheet pc-sheet ${PcSheet.condensed ? "condensed" : ""} ${this.actor.permission < 3 ? "limited" : ""} ${context.cssClass}`
         context.languageRelevant = game.settings.get(CONST.MODULE_ID, "languageRelevant");
 
         for(const [key, value] of Object.entries(context.actor.system.abilities)) {
@@ -93,7 +92,6 @@ export class PcSheet extends AoaActorSheet {
             .filter(i => i.type === an)
             .sort((a,b)=>(a.sort || 0) - (b.sort||0)));
 
-
         context.combatStances = {
             normal: game.i18n.localize("aoa.stances.normal"),
             aggressive: game.i18n.localize("aoa.stances.aggressive"),
@@ -103,11 +101,8 @@ export class PcSheet extends AoaActorSheet {
         }
 
         context.equippedWeapons = context.weapon.filter(w => w.system.equipped);
-
         context.condensed = PcSheet.condensed;
-
         context.selectedWeaponItem = this.actor.items.get(this.actor.system.selectedWeapon);
-
         context.isGM = game.user.isGM;
 
         context.effects = context.effects.map(e => {

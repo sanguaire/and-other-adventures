@@ -37,7 +37,7 @@ export class EditableList {
                 template: this._template,
                 itemType: this.itemType,
                 documentType: this.documentType,
-                editable: game.user.isGM || !this.gmEdit,
+                editable: game.user.isGM || (!this.gmEdit && this.object.permission === 3),
                 header: this._header
             });
         const target = html.find(this._listSelector);
@@ -45,6 +45,10 @@ export class EditableList {
 
         if (this.gmEdit && !game.user.isGM) {
             return;
+        }
+
+        if(this.object.permission < 3) {
+            return
         }
 
         target.find(".new").change(this.newItem.bind(this));

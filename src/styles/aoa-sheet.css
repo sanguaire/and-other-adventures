@@ -172,14 +172,18 @@
     transition: transform 0.5s ease;
 }
 
-.aoa-sheet a:hover:not(.disabled) {
+.aoa-sheet:not(.locked) a:hover:not(.disabled) {
     text-shadow: 0 0 1px black,
             0 0 6px darkred;
     transform: scale(1.2);
 }
 
-.aoa-sheet div.hand-written a:hover:not(.disabled) {
+.aoa-sheet:not(.locked) div.hand-written a:hover:not(.disabled) {
     text-shadow: 0 0 6px darkred;
+}
+
+.aoa-sheet.locked a:hover {
+    text-shadow: unset;
 }
 
 .aoa-sheet a.disabled {
@@ -259,7 +263,7 @@
     transform-origin: 50% 50%;
 }
 
-.aoa-sheet a:hover i:not(.fa-dice-d20) {
+.aoa-sheet:not(.locked) a:hover i:not(.fa-dice-d20) {
     transform: scale(1.1);
 }
 
