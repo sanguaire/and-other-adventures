@@ -14,6 +14,7 @@ export const configure = () => {
     CONFIG.Item.documentClass = ItemProxy;
 
     CONFIG.Dice.rolls.push(SystemRoll);
+    CONFIG.Dice.randomUniform = CryptoRandom.getRandomNumber.bind(CryptoRandom)
     CONFIG.Combatant.documentClass = AoaCombatant;
     CONFIG.Combat.documentClass = AoaCombat;
     CONFIG.ui.combat = AoaCombatTracker;

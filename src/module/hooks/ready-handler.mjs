@@ -3,4 +3,12 @@ export const readyHandler = async () =>{
     const panel = $("#effects-panel");
     $("#ui-top").append(panel);
     $("body").remove("#effects-panel");
+
+    $("body").on("keydown", (e) => {
+        game.aoa.showTooltip = e.originalEvent.altKey;
+    });
+
+    $("body").on("keyup", (e) => {
+        game.aoa.showTooltip = e.originalEvent.altKey;
+    });
 };

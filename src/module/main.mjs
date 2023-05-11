@@ -15,6 +15,12 @@ import {EffectsPanel} from "./apps/effects-panel.mjs";
 import {effectsPanelWrapping} from "./init/effects-panel-wrapping.mjs";
 import {renderPauseHandler} from "./hooks/render-pause-handler.mjs";
 import {readyHandler} from "./hooks/ready-handler.mjs";
+import {CryptoRandom} from "./apps/crypto-random.mjs";
+import {RollRequester} from "./apps/roll-requester.mjs";
+import {tooltipWrapping} from "./init/tooltip-wrapping.mjs";
+
+let cryptoRandom = new CryptoRandom();
+globalThis.CryptoRandom = cryptoRandom;
 
 Hooks.once("socketlib.ready", () => {
     CONFIG.aoa = {
@@ -26,7 +32,8 @@ Hooks.once("socketlib.ready", () => {
 
 Hooks.once("init", async () => {
     game.aoa = {
-        effectsPanel: new EffectsPanel()
+        effectsPanel: new EffectsPanel(),
+        rollRequester: RollRequester
     }
 
     registerSettings();
@@ -34,6 +41,7 @@ Hooks.once("init", async () => {
     configure();
     registerSheets();
     effectsPanelWrapping();
+    tooltipWrapping();
     await loadHandlebarTemplates();
 
     Hooks.once("ready", readyHandler);
