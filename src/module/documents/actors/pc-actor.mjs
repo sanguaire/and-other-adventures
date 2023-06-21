@@ -83,13 +83,20 @@ export class PcActor extends AoaActor {
     }
 
     _getArmorClassBonus() {
+        const negatingAbilityBonus = this.itemTypes.armor
+            .filter(a => a.system.equipped && a.system.negateAbilityBonus).length > 0
+
+        const abilityMod = this.system.abilities[this.system.acBonusBasedOn].modifier;
+
         return this.itemTypes.armor
                 .filter(a => a.system.equipped && a.system.stacks)
                 .map(a => a.system.armorBonus)
                 .reduce((acc, cur) => acc + cur, 0)
             + (this.itemTypes.armor
                 .find(a => a.system.equipped && !a.system.stacks)?.system.armorBonus ?? 0)
-            + (this.system.abilities[this.system.acBonusBasedOn].modifier)
+            + (negatingAbilityBonus
+                ? Math.min(abilityMod, 0)
+                : abilityMod)
             + (this.system.class?.hasKnacks ? this.system.knacks.defensive : 0)
             + (PcActor.stanceModifiers[this.system.combatStance].ac);
     }

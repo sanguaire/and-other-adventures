@@ -155,6 +155,7 @@
     "name": "Name",
     "need-free-hand": "Benötigt eine freie Hand",
     "needs-two-hands": "Benötigt zwei Hände",
+    "negateAbilityBonus": "Kein Attributsbonus",
     "no-ammo": "Keine Munition für",
     "no-attack-for-combat-stance": "Kein Angriff möglich für Kampfhaltung",
     "notes-header": "Notizen",

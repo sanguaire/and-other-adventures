@@ -153,6 +153,7 @@
 
 .aoa-sheet select {
     padding: 0;
+    width: 100%;
 }
 
 .aoa-sheet textarea:read-only {

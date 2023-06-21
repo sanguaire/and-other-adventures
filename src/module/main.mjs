@@ -18,6 +18,8 @@ import {readyHandler} from "./hooks/ready-handler.mjs";
 import {CryptoRandom} from "./apps/crypto-random.mjs";
 import {RollRequester} from "./apps/roll-requester.mjs";
 import {tooltipWrapping} from "./init/tooltip-wrapping.mjs";
+import {renderSidebarDirectoryHandler} from "./hooks/render-sidebar-directory-handler.mjs";
+import {rollTableWrapping} from "./init/roll-table-wrapping.mjs";
 
 let cryptoRandom = new CryptoRandom();
 globalThis.CryptoRandom = cryptoRandom;
@@ -35,13 +37,14 @@ Hooks.once("init", async () => {
         effectsPanel: new EffectsPanel(),
         rollRequester: RollRequester
     }
-
+    
     registerSettings();
     registerHelpers();
     configure();
     registerSheets();
     effectsPanelWrapping();
     tooltipWrapping();
+    // rollTableWrapping();
     await loadHandlebarTemplates();
 
     Hooks.once("ready", readyHandler);
@@ -54,6 +57,7 @@ Hooks.once("init", async () => {
     Hooks.on("renderSceneControls", renderSceneControlsHandler);
     Hooks.on('updateWorldTime', (_total, _diff) => game.aoa.effectsPanel.refresh());
     Hooks.on("renderPause", renderPauseHandler);
+    Hooks.on("renderSidebarDirectory", renderSidebarDirectoryHandler);
 });
 
 

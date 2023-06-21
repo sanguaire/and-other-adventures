@@ -191,7 +191,8 @@
       "penalty": 0,
       "magical": false,
       "needFreeHand": false,
-      "stacks": false
+      "stacks": false,
+      "negateAbilityBonus": false
     },
     "gear": {
       "templates": [

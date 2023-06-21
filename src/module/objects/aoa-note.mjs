@@ -23,4 +23,13 @@ export class AoaNote extends Note {
         style.stroke = color.hsv[2] > 0.6 ? 0x000000 : 0xFFFFFF;
         return style;
     }
+
+    _canDrag(user, event) {
+        return super._canDrag(user, event) && ui.controls.activeControl === "notes";
+    }
+
+    _canControl(user, event) {
+        return super._canControl(user, event) && ui.controls.activeControl === "notes";
+    }
+
 }

@@ -268,8 +268,8 @@
     justify-content: center;
 }
 
-.resources .resource i {
-    font-size: 30px;
+.pc-sheet .resources .resource i {
+    font-size: 45px;
     align-self: center;
     mix-blend-mode: overlay;
 }
@@ -320,7 +320,10 @@
     display: flex;
     flex: 0 1 2em;
     border: 4px solid var(--sheet-green-accent);
-    background: var(--sheet-light-green-accent);
+    background: radial-gradient(circle at bottom right,
+                            var(--sheet-light-green-accent) 0%,
+                            var(--sheet-light-green-accent) 75%,
+                            rgba(255,255,255,0.7) 100%);
     font-size: 2em;
     flex-direction: row;
     justify-content: center;
