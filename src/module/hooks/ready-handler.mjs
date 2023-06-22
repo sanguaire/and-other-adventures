@@ -11,4 +11,6 @@ export const readyHandler = async () =>{
     $("body").on("keyup", (e) => {
         game.aoa.showTooltip = e.originalEvent.altKey;
     });
+
+    $("#logo").hide();
 };

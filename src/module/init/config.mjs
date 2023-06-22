@@ -13,6 +13,8 @@ export const configure = () => {
     CONFIG.Actor.documentClass = ActorProxy;
     CONFIG.Item.documentClass = ItemProxy;
 
+    CONFIG.Playlist.autoPreloadSeconds = 60;
+
     CONFIG.Dice.rolls.push(SystemRoll);
     CONFIG.Dice.randomUniform = CryptoRandom.getRandomNumber.bind(CryptoRandom)
     CONFIG.Combatant.documentClass = AoaCombatant;
