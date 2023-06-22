@@ -37,7 +37,7 @@ Hooks.once("init", async () => {
         effectsPanel: new EffectsPanel(),
         rollRequester: RollRequester
     }
-    new Playlist()
+
     registerSettings();
     registerHelpers();
     configure();
