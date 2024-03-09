@@ -1,9 +1,10 @@
 import {CONST} from "./const.mjs";
 
 export class AoaCombat extends Combat {
-    _onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
-        super._onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        this._sortCombatants();
+
+     _onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId) {
+        super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
+        this._sortCombatants()
     }
 
     _sortCombatants(a, b) {
