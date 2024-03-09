@@ -14,6 +14,15 @@
 @import "requester.css";
 @import "gm-config-sheet.css";
 @import "effects-panel.css";
+@import "compendium-sidebar.css";
+
+.chat-message .table-draw .table-results .table-result .result-text {
+    line-height: 1.5em;
+}
+
+.flexrow.hidden.jump-to-bottom {
+    display: none;
+}
 
 .aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);
@@ -24,6 +33,10 @@
 
 #ui-left {
     width: 160px;
+}
+
+#chat-log {
+    flex: 0 1 auto;
 }
 
 #tooltip {
@@ -402,5 +415,13 @@ a.disabled {
 
 .text-shadow {
     text-shadow: 0 0 1px black;
+}
+
+li.scene.nav-item a.scene-name {
+    font-weight: bolder;
+}
+
+#navigation #scene-list .scene.view {
+    background-color: var(--color-shadow-highlight);
 }
 

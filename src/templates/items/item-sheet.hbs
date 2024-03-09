@@ -8,7 +8,7 @@
         <div class="tab-content">
             <div class="tab" data-tab="item" data-group="primary">
                 <div class="item-data">
-                    {{#with (concat "systems/and-other-adventures/templates/items/" item.type "-sheet.hbs")}}
+                    {{#with (combine "systems/and-other-adventures/templates/items/" item.type "-sheet.hbs")}}
                             {{>  (lookup . 'string') @root}}
                     {{/with}}
                 </div>

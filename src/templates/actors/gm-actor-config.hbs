@@ -15,7 +15,7 @@
                             <h3>{{localize "aoa.abilities.header"}}</h3>
                             {{#each abilities as |ability key|}}
                                 <div class="flexrow align-center">
-                                    <label for="ability.{{key}}">{{#with (concat "aoa.abilities." key)}}{{localize
+                                    <label for="ability.{{key}}">{{#with (combine "aoa.abilities." key)}}{{localize
                                             string}}{{/with}}:</label>
                                     <input style="flex: 0 0 4em;" id="ability.{{key}}"
                                            name="system.gmConfig.permanentModifiers.abilities.{{key}}"
@@ -29,7 +29,7 @@
                             <h3>{{localize "aoa.saves.header"}}</h3>
                             {{#each saves as |save key|}}
                                 <div class="flexrow align-center">
-                                    <label for="save.{{key}}">{{#with (concat "aoa.saves." key)}}{{localize
+                                    <label for="save.{{key}}">{{#with (combine "aoa.saves." key)}}{{localize
                                             string}}{{/with}}:</label>
                                     <input style="flex: 0 0 4em;" id="save.{{key}}"
                                            name="system.gmConfig.permanentModifiers.saves.{{key}}"
@@ -45,7 +45,7 @@
                             <h3>{{localize "aoa.gm-config.attack.header"}}</h3>
                             {{#each attacks as |attack key|}}
                                 <div class="flexrow align-center">
-                                    <label for="attack.{{key}}">{{#with (concat "aoa.gm-config.attack." key)}}{{localize
+                                    <label for="attack.{{key}}">{{#with (combine "aoa.gm-config.attack." key)}}{{localize
                                             string}}{{/with}}:</label>
                                     <input style="flex: 0 0 4em;" id="attack.{{key}}"
                                            name="system.gmConfig.permanentModifiers.attacks.{{key}}"
@@ -59,7 +59,7 @@
                             <h3>{{localize "aoa.gm-config.damage.header"}}</h3>
                             {{#each damage as |damage key|}}
                                 <div class="flexrow align-center">
-                                    <label for="damage.{{key}}">{{#with (concat "aoa.gm-config.damage." key)}}{{localize
+                                    <label for="damage.{{key}}">{{#with (combine "aoa.gm-config.damage." key)}}{{localize
                                             string}}{{/with}}:</label>
                                     <input style="flex: 0 0 4em;" id="damage.{{key}}"
                                            name="system.gmConfig.permanentModifiers.damage.{{key}}"

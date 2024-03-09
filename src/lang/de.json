@@ -14,6 +14,21 @@
     "TypeTrait": "Talent",
     "TypeWeapon": "Waffe"
   },
+  "TYPES": {
+    "Item": {
+      "armor": "Rüstung",
+      "attack": "Angriff",
+      "cantrip": "Zaubertrick",
+      "class": "Klasse",
+      "gear": "Ausrüstung",
+      "language": "Sprache",
+      "ritual": "Ritual",
+      "skill": "Fertigkeit",
+      "spell": "Zauber",
+      "trait": "Talent",
+      "weapon": "Waffe"
+    }
+  },
   "aoa": {
     "abilities": {
       "all": "Alle",

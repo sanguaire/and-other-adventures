@@ -1,5 +1,5 @@
 {{#with . as |item|}}
-    {{#with (concat "ITEM.Type" (capFirst item.type)) as | locType |}}
+    {{#with (combine "TYPES.Item." item.type) as | locType |}}
         <div class="list-row relative">
             <i class="drag fa-solid fa-grip-vertical" draggable="true"></i>
             <span><a data-action="editItem" data-tooltip="{{localize "aoa.edit"}}"><i class="fa-solid fa-pen-to-square"></i></a></span>
@@ -7,7 +7,7 @@
                      data-action-flavor="{{localize (lookup . "string")}} {{item.name}}"
                      data-action-type="abilities"
                      data-action-key="{{item.system.ability}}"
-                     data-tooltip="{{#with (concat "aoa.rolls." item.system.ability)}}{{string}}{{/with}}">
+                     data-tooltip="{{#with (combine "aoa.rolls." item.system.ability)}}{{string}}{{/with}}">
                 <i class="fa-solid fa-dice-d20"></i></a>
             </span>
             <input type="text" data-dtype="text" value="{{item.name}}" data-property="name" data-tooltip="{{item.system.description}}">

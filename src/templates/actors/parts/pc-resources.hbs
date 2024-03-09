@@ -13,7 +13,7 @@
             {{#unless condensed}}
                 <div style="flex: 1; text-align: center; position: relative; left: -2em;">
                     <label>{{localize "aoa.hit-die"}}
-                    {{#with (concat "aoa." actor.system.class.hitDie)}}
+                    {{#with (combine "aoa." actor.system.class.hitDie)}}
                         {{localize string}}
                     {{/with}}</label>
                 </div>

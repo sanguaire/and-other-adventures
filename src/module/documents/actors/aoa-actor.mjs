@@ -30,6 +30,9 @@ export class AoaActor extends Actor {
     }
 
     async applyLight() {
+        if(!game.user.isGM)
+            return;
+
         const lightSources = foundry.utils.duplicate(CONFIG.aoa.lightSources);
         lightSources.noLight = this.prototypeToken.light.toObject();
 
@@ -69,7 +72,7 @@ export class AoaActor extends Actor {
     }
 
     async _preCreate(data, options, userId) {
-        super._preCreate(data, options, userId);
+        await super._preCreate(data, options, userId);
 
         console.log(data);
         console.log(options);

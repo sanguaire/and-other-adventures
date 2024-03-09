@@ -6,7 +6,7 @@
         <label for="name">{{localize "aoa.name"}}: </label>
         <input name="name" type="text" value="{{item.name}}">
         <label>{{localize "aoa.item-type"}}:</label>
-        {{#with (concat "ITEM.Type" (capFirst item.type))}}
+        {{#with (combine "TYPES.Item." item.type)}}
             {{localize string}}
         {{/with}}
     </div>

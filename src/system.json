@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "compatibility": {
     "minimum": "10",
-    "verified": "10"
+    "verified": "11"
   },
   "authors": [
     {
@@ -21,134 +21,7 @@
   "styles": [
     "styles/aoa.css"
   ],
-  "packs": [
-    {
-      "name": "Classes",
-      "label": "Classes",
-      "system": "and-other-adventures",
-      "path": "packs/classes.db",
-      "type": "Item",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Armor",
-      "label": "Armor",
-      "system": "and-other-adventures",
-      "path": "packs/armor.db",
-      "type": "Item",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Details",
-      "label": "Details",
-      "system": "and-other-adventures",
-      "path": "packs/details.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Dungeon",
-      "label": "Dungeon",
-      "system": "and-other-adventures",
-      "path": "packs/dungeon.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Entdeckungen",
-      "label": "Entdeckungen",
-      "system": "and-other-adventures",
-      "path": "packs/entdeckungen.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Gefahren",
-      "label": "Gefahren",
-      "system": "and-other-adventures",
-      "path": "packs/gefahren.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Kreaturen",
-      "label": "Kreaturen",
-      "system": "and-other-adventures",
-      "path": "packs/kreaturen.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "NSC",
-      "label": "NSC",
-      "system": "and-other-adventures",
-      "path": "packs/ncs.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Ortlichkeit",
-      "label": "Örtlichkeit",
-      "system": "and-other-adventures",
-      "path": "packs/ortlichkeit.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Regionen",
-      "label": "Regionen",
-      "system": "and-other-adventures",
-      "path": "packs/regionen.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Reisen",
-      "label": "Reisen",
-      "system": "and-other-adventures",
-      "path": "packs/reisen.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Schatz",
-      "label": "Schatz",
-      "system": "and-other-adventures",
-      "path": "packs/schatz.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Statten",
-      "label": "Stätten",
-      "system": "and-other-adventures",
-      "path": "packs/statten.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    },
-    {
-      "name": "Welterstellung",
-      "label": "Welterstellung",
-      "system": "and-other-adventures",
-      "path": "packs/welterstellung.db",
-      "type": "RollTable",
-      "private": false,
-      "flags": {}
-    }
-  ],
+  "packs": [ ],
   "languages": [
     {
       "lang": "en",

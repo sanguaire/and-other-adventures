@@ -237,11 +237,13 @@
 .pc-sheet:not(.condensed) .resources .resource:first-child .flexrow {
     justify-content: flex-start;
     margin-left: 2em;
+    flex-wrap: nowrap;
 }
 
 .pc-sheet:not(.condensed) .resources .resource:last-child .flexrow {
     justify-content: flex-end;
     margin-right: 2em;
+    flex-wrap: nowrap;
 }
 
 /*.pc-sheet.condensed .resources .resource:first-child .flexrow,

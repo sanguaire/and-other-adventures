@@ -5,7 +5,7 @@
             <div class="grid-item">
                 <div class="ability" data-action-type="abilities" data-action-key="{{key}}">
 
-                    {{#with (concat 'aoa.abilities.' key)}}
+                    {{#with (combine 'aoa.abilities.' key)}}
                         <label>{{#unless @root.limited}}
                             <a data-action="roll"><i class="fa-solid fa-dice-d20"></i></a>{{/unless}}<span>{{localize
                                 string}}</span> </label>

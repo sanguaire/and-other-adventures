@@ -13,6 +13,12 @@ export const registerHelpers = () => {
         return (haystack.indexOf(needle) > -1) ? options.fn(this) : options.inverse(this);
     });
 
+    Handlebars.registerHelper('combine', function(...values) {
+        const options = values.pop();
+        const join = options.hash?.join || "";
+        return new Handlebars.SafeString(values.join(join));
+    } );
+
     // **** Error handling helpers ****
 
 /*    Handlebars.registerHelper('helperMissing', function( /!* dynamic arguments *!/) {

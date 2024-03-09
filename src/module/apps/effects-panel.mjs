@@ -44,7 +44,7 @@ export class EffectsPanel extends Application {
                     context.effects = token.actor.effects.map(e => {
                         return {
                             _id: e._id,
-                            label: e.label,
+                            name: e.name,
                             remainingString: AoaEffect.getRemainingString(e),
                             icon: e.icon,
                             disabled: e.disabled
@@ -57,7 +57,7 @@ export class EffectsPanel extends Application {
                 context.effects = game.user.character.effects.map(e => {
                     return {
                         _id: e._id,
-                        label: e.label,
+                        name: e.name,
                         remainingString: AoaEffect.getRemainingString(e),
                         icon: e.icon,
                         disabled: e.disabled

@@ -14,6 +14,21 @@
     "TypeTrait": "Trait",
     "TypeWeapon": "Weapon"
   },
+  "TYPES": {
+    "Item": {
+      "armor": "Armor",
+      "attack": "Attack",
+      "cantrip": "Cantrip",
+      "class": "Class",
+      "gear": "Gear",
+      "language": "Language",
+      "ritual": "Ritual",
+      "skill": "Skill",
+      "spell": "Spell",
+      "trait": "Trait",
+      "weapon": "Weapon"
+    }
+  },
   "aoa": {
     "abilities": {
       "all": "All",

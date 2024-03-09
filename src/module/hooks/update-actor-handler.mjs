@@ -4,8 +4,11 @@ export const updateActorHandler = async (actor, changes, data, userId) => {
     }
 
     if(game.combat && game.user.isGM) {
+			
+        const oldTurn = game.combat.turn;		
         await game.combat.resetAll();
         await game.combat.rollAll();
+        await game.combat.update({"turn": oldTurn});
     }
 
     if(userId !== game.user.id) {

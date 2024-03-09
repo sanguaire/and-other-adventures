@@ -5,7 +5,7 @@
             {{#each actor.system.saves as |save key|}}
                 <div class="grid-item">
                     <div class="save" data-action-type="saves" data-action-key="{{key}}">
-                        {{#with (concat 'aoa.saves.' key)}}
+                        {{#with (combine 'aoa.saves.' key)}}
                             <label>{{localize string}}</label>
                         {{/with}}
                         <div class="flexrow">

@@ -4,6 +4,10 @@ export class AoaToken extends Token {
         super._onCreate(options, userId);
 
         await this.document?.actor?.applyActiveEffects();
+        
+        if(game.user.isGM && this.document && this.document.isLinked === false) {
+             AoaToken.hitDie(this.document.actor);
+        }
     }
 
     async _draw() {
@@ -16,6 +20,8 @@ export class AoaToken extends Token {
 
 
     drawAc() {
+        return;
+
         this.ac.renderable = false;
         this.ac.removeChildren().forEach(c => c.destroy());
 
@@ -52,5 +58,15 @@ export class AoaToken extends Token {
 
             this.ac.visible = this._canViewMode(this.document.displayBars) && this._canViewMode(this.document.displayName);
         }
+    }
+    
+    static async hitDie(actor) {
+        const roll = await new Roll(`${actor.system.hitDie.number}${actor.system.hitDie.dieType}+${actor.system.hitDie.bonus}`).roll({async: true})
+
+        await actor.update({
+            "system.hp.value": roll.total,
+            "system.hp.max": roll.total
+        });
+
     }
 }

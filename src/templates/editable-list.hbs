@@ -10,7 +10,7 @@
         {{/each}}
     </div>
     {{#if editable}}
-        {{#with (concat 'ITEM.Type' (capFirst itemType))}}
+        {{#with (combine 'TYPES.Item.' itemType)}}
             <input type="text" data-dtype="Text" class="new" data-item-type="{{../itemType}}"
                    placeholder="&#xE59E {{localize string}}"/>
         {{/with}}

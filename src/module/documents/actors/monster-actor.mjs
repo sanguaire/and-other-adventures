@@ -140,10 +140,9 @@ export class MonsterActor extends AoaActor {
         }
     }
 
-    async _onCreateEmbeddedDocuments(embeddedName, ...args) {
-
-        if(embeddedName === "Item") {
-            const changes = args[1].filter(c => c.type === "attack").map(c =>  {
+    async _onCreateDescendantDocuments(parent, collection, documents, data, options, userId) {
+        if(collection === "items") {
+            const changes = documents.filter(c => c.type === "attack").map(c =>  {
                 return {
                     _id: c._id,
                     system: {
@@ -151,10 +150,9 @@ export class MonsterActor extends AoaActor {
                     }
                 }
             });
-
             await this.updateEmbeddedDocuments("Item", changes);
         }
-
-        super._onCreateEmbeddedDocuments(embeddedName, ...args);
+	    
+        super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);	
     }
 }

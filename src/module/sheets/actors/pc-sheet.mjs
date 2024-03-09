@@ -40,7 +40,7 @@ export class PcSheet extends AoaActorSheet {
                 {list: "ritual", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "ritual", listSelector: ".ritual-list", header: game.i18n.localize("aoa.rituals")},
                 {list: "cantrip", template: `systems/${CONST.MODULE_ID}/templates/item-templates/roll-on.hbs`, itemType: "cantrip", listSelector: ".cantrip-list", header: game.i18n.localize("aoa.cantrips")},
                 {list: "trait", template: `systems/${CONST.MODULE_ID}/templates/item-templates/trait.hbs`, itemType: "trait", listSelector: ".trait-list", header: game.i18n.localize("aoa.traits")},
-                {list: "effects", template: `systems/${CONST.MODULE_ID}/templates/item-templates/effect.hbs`, itemType: "effect", listSelector: ".effect-list", identifier: "label", documentType: "ActiveEffect", gmEdit: true}
+                {list: "effects", template: `systems/${CONST.MODULE_ID}/templates/item-templates/effect.hbs`, itemType: "effect", listSelector: ".effect-list", identifier: game.version.startsWith("11") ? "name" : "label", documentType: "ActiveEffect", gmEdit: true}
             ]
         });
     }

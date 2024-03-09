@@ -157,7 +157,7 @@ const abilityRoll = async (actor, abilityKey, flavor, modifier = 0) => {
     }
 };
 
-const saveRoll = async (actor, saveKey, flavor, modifier) => {
+const saveRoll = async (actor, saveKey, flavor, modifier = 0) => {
     const permanentModifiers = actor.system.gmConfig.permanentModifiers;
     const permanentModifier = permanentModifiers.allRolls
         + permanentModifiers.saves.all
@@ -708,8 +708,17 @@ const createLightEffect = async (actor, lightName) => {
         }
     }
 
-    await actor.createEmbeddedDocuments("ActiveEffect", [{
-        "label": game.i18n.localize(`aoa.light.${lightName}`),
+    const lightObject = {};
+
+    if(game.version.startsWith("11")) {
+        lightObject.name = game.i18n.localize(`aoa.light.${lightName}`);
+    } else {
+        lightObject.label =  game.i18n.localize(`aoa.light.${lightName}`);
+    }
+
+    await actor.createEmbeddedDocuments("ActiveEffect", [
+        mergeObject(lightObject,
+        {
         "flags": {
             "and-other-adventures": {
                 "needsConcentration": lightName === "cantrip"
@@ -728,7 +737,7 @@ const createLightEffect = async (actor, lightName) => {
             "seconds": definitions[lightName].seconds
         },
         "icon": definitions[lightName].icon
-    }]);
+    })]);
 }
 
 const actions = {

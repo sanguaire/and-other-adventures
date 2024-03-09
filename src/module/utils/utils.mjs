@@ -10,7 +10,7 @@ export async function inputMousewheel(ev, entity) {
     const decimals = target.attr("decimals") ?? 0;
     const sign = target.attr("sign");
     const noWheel = target.attr("no-wheel");
-
+    return false;
     if(noWheel)
         return false;
 
