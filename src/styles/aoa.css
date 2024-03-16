@@ -24,6 +24,11 @@
     display: none;
 }
 
+.encounter {
+    background: #929292;
+    padding: 0.5em;
+}
+
 .aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);
     background: url(../assets/paper.webp) repeat;
@@ -55,7 +60,11 @@
     background-color: transparent;
 }
 
-
+strong {
+    text-shadow: 1px 0 0 var(--color-text-dark-primary); /* the textcolor */
+    padding-right: 1px;
+    letter-spacing: 1px;
+}
 
 .aoa.sheet.window-app.dialog .window-content {
     filter: sepia(0.1);

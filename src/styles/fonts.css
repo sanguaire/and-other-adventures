@@ -24,6 +24,7 @@
 
 @font-face {
     font-family: 'Aquifer';
+    font-weight: normal bold;
     src: url('../assets/fonts/aquifer/Aquifer.woff2') format('woff2'),
     url('../assets/fonts/aquifer/Aquifer.woff2') format('woff');
 }

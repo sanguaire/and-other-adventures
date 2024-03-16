@@ -22,7 +22,7 @@
 }
 
 .chat-message .message-content > strong {
-    background-color: var(--text-strong);
+    font-weight: bold;
 }
 
 .high .dice-tooltip .dice-rolls .roll.max {
@@ -79,7 +79,7 @@
 
 .aoa-chat .description strong,
 #chat-log .chat-message.message .message-content p strong {
-    background: var(--text-strong);
+    font-weight: bold;
 }
 
 .aoa-chat .description .inline-roll {
