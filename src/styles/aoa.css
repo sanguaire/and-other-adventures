@@ -29,6 +29,11 @@
     padding: 0.5em;
 }
 
+.editor-edit {
+    bottom: 5px;
+    top: unset;
+}
+
 .aoa.sheet.window-app .window-content, .aoa.sheet.window-app .dialog-content {
     --font-primary: var(--font-normal);
     background: url(../assets/paper.webp) repeat;

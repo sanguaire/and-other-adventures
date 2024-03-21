@@ -220,6 +220,10 @@
     gap: 0.2em;
 }
 
+.aoa-sheet .coins > span {
+    white-space: nowrap;
+}
+
 .aoa-sheet .coins label {
     text-shadow: unset;
 }

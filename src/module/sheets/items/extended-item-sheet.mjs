@@ -44,6 +44,8 @@ export class ExtendedItemSheet extends ItemSheet {
                 return 670;
             case "weapon":
                 return 500;
+            case "spell":
+                return 500;
             default:
                 return 350;
         }

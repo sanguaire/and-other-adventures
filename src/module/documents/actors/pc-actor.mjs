@@ -79,6 +79,8 @@ export class PcActor extends AoaActor {
 
         this.system.ac += this._getArmorClassBonus();
 
+        this.system.coins.sum = this.system.coins.g + this.system.coins.s + this.system.coins.c;
+
         this._prepareWeapons()
     }
 
