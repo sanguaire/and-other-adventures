@@ -282,7 +282,16 @@ const rangedAttack = async (actor, itemId) => {
         }
 
         const roll = new SystemRoll({roller: actor, type: "ranged", mod: modifier, item: item, target});
-        await roll.toMessage();
+        const message = await roll.toMessage();
+
+        if(target){
+            const rollTotal = message.rolls[0].total;
+
+            if(rollTotal >= target) {
+                await rangedDamage(actor, item.id);
+            }
+
+        }
     }
 };
 
@@ -358,7 +367,17 @@ const monsterAttack = async (actor, itemId) => {
         const target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
         const roll = new SystemRoll({roller: actor, type: "monster", mod: modifier, item: item, target});
-        await roll.toMessage();
+
+        const message = await roll.toMessage();
+
+        if(target){
+            const rollTotal = message.rolls[0].total;
+
+            if(rollTotal >= target) {
+                await monsterDamage(actor, item.id);
+            }
+
+        }
     }
 };
 
@@ -409,7 +428,16 @@ const meleeAttack = async (actor, itemId) => {
         const target = targetToken ? targetToken.document?.actor?.system.ac : undefined;
 
         const roll = new SystemRoll({roller: actor, type: "melee", mod: modifier, item: item, target});
-        await roll.toMessage();
+        const message = await roll.toMessage();
+
+        if(target){
+            const rollTotal = message.rolls[0].total;
+
+            if(rollTotal >= target) {
+                await meleeDamage(actor, item.id);
+            }
+
+        }
     }
 };
 
