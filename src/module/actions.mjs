@@ -285,6 +285,10 @@ const rangedAttack = async (actor, itemId) => {
         const message = await roll.toMessage();
 
         if(target){
+            if(game.dice3d){
+                await game.dice3d.waitFor3DAnimationByMessageID(message.id);
+            }
+
             const rollTotal = message.rolls[0].total;
 
             if(rollTotal >= target) {
@@ -371,6 +375,10 @@ const monsterAttack = async (actor, itemId) => {
         const message = await roll.toMessage();
 
         if(target){
+            if(game.dice3d){
+                await game.dice3d.waitFor3DAnimationByMessageID(message.id);
+            }
+
             const rollTotal = message.rolls[0].total;
 
             if(rollTotal >= target) {
@@ -431,6 +439,10 @@ const meleeAttack = async (actor, itemId) => {
         const message = await roll.toMessage();
 
         if(target){
+            if(game.dice3d){
+                await game.dice3d.waitFor3DAnimationByMessageID(message.id);
+            }
+
             const rollTotal = message.rolls[0].total;
 
             if(rollTotal >= target) {
