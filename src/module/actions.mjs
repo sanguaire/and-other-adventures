@@ -605,6 +605,15 @@ const spellUse = async (actor, itemId, flavor) => {
         return;
     }
 
+    const dlgResult = await Dialog.confirm({
+        title: game.i18n.localize("aoa.cast"),
+        content: `<p>${game.i18n.localize("aoa.cast")}: ${item.name}?</p>`
+        })
+
+    if(!dlgResult) {
+        return;
+    }
+
     const chatData = {
         name: game.i18n.localize("aoa.casts"),
         flavor,
