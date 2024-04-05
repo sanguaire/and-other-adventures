@@ -7,7 +7,7 @@ import {AoaEffect} from "../../documents/effects/aoa-effect.mjs";
 export class PcSheet extends AoaActorSheet {
     static normalHeight = 900
     static condensedHeight = 'auto';
-    static normalWidth = 800;
+    static normalWidth = 900;
     static condensedWidth = 600;
 
     static actions = foundry.utils.mergeObject(super.actions, {

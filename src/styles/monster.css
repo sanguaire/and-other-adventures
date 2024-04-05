@@ -68,5 +68,9 @@
     left: 0;
 }
 
+.monster-sheet a[data-action="damage"] {
+    flex-basis: 7em;
+    text-align: center;
+}
 
 
