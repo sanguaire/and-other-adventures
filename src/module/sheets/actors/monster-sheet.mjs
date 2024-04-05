@@ -14,8 +14,8 @@ export class MonsterSheet extends AoaActorSheet {
         return mergeObject(super.defaultOptions, {
             classes: [CONST.MODULE_SCOPE, "sheet", "actor", "monster", "flexcol", "animate__animated", "animate__faster", CONST.OPEN_ANIMATION_CLASS],
             template: `systems/${CONST.MODULE_ID}/templates/actors/${this.name.toLowerCase().replace("sheet", "-sheet")}.hbs`,
-            width: 500,
-            height: 600,
+            width: 600,
+            height: 700,
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "statistics"}],
             resizable: false,
             editableLists: [
