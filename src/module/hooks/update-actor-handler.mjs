@@ -17,8 +17,8 @@ export const updateActorHandler = async (actor, changes, data, userId) => {
 
    const hpValue = changes.system?.hp?.value;
 
-    handleHpChange();
-    function handleHpChange() {
+    await handleHpChange();
+    async function handleHpChange() {
         if (hpValue === "undefined") {
             return;
         }
@@ -34,32 +34,40 @@ export const updateActorHandler = async (actor, changes, data, userId) => {
             }
 
             if (actor.type === "monster") {
+                const combatant = tokenDocument.combatant;
+
                 if (hpValue <= 0 && !tokenDocument.hasStatusEffect(deadEffectData.id)) {
-                    tokenDocument.toggleActiveEffect(deadEffectData, {active: true, overlay: true});
+                    if(combatant) {
+                        await combatant.update({"defeated": true})
+                    }
+                    await tokenDocument.toggleActiveEffect(deadEffectData, {active: true, overlay: true});
                 }
 
                 if (hpValue > 0) {
-                    tokenDocument.toggleActiveEffect(deadEffectData, {active: false});
+                    if(combatant) {
+                        await combatant.update({"defeated": false})
+                    }
+                    await tokenDocument.toggleActiveEffect(deadEffectData, {active: false});
                 }
 
             }
 
             if (actor.type === "pc") {
                 if (hpValue <= 0 && !tokenDocument.hasStatusEffect(koEffectData.id)) {
-                    tokenDocument.toggleActiveEffect(koEffectData, {active: true, overlay: true});
+                    await tokenDocument.toggleActiveEffect(koEffectData, {active: true, overlay: true});
                 }
 
                 if (hpValue <= -10 && !tokenDocument.hasStatusEffect(deadEffectData.id)) {
-                    tokenDocument.toggleActiveEffect(deadEffectData, {active: true, overlay: true});
-                    tokenDocument.toggleActiveEffect(koEffectData, {active: false});
+                    await tokenDocument.toggleActiveEffect(deadEffectData, {active: true, overlay: true});
+                    await tokenDocument.toggleActiveEffect(koEffectData, {active: false});
                 }
 
                 if (hpValue > -10) {
-                    tokenDocument.toggleActiveEffect(deadEffectData, {active: false});
+                    await tokenDocument.toggleActiveEffect(deadEffectData, {active: false});
                 }
 
                 if (hpValue > 0) {
-                    tokenDocument.toggleActiveEffect(koEffectData, {active: false});
+                    await tokenDocument.toggleActiveEffect(koEffectData, {active: false});
                 }
             }
         }
