@@ -16,6 +16,10 @@
 @import "effects-panel.css";
 @import "compendium-sidebar.css";
 
+#navigation #nav-toggle {
+    background: whitesmoke !important;
+}
+
 .chat-message .table-draw .table-results .table-result .result-text {
     line-height: 1.5em;
 }
